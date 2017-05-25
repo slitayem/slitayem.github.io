@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<title>{{ page.title }}</title>
+			<!-- link to main stylesheet -->
+			<!-- <link rel="stylesheet" type="text/css" href="/css/main.css"> -->
+			<!-- styles -->
+			<link href="/css/bootstrap.css" rel="stylesheet">
+			<link href="/css/jumbotron-narrow.css" rel="stylesheet">
+			<link href="/css/style.css" rel="stylesheet">
+		</head>
+		<body>
+			<!-- <nav>
+	    		<ul>
+	        		<li><a href="/">Home</a></li>
+	        		<li><a href="/about">About</a></li>
+        			<li><a href="/cv">CV</a></li>
+	    		</ul>
+			</nav> -->
+			<div class="container">
+				<div class="header">
+				<ul class="nav nav-pills pull-right">
+					<li class="passive"><a href="/" title="/">Home</a></li>
+					<li class="passive"><a href="/cv" title="CV">CV</a></li>
+					<!-- <li class=""><a href="/projects" title="Projects">Projects</a></li> -->
+					<!-- <li class="passive"><a href="/notes" title="Notes">Notes</a></li> -->
+					<!-- <li class="passive"><a href="/contact" title="Contact">Contact</a></li> -->
+				</ul>
+				<h3 class="text-muted"><a href="/">Saloua Litayem</a></h3>
+				</div> <!-- /header -->
+
+				{{ content }}
+				
+				<div class="footer">
+					<div class="row">
+						<div class="col-sm-8">
+							<p><small>&copy; slitayem 2017</small></p>
+							</div>
+							<div class="col-sm-4">
+							<p class="pull-right"><small><a href="/about" title="About this site">About</a></small></p>
+						</div>
+					</div>
+				</div> <!-- /footer -->
+			</div>
+		</body>
+	</html>
