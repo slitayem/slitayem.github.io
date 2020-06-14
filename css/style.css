@@ -92,4 +92,94 @@ pre.prettyprint { padding: 10px !important; margin: 40px; font-size: 12px;}
 	margin: 5px 15px 0px 0px;
 	font-family: 'Montserrat', Helvetica, sans-serif; }
 
+.mainbox {
+background-color: #FFF;
+margin: auto;
+height: 600px;
+width: 600px;
+position: relative;
+}
 
+.err {
+	color: #4679BD;
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 11rem;
+	position:absolute;
+	left: 20%;
+	top: 8%;
+}
+
+.far {
+position: absolute;
+font-size: 8.5rem;
+left: 42%;
+top: 15%;
+color: #4679BD;
+}
+
+.err2 {
+	color: #4679BD;
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 11rem;
+	position:absolute;
+	left: 68%;
+	top: 8%;
+}
+
+.msg {
+	text-align: center;
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 1.6rem;
+	position:absolute;
+	left: 16%;
+	top: 45%;
+	width: 75%;
+}
+
+/* a {
+text-decoration: none;
+	color: #4679BD;
+}
+
+a:hover {
+	text-decoration: underline;
+} */
+
+a[href^="http"] {
+	padding-left: 19px;
+	background-size: 16px 16px;
+	background-repeat: no-repeat;
+	background-position: left center;
+	}
+
+a[href*="twitter.com/"] {
+	background:url(https://twitter.com/favicon.ico) no-repeat left center;
+	padding-left:19px;
+}
+	
+a[href*="facebook.com/"] {
+	background:url(https://www.facebook.com/favicon.ico) no-repeat left center;
+	padding-left:19px;
+}
+
+a[href*="facebook.com/"] {
+	background:url(https://www.google.com/favicon.ico) no-repeat left center;
+	padding-left:19px;
+}
+
+a[href*="github.com/"] {
+	background:url(https://www.github.com/favicon.ico) no-repeat left center;
+	padding-left:19px;
+	background-size: 16px 16px;
+}
+
+a[href*="linkedin.com/"] {
+	background:url(https://www.linkedin.com/favicon.ico) no-repeat left center;
+	padding-left:21px;
+}
+
+a[href*="scholar.google.com/"] {
+	background:url(https://scholar.google.com/favicon.ico) no-repeat left center;
+	padding-left:19px;
+	background-size: 16px 16px;
+}
