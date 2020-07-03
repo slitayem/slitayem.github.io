@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" width="device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Saloua Litayem">
+	<!-- favicon
+	<link rel="shortcut icon" href="/img/ico/favicon.png">
+	-->
+	<title>How do developers perceive the OSS quality and how often do they contribute? | Saloua Litayem | Senior Machine Learning Engineer | Data scientist.</title>
+	<!-- styles -->
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/jumbotron-narrow.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+  <script src="../../assets/js/html5shiv.js"></script>
+  <script src="../../assets/js/respond.min.js"></script>
+	<![endif]-->
+	<!-- google analytics - i will not share this data with google -->
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11505536-7', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+	
+	<body>
+		<div class="container">
+			
+			<div class="header">
+	<ul class="nav nav-pills pull-right">
+		<li class=""><a href="/" title="Home">Home</a></li>
+		<li class=""><a href="/blog" title="Blog">Blog</a></li>
+		<li class=""><a href="/cv" title="CV">CV</a></li>
+		<!-- <li class=""><a href="/projects" title="Projects">Projects</a></li> -->
+		<!-- <li class=""><a href="/about" title="Contact">Contact</a></li> -->
+	</ul>
+	<h3 class="text-muted"><a href="/">Saloua Litayem</a></h3>
+</div> <!-- /header -->
+
+			
+			<div class="notes">
+		<div class="note single">
+			<h1 class="title">How do developers perceive the OSS quality and how often do they contribute?</h1>
+			
+			<h2 class="date"><info datetime="2020-06-14 00:00:00 +0200">
+				14 Jun 2020 
+			</info></h2>
+			<!-- Post content -->
+			<div class="notebody">
+				<!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height="50%" width="50%"} -->
+<p><img src="/img/blog/2020-06-14/open-source-software.png" alt="oss" height="85%" width="85%" class="center-image" /></p>
+
+<p>Several studies <a class="citation" href="#Finnegan2007HowPO">(Finnegan &amp; Morgan, 2007)</a> <a class="citation" href="#bianco2010">(del Bianco et al., 2010)</a> <a class="citation" href="#Lenarduzzi2019">(Lenarduzzi et al., 2019)</a> <a class="citation" href="#Lenarduzzi2020">(Lenarduzzi et al., 2020)</a> have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an <a href="https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/">increasing</a> interest particularly in <a href="https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/">industry</a>. This can be seen by <a href="https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691">Microsoft's position</a> change on OSS development over the past two decades.</p>
+
+<p>Since 10 years stackoverflow have been publishing annual <a href="https://insights.stackoverflow.com/survey/">Developer Survey</a> results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality.</p>
+
+<p>We will answer to the following questions from the survey data:</p>
+
+<ul>
+  <li><a href="#contrib_freq">How often do developers contribute to OSS?</a></li>
+  <li><a href="#hobbyist_dev">Do Hobyist developers contribute more often to OSS?</a></li>
+  <li><a href="#oss_quality_bias">Does OSS quality perception play a bias role towards OSS contribution?</a></li>
+  <li><a href="#experience">Are experienced developers contributing more frequently to OSS?</a></li>
+  <li><a href="#salary">Are developers contributing to the OSS earning more?</a></li>
+</ul>
+
+<p>The analysis notebook is available <a href="https://github.com/slitayem/stackoverflow_survey_analysis">here</a>.</p>
+
+<p>Let’s start with a quick overview of the data.
+We see that most of the survey respondents are from the USA.</p>
+
+<p><img src="/img/blog/2020-06-14/top15_countries.png" alt="" height="70%" width="70%" class="center-image" /></p>
+
+<p>More than 80% of the respondents are developers.</p>
+
+<p><img src="/img/blog/2020-06-14/developer_type.png" alt="" height="70%" width="70%" class="center-image" /></p>
+
+<p>Most of the respondents are preceiving the OSS quality the same as or even of HIGHER quality than the closed source software.</p>
+
+<p><img src="/img/blog/2020-06-14/oss_perception_respondents.png" alt="" height="80%" width="80%" class="center-image" /></p>
+
+<p><a name="contrib_freq"></a></p>
+<h2 id="how-often-do-developers-contribute-to-oss">How often do developers contribute to OSS?</h2>
+<p>36.3 % of the developers have never contributed to Open Source Software while 63.6 % contribute to the OSS. But we see that only only 12.4% contribute once a month or more often.</p>
+
+<p><img src="/img/blog/2020-06-14/oss_contribution_frequency.png" alt="" height="70%" width="70%" class="center-image" /></p>
+
+<p><a name="hobbyist_dev"></a></p>
+<h2 id="do-hobyist-developers-contribute-more-often-to-oss">Do Hobyist developers contribute more often to OSS?</h2>
+
+<p><img src="/img/blog/2020-06-14/hobbyist_oss_contribution.png" alt="" height="70%" width="70%" class="center-image" /></p>
+
+<p>The analysis shows that the hobbyist developers contribute more often to the OSS than non hobbyist ones. But among the survey respondents 23K hobbyists (32% of the hobbyists) have never contributed to the OSS.</p>
+
+<p><a name="oss_quality_bias"></a></p>
+<h2 id="does-oss-quality-perception-play-a-bias-role-towards-oss-contribution">Does OSS quality perception play a bias role towards OSS contribution?</h2>
+<p>What if a bad OSS quality perception happens to be a blocker for OSS contribution. The respondents are then separated in two groups (hobbyists or not hobbyists). Then, respondents are grouped by the way they are perceiving OSS quality in addtion to the frequency of contribution to OSS.
+The data analysis shows that developers contributing the least to OSS are the ones who are perceiving OSS as on average of lower quality than proprietary software and not developing as a hobby.</p>
+
+<p><img src="/img/blog/2020-06-14/oss_quality_perception.png" alt="" height="90%" width="90%" class="center-image" /></p>
+
+<p><a name="experience"></a></p>
+<h2 id="are-experienced-developers-contributing-more-frequently-to-oss">Are experienced developers contributing more frequently to OSS?</h2>
+<p>In the figure below, I was interested in checking the seniority level of developers contributing to OSS. For that, the survey respondents are grouped by years of experience ranges.</p>
+
+<p>We notice that the more years of experiences developers gain the less they contribute to OSS.</p>
+
+<p><img src="/img/blog/2020-06-14/oss_experience_years_groups.png" alt="" height="70%" width="70%" class="center-image" /></p>
+
+<p><a name="salary"></a></p>
+<h2 id="are-developers-contributing-to-the-oss-earning-more">Are developers contributing to the OSS earning more?</h2>
+<p>The respondents salary data shows significant skewness and kurtosis.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Kurtosis 18551.71
+Skew 136
+</code></pre></div></div>
+
+<p>The salary distribution appears to be right-tailed. For a better interpretation of the data I removed the outliers massively skewing it. Then, only salaries less than <code class="language-plaintext highlighter-rouge">20 * salary median</code> are kept. The figure below shows the salary distribution after outliers removal from the data.</p>
+
+<p><img src="/img/blog/2020-06-14/salary_distribution.png" alt="" height="70%" width="70%" class="center-image" /></p>
+
+<p>The mean salary appears to be higher for respondents who are contributing more often for the OSS. The reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the OSS community. Much Open Source work is volunteered. But for some developers especially when contributions require significant time, <a href="https://opensource.guide/getting-paid/">getting paid</a> to contribute to OSS is the only way they can participate. That might also be a reason for which OSS contributors are earning more than others.</p>
+
+<p><img src="/img/blog/2020-06-14/opensourcers_av_salary.png" alt="" height="60%" width="60%" class="center-image" /></p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>In this article, we took a look at the OSS contribution of developers according to Stack Overflow 2019 survey data. We checked developers perception of the OSS as well as wether they code as a hobby or not. That showed that developers coding as a hobby and having a good perception of OSS are more likely to contribute to OSS. Finally, we looked at the mean salary for each frequency of contribution group. We found that those who contributing more often to the OSS are more likely to earn a higher salary. The findings here are observational, not the result of a formal study.</p>
+
+<h2 id="references">References</h2>
+
+<ol class="bibliography"><li><span id="Finnegan2007HowPO">Finnegan, P., &amp; Morgan, L. (2007). How Perceptions of Open Source Software Influence Adoption: An Exploratory Study. <i>ECIS</i>.</span>
+
+
+
+<!-- <pre>@inproceedings{Finnegan2007HowPO,
+  title = {How Perceptions of Open Source Software Influence Adoption: An Exploratory Study},
+  author = {Finnegan, Patrick and Morgan, Lorraine},
+  booktitle = {ECIS},
+  year = {2007}
+}
+</pre> --></li>
+<li><span id="bianco2010">del Bianco, V., Lavazza, L., Morasca, S., Taibi, D., &amp; Tosi, D. (2010). <i>An Investigation of the Users’ Perception of OSS Quality</i>. <i>319</i>, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2</span>
+
+
+
+<!-- <pre>@inproceedings{bianco2010,
+  author = {del Bianco, Vieri and Lavazza, Luigi and Morasca, Sandro and Taibi, Davide and Tosi, Davide},
+  year = {2010},
+  month = may,
+  pages = {15-28},
+  title = {An Investigation of the Users' Perception of OSS Quality},
+  volume = {319},
+  doi = {10.1007/978-3-642-13244-5_2}
+}
+</pre> --></li>
+<li><span id="Lenarduzzi2019">Lenarduzzi, V., Tosi, D., Lavazza, L., &amp; Morasca, S. (2019, May). <i>Why Do Developers Adopt Open Source Software? Past, Present and Future</i>.</span>
+
+
+
+<!-- <pre>@inproceedings{Lenarduzzi2019,
+  author = {Lenarduzzi, Valentina and Tosi, Davide and Lavazza, Luigi and Morasca, Sandro},
+  year = {2019},
+  month = may,
+  pages = {},
+  title = {Why Do Developers Adopt Open Source Software? Past, Present and Future}
+}
+</pre> --></li>
+<li><span id="Lenarduzzi2020">Lenarduzzi, V., Taibi, D., Tosi, D., Lavazza, L., &amp; Morasca, S. (2020, June). <i>Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review</i>.</span>
+
+
+
+<!-- <pre>@inproceedings{Lenarduzzi2020,
+  author = {Lenarduzzi, Valentina and Taibi, Davide and Tosi, Davide and Lavazza, Luigi and Morasca, Sandro},
+  year = {2020},
+  month = jun,
+  pages = {},
+  title = {Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review}
+}
+</pre> --></li></ol>
+
+
+			</div>
+			<!-- Post info -->
+			<div class="noteinfo">
+			<!-- include some categories and tags maybe? -->
+			</div>
+
+			<hr>
+
+			<!-- Post comments -->
+			<!-- <div class="notecomments">
+				<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'slitayem'; 
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + slitayem + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	 
+			</div> -->
+		</div><!-- / .note .single -->
+</div><!-- /.notes -->
+			
+			<div class="footer">
+	<div class="row">
+	<div class="col-sm-8">
+	<p><small>&copy; slitayem 2020</small></p>
+	</div>
+	<div class="col-sm-4">
+	<p class="pull-right"><small><a href="/about" title="Contact">Contact</a></small></p>
+	</div>
+	</div>
+</div> <!-- /footer -->
+
+		
+		</div> <!-- /container -->
+	
+	
+		<!-- javascript at the end of the doc so page loads faster -->
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/library.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	
+	</body>
+
+</html>

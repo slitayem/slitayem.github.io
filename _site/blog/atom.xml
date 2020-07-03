@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+>
+	<channel>
+		<title>Saloua Litayem, Girly Geek</title>
+		<description></description>		
+		<sy:updatePeriod>daily</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+		<link>http://localhost:4000</link>
+		<atom:link href="http://localhost:4000/blog/atom.xml" rel="self" type="application/rss+xml" />
+		<lastBuildDate>Sun, 14 Jun 2020 00:00:00 +0200</lastBuildDate>
+		
+		
+			<item>
+				<title>How do developers perceive the OSS quality and how often do they contribute?</title>
+				
+				
+					<description>&lt;!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height=&quot;50%&quot; width=&quot;50%&quot;} --&gt;
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/open-source-software.png&quot; alt=&quot;oss&quot; height=&quot;85%&quot; width=&quot;85%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Several studies &lt;a class=&quot;citation&quot; href=&quot;#Finnegan2007HowPO&quot;&gt;(Finnegan &amp;amp; Morgan, 2007)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#bianco2010&quot;&gt;(del Bianco et al., 2010)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2019&quot;&gt;(Lenarduzzi et al., 2019)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2020&quot;&gt;(Lenarduzzi et al., 2020)&lt;/a&gt; have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;increasing&lt;/a&gt; interest particularly in &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;industry&lt;/a&gt;. This can be seen by &lt;a href=&quot;https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691&quot;&gt;Microsoft's position&lt;/a&gt; change on OSS development over the past two decades.&lt;/p&gt;
+
+&lt;p&gt;Since 10 years stackoverflow have been publishing annual &lt;a href=&quot;https://insights.stackoverflow.com/survey/&quot;&gt;Developer Survey&lt;/a&gt; results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality.&lt;/p&gt;
+
+&lt;p&gt;We will answer to the following questions from the survey data:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#contrib_freq&quot;&gt;How often do developers contribute to OSS?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#hobbyist_dev&quot;&gt;Do Hobyist developers contribute more often to OSS?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#oss_quality_bias&quot;&gt;Does OSS quality perception play a bias role towards OSS contribution?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#experience&quot;&gt;Are experienced developers contributing more frequently to OSS?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#salary&quot;&gt;Are developers contributing to the OSS earning more?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The analysis notebook is available &lt;a href=&quot;https://github.com/slitayem/stackoverflow_survey_analysis&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s start with a quick overview of the data.
+We see that most of the survey respondents are from the USA.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/top15_countries.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;More than 80% of the respondents are developers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/developer_type.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Most of the respondents are preceiving the OSS quality the same as or even of HIGHER quality than the closed source software.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_perception_respondents.png&quot; alt=&quot;&quot; height=&quot;80%&quot; width=&quot;80%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;contrib_freq&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;how-often-do-developers-contribute-to-oss&quot;&gt;How often do developers contribute to OSS?&lt;/h2&gt;
+&lt;p&gt;36.3 % of the developers have never contributed to Open Source Software while 63.6 % contribute to the OSS. But we see that only only 12.4% contribute once a month or more often.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_contribution_frequency.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;hobbyist_dev&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;do-hobyist-developers-contribute-more-often-to-oss&quot;&gt;Do Hobyist developers contribute more often to OSS?&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/hobbyist_oss_contribution.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The analysis shows that the hobbyist developers contribute more often to the OSS than non hobbyist ones. But among the survey respondents 23K hobbyists (32% of the hobbyists) have never contributed to the OSS.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;oss_quality_bias&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;does-oss-quality-perception-play-a-bias-role-towards-oss-contribution&quot;&gt;Does OSS quality perception play a bias role towards OSS contribution?&lt;/h2&gt;
+&lt;p&gt;What if a bad OSS quality perception happens to be a blocker for OSS contribution. The respondents are then separated in two groups (hobbyists or not hobbyists). Then, respondents are grouped by the way they are perceiving OSS quality in addtion to the frequency of contribution to OSS.
+The data analysis shows that developers contributing the least to OSS are the ones who are perceiving OSS as on average of lower quality than proprietary software and not developing as a hobby.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_quality_perception.png&quot; alt=&quot;&quot; height=&quot;90%&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;experience&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;are-experienced-developers-contributing-more-frequently-to-oss&quot;&gt;Are experienced developers contributing more frequently to OSS?&lt;/h2&gt;
+&lt;p&gt;In the figure below, I was interested in checking the seniority level of developers contributing to OSS. For that, the survey respondents are grouped by years of experience ranges.&lt;/p&gt;
+
+&lt;p&gt;We notice that the more years of experiences developers gain the less they contribute to OSS.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_experience_years_groups.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&quot;salary&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;are-developers-contributing-to-the-oss-earning-more&quot;&gt;Are developers contributing to the OSS earning more?&lt;/h2&gt;
+&lt;p&gt;The respondents salary data shows significant skewness and kurtosis.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Kurtosis 18551.71
+Skew 136
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The salary distribution appears to be right-tailed. For a better interpretation of the data I removed the outliers massively skewing it. Then, only salaries less than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;20 * salary median&lt;/code&gt; are kept. The figure below shows the salary distribution after outliers removal from the data.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/salary_distribution.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The mean salary appears to be higher for respondents who are contributing more often for the OSS. The reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the OSS community. Much Open Source work is volunteered. But for some developers especially when contributions require significant time, &lt;a href=&quot;https://opensource.guide/getting-paid/&quot;&gt;getting paid&lt;/a&gt; to contribute to OSS is the only way they can participate. That might also be a reason for which OSS contributors are earning more than others.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/opensourcers_av_salary.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;In this article, we took a look at the OSS contribution of developers according to Stack Overflow 2019 survey data. We checked developers perception of the OSS as well as wether they code as a hobby or not. That showed that developers coding as a hobby and having a good perception of OSS are more likely to contribute to OSS. Finally, we looked at the mean salary for each frequency of contribution group. We found that those who contributing more often to the OSS are more likely to earn a higher salary. The findings here are observational, not the result of a formal study.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ol class=&quot;bibliography&quot;&gt;&lt;li&gt;&lt;span id=&quot;Finnegan2007HowPO&quot;&gt;Finnegan, P., &amp;amp; Morgan, L. (2007). How Perceptions of Open Source Software Influence Adoption: An Exploratory Study. &lt;i&gt;ECIS&lt;/i&gt;.&lt;/span&gt;
+
+
+
+&lt;!-- &lt;pre&gt;@inproceedings{Finnegan2007HowPO,
+  title = {How Perceptions of Open Source Software Influence Adoption: An Exploratory Study},
+  author = {Finnegan, Patrick and Morgan, Lorraine},
+  booktitle = {ECIS},
+  year = {2007}
+}
+&lt;/pre&gt; --&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span id=&quot;bianco2010&quot;&gt;del Bianco, V., Lavazza, L., Morasca, S., Taibi, D., &amp;amp; Tosi, D. (2010). &lt;i&gt;An Investigation of the Users’ Perception of OSS Quality&lt;/i&gt;. &lt;i&gt;319&lt;/i&gt;, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2&lt;/span&gt;
+
+
+
+&lt;!-- &lt;pre&gt;@inproceedings{bianco2010,
+  author = {del Bianco, Vieri and Lavazza, Luigi and Morasca, Sandro and Taibi, Davide and Tosi, Davide},
+  year = {2010},
+  month = may,
+  pages = {15-28},
+  title = {An Investigation of the Users' Perception of OSS Quality},
+  volume = {319},
+  doi = {10.1007/978-3-642-13244-5_2}
+}
+&lt;/pre&gt; --&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span id=&quot;Lenarduzzi2019&quot;&gt;Lenarduzzi, V., Tosi, D., Lavazza, L., &amp;amp; Morasca, S. (2019, May). &lt;i&gt;Why Do Developers Adopt Open Source Software? Past, Present and Future&lt;/i&gt;.&lt;/span&gt;
+
+
+
+&lt;!-- &lt;pre&gt;@inproceedings{Lenarduzzi2019,
+  author = {Lenarduzzi, Valentina and Tosi, Davide and Lavazza, Luigi and Morasca, Sandro},
+  year = {2019},
+  month = may,
+  pages = {},
+  title = {Why Do Developers Adopt Open Source Software? Past, Present and Future}
+}
+&lt;/pre&gt; --&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span id=&quot;Lenarduzzi2020&quot;&gt;Lenarduzzi, V., Taibi, D., Tosi, D., Lavazza, L., &amp;amp; Morasca, S. (2020, June). &lt;i&gt;Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review&lt;/i&gt;.&lt;/span&gt;
+
+
+
+&lt;!-- &lt;pre&gt;@inproceedings{Lenarduzzi2020,
+  author = {Lenarduzzi, Valentina and Taibi, Davide and Tosi, Davide and Lavazza, Luigi and Morasca, Sandro},
+  year = {2020},
+  month = jun,
+  pages = {},
+  title = {Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review}
+}
+&lt;/pre&gt; --&gt;&lt;/li&gt;&lt;/ol&gt;
+
+</description>
+				
+				<pubDate>Sun, 14 Jun 2020 00:00:00 +0200</pubDate>
+				<link>http://localhost:4000/blog/2020/06/14/oss-contrib-analysis</link>
+				<guid isPermaLink="true">http://localhost:4000/blog/2020/06/14/oss-contrib-analysis</guid>
+			</item>
+		
+	</channel>
+</rss>
