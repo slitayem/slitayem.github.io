@@ -25,6 +25,12 @@ highlighter: rouge
 gems:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
 # Exclude these files from your production _site
+plugins:
+  - jekyll/scholar
+  # - jekyll-feed
+scholar:
+  source: ./_bibliography
+  bibliography_template: bib
 exclude:
     - Gemfile
     - Gemfile.lock
