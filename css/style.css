@@ -144,13 +144,13 @@ text-decoration: none;
 a:hover {
 	text-decoration: underline;
 } */
-
+/*
 a[href^="http"] {
 	padding-left: 19px;
 	background-size: 16px 16px;
 	background-repeat: no-repeat;
 	background-position: left center;
-	}
+	} */
 
 a[href*="twitter.com/"] {
 	background:url(https://twitter.com/favicon.ico) no-repeat left center;
@@ -182,4 +182,16 @@ a[href*="scholar.google.com/"] {
 	background:url(https://scholar.google.com/favicon.ico) no-repeat left center;
 	padding-left:19px;
 	background-size: 16px 16px;
+}
+
+a[href*="stackoverflow.com/"] {
+	background:url(https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico) no-repeat left center;
+	padding-left:19px;
+	background-size: 16px 16px;
+}
+
+.center-image
+{
+    margin: 0 auto;
+    display: block;
 }
