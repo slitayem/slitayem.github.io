@@ -32,7 +32,7 @@
   &lt;li&gt;&lt;a href=&quot;#hobbyist_dev&quot;&gt;Do Hobyist developers contribute more often to OSS?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#oss_quality_bias&quot;&gt;Does OSS quality perception play a bias role towards OSS contribution?&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#experience&quot;&gt;Are experienced developers contributing more frequently to OSS?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#salary&quot;&gt;Are developers contributing to the OSS earning more?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#salary&quot;&gt;Do developers contributing to the OSS have a higher income?&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;The analysis notebook is available &lt;a href=&quot;https://github.com/slitayem/stackoverflow_survey_analysis&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
@@ -79,7 +79,7 @@ The data analysis shows that developers contributing the least to OSS are the on
 &lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_experience_years_groups.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a name=&quot;salary&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;are-developers-contributing-to-the-oss-earning-more&quot;&gt;Are developers contributing to the OSS earning more?&lt;/h2&gt;
+&lt;h2 id=&quot;do-developers-contributing-to-the-oss-have-a-higher-income&quot;&gt;Do developers contributing to the OSS have a higher income?&lt;/h2&gt;
 &lt;p&gt;The respondents salary data shows significant skewness and kurtosis.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Kurtosis 18551.71
