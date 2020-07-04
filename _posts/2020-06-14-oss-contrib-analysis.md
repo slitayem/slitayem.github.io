@@ -18,7 +18,7 @@ We will answer to the following questions from the survey data:
 * [Do Hobyist developers contribute more often to OSS?](#hobbyist_dev)
 * [Does OSS quality perception play a bias role towards OSS contribution?](#oss_quality_bias)
 * [Are experienced developers contributing more frequently to OSS?](#experience)
-* [Are developers contributing to the OSS earning more?](#salary)
+* [Do developers contributing to the OSS have a higher income?](#salary)
 
 The analysis notebook is available [here](https://github.com/slitayem/stackoverflow_survey_analysis).
 
@@ -65,7 +65,7 @@ We notice that the more years of experiences developers gain the less they contr
 ![](/img/blog/2020-06-14/oss_experience_years_groups.png){:height="70%" width="70%" .center-image} 
 
 <a name="salary"></a>
-## Are developers contributing to the OSS earning more?
+## Do developers contributing to the OSS have a higher income?
 The respondents salary data shows significant skewness and kurtosis.
 
     Kurtosis 18551.71
