@@ -1,4 +1,197 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-07-04T14:47:41+00:00</updated><id>/feed.xml</id><title type="html">Saloua Litayem, Girly Geek</title><entry><title type="html">How do developers perceive the OSS quality and how often do they contribute?</title><link href="/blog/2020/06/14/oss-contrib-analysis" rel="alternate" type="text/html" title="How do developers perceive the OSS quality and how often do they contribute?" /><published>2020-06-14T00:00:00+00:00</published><updated>2020-06-14T00:00:00+00:00</updated><id>/blog/2020/06/14/oss-contrib-analysis</id><content type="html" xml:base="/blog/2020/06/14/oss-contrib-analysis">&lt;!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height=&quot;50%&quot; width=&quot;50%&quot;} --&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-08-07T14:47:32+00:00</updated><id>/feed.xml</id><title type="html">Saloua Litayem, Girly Geek</title><entry><title type="html">Customers churn prediction for Sparkify music service</title><link href="/blog/2020/08/04/churn-prediction" rel="alternate" type="text/html" title="Customers churn prediction for Sparkify music service" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>/blog/2020/08/04/churn-prediction</id><content type="html" xml:base="/blog/2020/08/04/churn-prediction">&lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/churn.png&quot; alt=&quot;customer churn&quot; height=&quot;85%&quot; width=&quot;85%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Generally, the ability to accurately predict future customer churn rates is &lt;a href=&quot;https://baremetrics.com/academy/churn-prediction-can-improve-business&quot;&gt;necessary&lt;/a&gt; for the business. It enables it to &lt;a href=&quot;https://www.profitwell.com/blog/churn-prediction&quot;&gt;secure&lt;/a&gt; valuable customers helping anticipate and prevent from churn trends.&lt;/p&gt;
+
+&lt;p&gt;Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;h2 id=&quot;churn-kills-businesses-prevention-keeps-them-healthy&quot;&gt;Churn kills businesses; prevention keeps them healthy&lt;/h2&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The article presents a Customer Churn Prediction Model project done in the context of &lt;a href=&quot;https://www.udacity.com/course/data-scientist-nanodegree--nd025&quot;&gt;Udacity Data Science Nanodegree&lt;/a&gt; Program.&lt;/p&gt;
+
+&lt;h1 id=&quot;business-understanding&quot;&gt;Business Understanding&lt;/h1&gt;
+
+&lt;p&gt;We are assuming a hypothetical music streaming service (like spotify) called Sparkify.
+The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs.&lt;/p&gt;
+
+&lt;p&gt;At any point the users can do any of the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Upgrade from the free tier to the Premium subscription&lt;/li&gt;
+  &lt;li&gt;Downgrade from the Premium subscription to the free tier.&lt;/li&gt;
+  &lt;li&gt;Drop their account and leave the service&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/customers_attrition.png&quot; alt=&quot;customer churn&quot; height=&quot;40%&quot; width=&quot;30%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The aim here is to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;analyse the data,&lt;/li&gt;
+  &lt;li&gt;extract insights helping to identify churn indicators&lt;/li&gt;
+  &lt;li&gt;and then build a Machine Learning model helping to identify potential churning customers.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The data analysis, feature engineering and model building was implemented using Apache Spark. This can be found &lt;a href=&quot;https://github.com/slitayem/sparkify_dsnd&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships.&lt;/p&gt;
+
+&lt;h1 id=&quot;data&quot;&gt;Data&lt;/h1&gt;
+
+&lt;p&gt;The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps.&lt;/p&gt;
+
+&lt;p&gt;Here are the events key attributes&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;|-- artist: artist name
+|-- auth: authentication status
+|-- gender
+|-- itemInSession: Number of items in the session
+|-- length: double (nullable = true)
+|-- level: users subscription level
+|-- page: svisited page
+|-- registration: registration date
+|-- ts: levent timestamp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days.&lt;/p&gt;
+
+&lt;h1 id=&quot;data-cleaning&quot;&gt;Data Cleaning&lt;/h1&gt;
+
+&lt;p&gt;8346 Events with empty string as UserId were removed&lt;/p&gt;
+&lt;h1 id=&quot;data-exploration&quot;&gt;Data Exploration&lt;/h1&gt;
+
+&lt;h2 id=&quot;churn-indicators&quot;&gt;Churn indicators&lt;/h2&gt;
+
+&lt;p&gt;We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cancellation Confirmation&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Submit Downgrade&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Following the above definition, the service churn rate is equal to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;41%&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/account_type_churn.png&quot; alt=&quot;account type&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;customers registered for a longer period of time are less likely to churn (Loyal/Engaged).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/loyal_customers.png&quot; alt=&quot;loyal customers&quot; height=&quot;75%&quot; width=&quot;75%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Checking the service usage over the time before churn event, we observe that around 96% of the users have an account for at least 20 days.
+&lt;img src=&quot;/img/blog/2020-08-04/service_usage_age.png&quot; alt=&quot;account age&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now let’s have a look at the serive pages visit. We observe that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;82%&lt;/code&gt; of the events are for the page &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NextSong&lt;/code&gt;. Then to better visualize the pages visits count we decide to filter out the `NextSong page.&lt;/p&gt;
+
+&lt;h2 id=&quot;number-of-visits-per-page&quot;&gt;Number of visits per page&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/page_visits.png&quot; alt=&quot;page visits&quot; height=&quot;75%&quot; width=&quot;75%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It appears that most of the page visit counts can have an effect on the user engagement e.g Thumbs Down, Roll Advert, NextSong&lt;/p&gt;
+
+&lt;h2 id=&quot;service-usage-and-user-engagement&quot;&gt;Service usage and user engagement&lt;/h2&gt;
+&lt;p&gt;In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it.&lt;/p&gt;
+
+&lt;p&gt;So let’s measure the service usage and engagement of the users.&lt;/p&gt;
+&lt;h3 id=&quot;number-of-items-per-session-by-user-type&quot;&gt;Number of items per session by user type&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_songs_churn.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;
+Number of items per session is lightly higher for engaged users.This might be because the engaged users can find more songs they like to listen to in the service platform.&lt;/p&gt;
+&lt;h3 id=&quot;number-of-items-per-session-by-account-level&quot;&gt;Number of items per session by account level&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_songs_level.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;
+This might be because the engaged users can find more songs they like to listen to in the service platform.&lt;/p&gt;
+&lt;h3 id=&quot;number-of-songs-and-number-of-sessions-distribution-per-user&quot;&gt;Number of songs and number of sessions distribution per user&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/nb_items_session.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/nb_sessions_users.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Number of items per session is higher for engaged users. This might be because the engaged users can find more songs they like to listen to in the service platform. Which is making them loyal to the service over time.&lt;/p&gt;
+&lt;h3 id=&quot;customers-interactions-on-the-service-platform&quot;&gt;Customers interactions on the service platform&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/thumbs_up.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt; 
+&lt;img src=&quot;/img/blog/2020-08-04/thumbs_down.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It appears that churning users have less interactions in regard of giving a Thumbs up or down to a song.&lt;/p&gt;
+
+&lt;h3 id=&quot;average-number-of-songs-over-the-last-20-days&quot;&gt;Average number of songs over the last 20 days&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_songs_20days.png&quot; alt=&quot;&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;
+The number of songs for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;churning&lt;/code&gt; users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data.&lt;/p&gt;
+
+&lt;h1 id=&quot;feature-engineering&quot;&gt;Feature engineering&lt;/h1&gt;
+
+&lt;p&gt;During the data analysis step we could extract some indicators that could be used as features to distinguish between churning and engaged customers. Here is the list of all the used features for the model.&lt;/p&gt;
+
+&lt;p&gt;The final list of features I decided to incorporate into my ML models were:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- Number of songs per day over the last 20 days (array of 20 values)
+- registration_days (label encoded)
+- Average daily session duration
+- Average monthly session duration
+- Number of errors events
+- Number of songs per session
+- Number of thumbs up
+- Number of thumbs down
+- Last level of the user (Paid or Free)
+- Number of unique artists the user listened to
+- Daily number of items per session over the last 20 days (array of 20 values)
+- User Account age in days: uage duration since first log event day
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;model-training-and-evaluation&quot;&gt;Model training and evaluation&lt;/h1&gt;
+
+&lt;p&gt;We tried out various models to see how they compare and perform.
+We used 5-fold cross-validation to tune the hyper-parameters for each one of the models&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Logistic Regression
+Random Forest
+Gradient Boosted Trees
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Given churned users are a fairly small subset, we decided to use F1 Score and accuracy metric to evalute the model performance and select the winning model in term of model performance.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F1-Score&lt;/code&gt;: This is the harmonic mean of Precision and Recall. It balances the tradeoff between precision and recall.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;center&gt;$$
+F1-Score = 2 * \frac{precision . recall}{precision + recall}
+$$&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Accuracy&lt;/code&gt;: Describes the proportion of correct classifications mostly used when all the classes are equally important.
+&lt;br /&gt;&lt;center&gt;$$
+Accuracy = \frac{TP + TN}{TP + FP + TN + FN}
+$$&lt;/center&gt;
+&lt;br /&gt;
+where TP = True positive; FP = False positive; TN = True negative; FN = False negative&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/model_evaluation.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Gradient Boosted Trees turned to be the winning model predicting how likely is a user to churn.&lt;/p&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Let’s take a step back and look at the whole journey.&lt;/p&gt;
+
+&lt;p&gt;We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning process steps.
+We implemented a model to predict the  customer propensity to churn. For that we performed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data cleaning&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;We then performed multiple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data explorations&lt;/code&gt; to see how various indicators can help in distinguishing between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Churned&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Engaged&lt;/code&gt; users. Then, we defined the customer churn indicator. Some categorical and numerical features were then extracted from the dataset. And we performed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature engineering&lt;/code&gt; to define the list of features that could be fed into the Machine Learning model.
+We split the data into training and validation data sets. And as a final step of the whole ML process we did model training by trying out the three different models: Gradient Boosted Tree, Logistic Regression, and Random Forest. We used cross validation and grid search to fine tune the different models. Their &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;performance&lt;/code&gt; got compared using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F1 score&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Gradient Boosted Trees turned to be the winning model in predicting how likely is a user to churn. We achieved about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;70%&lt;/code&gt; accuracy, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.7&lt;/code&gt; F1 score.&lt;/p&gt;
+
+&lt;h1 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h1&gt;
+
+&lt;p&gt;Load a more substantial dataset to a clustered Spark environment and run the training process with train, test and validation datasets.&lt;/p&gt;
+
+&lt;h1 id=&quot;further-reading-about-customers-churn&quot;&gt;Further reading about customers churn&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.hubspot.com/service/customer-retention-metrics&quot;&gt;Customer Churn Metrics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.forentrepreneurs.com/customer-success/&quot;&gt;Managing Customer Success to Reduce Churn&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://neilpatel.com/blog/never-losing-saas-customers/&quot;&gt;8 Advanced Tips for Never Losing SaaS Customers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://baremetrics.com/academy/churn-prediction-can-improve-business&quot;&gt;How Churn Prediction Can Improve Your Business&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Generally, the ability to accurately predict future customer churn rates is necessary for the business. It enables it to secure valuable customers helping anticipate and prevent from churn trends. Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer. Churn kills businesses; prevention keeps them healthy The article presents a Customer Churn Prediction Model project done in the context of Udacity Data Science Nanodegree Program. Business Understanding We are assuming a hypothetical music streaming service (like spotify) called Sparkify. The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs. At any point the users can do any of the following: Upgrade from the free tier to the Premium subscription Downgrade from the Premium subscription to the free tier. Drop their account and leave the service The aim here is to: analyse the data, extract insights helping to identify churn indicators and then build a Machine Learning model helping to identify potential churning customers. The data analysis, feature engineering and model building was implemented using Apache Spark. This can be found here. The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists. Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships. Data The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps. Here are the events key attributes |-- artist: artist name |-- auth: authentication status |-- gender |-- itemInSession: Number of items in the session |-- length: double (nullable = true) |-- level: users subscription level |-- page: svisited page |-- registration: registration date |-- ts: levent timestamp The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days. Data Cleaning 8346 Events with empty string as UserId were removed Data Exploration Churn indicators We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages Cancellation Confirmation or Submit Downgrade. Following the above definition, the service churn rate is equal to 41% customers registered for a longer period of time are less likely to churn (Loyal/Engaged). Checking the service usage over the time before churn event, we observe that around 96% of the users have an account for at least 20 days. Now let’s have a look at the serive pages visit. We observe that the 82% of the events are for the page NextSong. Then to better visualize the pages visits count we decide to filter out the `NextSong page. Number of visits per page It appears that most of the page visit counts can have an effect on the user engagement e.g Thumbs Down, Roll Advert, NextSong Service usage and user engagement In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it. So let’s measure the service usage and engagement of the users. Number of items per session by user type Number of items per session is lightly higher for engaged users.This might be because the engaged users can find more songs they like to listen to in the service platform. Number of items per session by account level This might be because the engaged users can find more songs they like to listen to in the service platform. Number of songs and number of sessions distribution per user Number of items per session is higher for engaged users. This might be because the engaged users can find more songs they like to listen to in the service platform. Which is making them loyal to the service over time. Customers interactions on the service platform It appears that churning users have less interactions in regard of giving a Thumbs up or down to a song. Average number of songs over the last 20 days The number of songs for churning users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data. Feature engineering During the data analysis step we could extract some indicators that could be used as features to distinguish between churning and engaged customers. Here is the list of all the used features for the model. The final list of features I decided to incorporate into my ML models were: - Number of songs per day over the last 20 days (array of 20 values) - registration_days (label encoded) - Average daily session duration - Average monthly session duration - Number of errors events - Number of songs per session - Number of thumbs up - Number of thumbs down - Last level of the user (Paid or Free) - Number of unique artists the user listened to - Daily number of items per session over the last 20 days (array of 20 values) - User Account age in days: uage duration since first log event day Model training and evaluation We tried out various models to see how they compare and perform. We used 5-fold cross-validation to tune the hyper-parameters for each one of the models Logistic Regression Random Forest Gradient Boosted Trees Given churned users are a fairly small subset, we decided to use F1 Score and accuracy metric to evalute the model performance and select the winning model in term of model performance. F1-Score: This is the harmonic mean of Precision and Recall. It balances the tradeoff between precision and recall. $$ F1-Score = 2 * \frac{precision . recall}{precision + recall} $$ Accuracy: Describes the proportion of correct classifications mostly used when all the classes are equally important. $$ Accuracy = \frac{TP + TN}{TP + FP + TN + FN} $$ where TP = True positive; FP = False positive; TN = True negative; FN = False negative Gradient Boosted Trees turned to be the winning model predicting how likely is a user to churn. Conclusion Let’s take a step back and look at the whole journey. We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning process steps. We implemented a model to predict the customer propensity to churn. For that we performed data cleaning. We then performed multiple data explorations to see how various indicators can help in distinguishing between Churned and Engaged users. Then, we defined the customer churn indicator. Some categorical and numerical features were then extracted from the dataset. And we performed feature engineering to define the list of features that could be fed into the Machine Learning model. We split the data into training and validation data sets. And as a final step of the whole ML process we did model training by trying out the three different models: Gradient Boosted Tree, Logistic Regression, and Random Forest. We used cross validation and grid search to fine tune the different models. Their performance got compared using the F1 score. Gradient Boosted Trees turned to be the winning model in predicting how likely is a user to churn. We achieved about 70% accuracy, and 0.7 F1 score. Next Steps Load a more substantial dataset to a clustered Spark environment and run the training process with train, test and validation datasets. Further reading about customers churn Customer Churn Metrics Managing Customer Success to Reduce Churn 8 Advanced Tips for Never Losing SaaS Customers How Churn Prediction Can Improve Your Business</summary></entry><entry><title type="html">How do developers perceive the OSS quality and how often do they contribute?</title><link href="/blog/2020/06/14/oss-contrib-analysis" rel="alternate" type="text/html" title="How do developers perceive the OSS quality and how often do they contribute?" /><published>2020-06-14T00:00:00+00:00</published><updated>2020-06-14T00:00:00+00:00</updated><id>/blog/2020/06/14/oss-contrib-analysis</id><content type="html" xml:base="/blog/2020/06/14/oss-contrib-analysis">&lt;!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height=&quot;50%&quot; width=&quot;50%&quot;} --&gt;
 &lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/open-source-software.png&quot; alt=&quot;oss&quot; height=&quot;85%&quot; width=&quot;85%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Several studies &lt;a class=&quot;citation&quot; href=&quot;#Finnegan2007HowPO&quot;&gt;(Finnegan &amp;amp; Morgan, 2007)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#bianco2010&quot;&gt;(del Bianco et al., 2010)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2019&quot;&gt;(Lenarduzzi et al., 2019)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2020&quot;&gt;(Lenarduzzi et al., 2020)&lt;/a&gt; have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;increasing&lt;/a&gt; interest particularly in &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;industry&lt;/a&gt;. This can be seen by &lt;a href=&quot;https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691&quot;&gt;Microsoft's position&lt;/a&gt; change on OSS development over the past two decades.&lt;/p&gt;
