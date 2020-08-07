@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" width="device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Saloua Litayem">
+	<!-- favicon
+	<link rel="shortcut icon" href="/img/ico/favicon.png">
+	-->
+	<title>Customers churn prediction for Sparkify music service | Saloua Litayem | Senior Machine Learning Engineer | Data scientist.</title>
+	<!-- styles -->
+	<link href="/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/jumbotron-narrow.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+  <script src="../../assets/js/html5shiv.js"></script>
+  <script src="../../assets/js/respond.min.js"></script>
+	<![endif]-->
+	<!-- google analytics - i will not share this data with google -->
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-11505536-7', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+	
+	<body>
+		<div class="container">
+			
+			<div class="header">
+	<ul class="nav nav-pills pull-right">
+		<li class=""><a href="/" title="Home">Home</a></li>
+		<li class=""><a href="/blog" title="Blog">Blog</a></li>
+		<li class=""><a href="/cv" title="CV">CV</a></li>
+		<!-- <li class=""><a href="/projects" title="Projects">Projects</a></li> -->
+		<!-- <li class=""><a href="/about" title="Contact">Contact</a></li> -->
+	</ul>
+	<h3 class="text-muted"><a href="/">Saloua Litayem</a></h3>
+</div> <!-- /header -->
+
+			
+			<div class="notes">
+		<div class="note single">
+			<h1 class="title">Customers churn prediction for Sparkify music service</h1>
+			
+
+10 minutes to read
+
+
+			<h2 class="date"><info datetime="2020-08-04 00:00:00 +0000">
+				04 Aug 2020 
+			</info></h2>
+			<!-- Post content -->
+			<div class="notebody">
+				<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+<p><img src="/img/blog/2020-08-04/churn.png" alt="customer churn" height="85%" width="85%" class="center-image" /></p>
+
+<p>Generally, the ability to accurately predict future customer churn rates is <a href="https://baremetrics.com/academy/churn-prediction-can-improve-business">necessary</a> for the business. It enables it to <a href="https://www.profitwell.com/blog/churn-prediction">secure</a> valuable customers helping anticipate and prevent from churn trends.</p>
+
+<p>Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer.</p>
+
+<blockquote>
+  <h2 id="churn-kills-businesses-prevention-keeps-them-healthy">Churn kills businesses; prevention keeps them healthy</h2>
+</blockquote>
+
+<p>The article presents a Customer Churn Prediction Model project done in the context of <a href="https://www.udacity.com/course/data-scientist-nanodegree--nd025">Udacity Data Science Nanodegree</a> Program.</p>
+
+<h1 id="business-understanding">Business Understanding</h1>
+
+<p>We are assuming a hypothetical music streaming service (like spotify) called Sparkify.
+The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs.</p>
+
+<p>At any point the users can do any of the following:</p>
+
+<ul>
+  <li>Upgrade from the free tier to the Premium subscription</li>
+  <li>Downgrade from the Premium subscription to the free tier.</li>
+  <li>Drop their account and leave the service</li>
+</ul>
+
+<p><img src="/img/blog/2020-08-04/customers_attrition.png" alt="customer churn" height="40%" width="30%" class="center-image" /></p>
+
+<p>The aim here is to:</p>
+
+<ul>
+  <li>analyse the data,</li>
+  <li>extract insights helping to identify churn indicators</li>
+  <li>and then build a Machine Learning model helping to identify potential churning customers.</li>
+</ul>
+
+<p>The data analysis, feature engineering and model building was implemented using Apache Spark. This can be found <a href="https://github.com/slitayem/sparkify_dsnd">here</a>.</p>
+
+<blockquote>
+  <p>The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists.</p>
+</blockquote>
+
+<p>Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships.</p>
+
+<h1 id="data">Data</h1>
+
+<p>The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps.</p>
+
+<p>Here are the events key attributes</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|-- artist: artist name
+|-- auth: authentication status
+|-- gender
+|-- itemInSession: Number of items in the session
+|-- length: double (nullable = true)
+|-- level: users subscription level
+|-- page: svisited page
+|-- registration: registration date
+|-- ts: levent timestamp
+</code></pre></div></div>
+
+<p>The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days.</p>
+
+<h1 id="data-cleaning">Data Cleaning</h1>
+
+<p>8346 Events with empty string as UserId were removed</p>
+<h1 id="data-exploration">Data Exploration</h1>
+
+<h2 id="churn-indicators">Churn indicators</h2>
+
+<p>We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages <code class="language-plaintext highlighter-rouge">Cancellation Confirmation</code> or <code class="language-plaintext highlighter-rouge">Submit Downgrade</code>.</p>
+
+<p>Following the above definition, the service churn rate is equal to <code class="language-plaintext highlighter-rouge">41%</code></p>
+
+<p><img src="/img/blog/2020-08-04/account_type_churn.png" alt="account type" height="55%" width="55%" class="center-image" /></p>
+
+<p><strong>customers registered for a longer period of time are less likely to churn (Loyal/Engaged).</strong></p>
+
+<p><img src="/img/blog/2020-08-04/loyal_customers.png" alt="loyal customers" height="75%" width="75%" class="center-image" /></p>
+
+<p>Checking the service usage over the time before churn event, we observe that around 96% of the users have an account for at least 20 days.
+<img src="/img/blog/2020-08-04/service_usage_age.png" alt="account age" height="55%" width="55%" class="center-image" /></p>
+
+<p>Now let’s have a look at the serive pages visit. We observe that the <code class="language-plaintext highlighter-rouge">82%</code> of the events are for the page <code class="language-plaintext highlighter-rouge">NextSong</code>. Then to better visualize the pages visits count we decide to filter out the `NextSong page.</p>
+
+<h2 id="number-of-visits-per-page">Number of visits per page</h2>
+
+<p><img src="/img/blog/2020-08-04/page_visits.png" alt="page visits" height="75%" width="75%" class="center-image" /></p>
+
+<p>It appears that most of the page visit counts can have an effect on the user engagement e.g Thumbs Down, Roll Advert, NextSong</p>
+
+<h2 id="service-usage-and-user-engagement">Service usage and user engagement</h2>
+<p>In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it.</p>
+
+<p>So let’s measure the service usage and engagement of the users.</p>
+<h3 id="number-of-items-per-session-by-user-type">Number of items per session by user type</h3>
+
+<p><img src="/img/blog/2020-08-04/avg_songs_churn.png" alt="" class="center-image" />
+Number of items per session is lightly higher for engaged users.This might be because the engaged users can find more songs they like to listen to in the service platform.</p>
+<h3 id="number-of-items-per-session-by-account-level">Number of items per session by account level</h3>
+
+<p><img src="/img/blog/2020-08-04/avg_songs_level.png" alt="" class="center-image" />
+This might be because the engaged users can find more songs they like to listen to in the service platform.</p>
+<h3 id="number-of-songs-and-number-of-sessions-distribution-per-user">Number of songs and number of sessions distribution per user</h3>
+<p><img src="/img/blog/2020-08-04/nb_items_session.png" alt="" height="60%" width="60%" class="center-image" /></p>
+
+<p><img src="/img/blog/2020-08-04/nb_sessions_users.png" alt="" height="60%" width="60%" class="center-image" /></p>
+
+<p>Number of items per session is higher for engaged users. This might be because the engaged users can find more songs they like to listen to in the service platform. Which is making them loyal to the service over time.</p>
+<h3 id="customers-interactions-on-the-service-platform">Customers interactions on the service platform</h3>
+
+<p><img src="/img/blog/2020-08-04/thumbs_up.png" alt="" height="60%" width="60%" class="center-image" /> 
+<img src="/img/blog/2020-08-04/thumbs_down.png" alt="" height="60%" width="60%" class="center-image" /></p>
+
+<p>It appears that churning users have less interactions in regard of giving a Thumbs up or down to a song.</p>
+
+<h3 id="average-number-of-songs-over-the-last-20-days">Average number of songs over the last 20 days</h3>
+<p><img src="/img/blog/2020-08-04/avg_songs_20days.png" alt="" height="55%" width="55%" class="center-image" />
+The number of songs for <code class="language-plaintext highlighter-rouge">churning</code> users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data.</p>
+
+<h1 id="feature-engineering">Feature engineering</h1>
+
+<p>During the data analysis step we could extract some indicators that could be used as features to distinguish between churning and engaged customers. Here is the list of all the used features for the model.</p>
+
+<p>The final list of features I decided to incorporate into my ML models were:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Number of songs per day over the last 20 days (array of 20 values)
+- registration_days (label encoded)
+- Average daily session duration
+- Average monthly session duration
+- Number of errors events
+- Number of songs per session
+- Number of thumbs up
+- Number of thumbs down
+- Last level of the user (Paid or Free)
+- Number of unique artists the user listened to
+- Daily number of items per session over the last 20 days (array of 20 values)
+- User Account age in days: uage duration since first log event day
+</code></pre></div></div>
+
+<h1 id="model-training-and-evaluation">Model training and evaluation</h1>
+
+<p>We tried out various models to see how they compare and perform.
+We used 5-fold cross-validation to tune the hyper-parameters for each one of the models</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Logistic Regression
+Random Forest
+Gradient Boosted Trees
+</code></pre></div></div>
+
+<p>Given churned users are a fairly small subset, we decided to use F1 Score and accuracy metric to evalute the model performance and select the winning model in term of model performance.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">F1-Score</code>: This is the harmonic mean of Precision and Recall. It balances the tradeoff between precision and recall.</p>
+</blockquote>
+<center>$$
+F1-Score = 2 * \frac{precision . recall}{precision + recall}
+$$</center>
+<p><br />
+<code class="language-plaintext highlighter-rouge">Accuracy</code>: Describes the proportion of correct classifications mostly used when all the classes are equally important.
+<br /><center>$$
+Accuracy = \frac{TP + TN}{TP + FP + TN + FN}
+$$</center>
+<br />
+where TP = True positive; FP = False positive; TN = True negative; FN = False negative</p>
+
+<p><img src="/img/blog/2020-08-04/model_evaluation.png" alt="" height="60%" width="60%" class="center-image" /></p>
+
+<p>Gradient Boosted Trees turned to be the winning model predicting how likely is a user to churn.</p>
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Let’s take a step back and look at the whole journey.</p>
+
+<p>We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning process steps.
+We implemented a model to predict the  customer propensity to churn. For that we performed <code class="language-plaintext highlighter-rouge">data cleaning</code>.</p>
+
+<p>We then performed multiple <code class="language-plaintext highlighter-rouge">data explorations</code> to see how various indicators can help in distinguishing between <code class="language-plaintext highlighter-rouge">Churned</code> and <code class="language-plaintext highlighter-rouge">Engaged</code> users. Then, we defined the customer churn indicator. Some categorical and numerical features were then extracted from the dataset. And we performed <code class="language-plaintext highlighter-rouge">feature engineering</code> to define the list of features that could be fed into the Machine Learning model.
+We split the data into training and validation data sets. And as a final step of the whole ML process we did model training by trying out the three different models: Gradient Boosted Tree, Logistic Regression, and Random Forest. We used cross validation and grid search to fine tune the different models. Their <code class="language-plaintext highlighter-rouge">performance</code> got compared using the <code class="language-plaintext highlighter-rouge">F1 score</code>.</p>
+
+<p>Gradient Boosted Trees turned to be the winning model in predicting how likely is a user to churn. We achieved about <code class="language-plaintext highlighter-rouge">70%</code> accuracy, and <code class="language-plaintext highlighter-rouge">0.7</code> F1 score.</p>
+
+<h1 id="next-steps">Next Steps</h1>
+
+<p>Load a more substantial dataset to a clustered Spark environment and run the training process with train, test and validation datasets.</p>
+
+<h1 id="further-reading-about-customers-churn">Further reading about customers churn</h1>
+
+<ul>
+  <li><a href="https://blog.hubspot.com/service/customer-retention-metrics">Customer Churn Metrics</a></li>
+  <li><a href="https://www.forentrepreneurs.com/customer-success/">Managing Customer Success to Reduce Churn</a></li>
+  <li><a href="https://neilpatel.com/blog/never-losing-saas-customers/">8 Advanced Tips for Never Losing SaaS Customers</a></li>
+  <li><a href="https://baremetrics.com/academy/churn-prediction-can-improve-business">How Churn Prediction Can Improve Your Business</a></li>
+</ul>
+
+			</div>
+			<!-- Post info -->
+			<div class="noteinfo">
+			<!-- include some categories and tags maybe? -->
+			</div>
+
+			<hr>
+
+			<!-- Post comments -->
+			<!-- <div class="notecomments">
+				<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'slitayem'; 
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + slitayem + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	 
+			</div> -->
+		</div><!-- / .note .single -->
+</div><!-- /.notes -->
+			
+			<div class="footer">
+	<div class="row">
+	<div class="col-sm-8">
+	<p><small>&copy; slitayem 2020</small></p>
+	</div>
+	<div class="col-sm-4">
+	<p class="pull-right"><small><a href="/about" title="Contact">Contact</a></small></p>
+	</div>
+	</div>
+</div> <!-- /footer -->
+
+		
+		</div> <!-- /container -->
+	
+	
+		<!-- javascript at the end of the doc so page loads faster -->
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/library.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+	
+	</body>
+
+</html>
