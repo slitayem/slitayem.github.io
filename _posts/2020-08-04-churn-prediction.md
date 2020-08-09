@@ -35,7 +35,7 @@ The aim here is to:
 - extract insights helping to identify churn indicators
 - and then build a Machine Learning model helping to identify potential churning customers.
 
-The data analysis, feature engineering and model building was implemented using Apache Spark. This can be found [here](https://github.com/slitayem/sparkify_dsnd).
+The data analysis, feature engineering and model building was implemented using `PySpark`. This can be found [here](https://github.com/slitayem/sparkify_dsnd).
 
 > The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don't already know that a risk exists.
 
@@ -226,40 +226,41 @@ Here are the parameters used for the models:
 - **maxDepth** Maximum Tree Depth, default=5: **[5, 7]**
 - **maxIter** Maximum number of iterations, default=20: **[70, 100]**
 
-![](/img/blog/2020-08-04/gbt_params.png){:height="60%" width="60%" .center-image}
+![](/img/blog/2020-08-04/gbt_params.png){:height="40%" width="40%" .center-image}
 
 ### Trained Models Evaluation
 
-After the hyperparameter tuning the models were re-trained with the most optimal parameters and evaluated using the F1 Score and AUC metric.
+After the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the F1 Score and AUC metric.
 
-![](/img/blog/2020-08-04/model_evaluation.png){:height="60%" width="60%" .center-image}
+![](/img/blog/2020-08-04/models_evaluation.png){:height="80%" width="80%" .center-image}
 
 Gradient Boosted Tree turned to be the winning model predicting how likely is a user to churn.
 
-We have to emphasize that the results correspond to models that were trained and tested using a small Sparkify data-set. The data-set sample contains event logs for only 225 unique users.
+We have to emphasize that the results correspond to models that were trained and tested using a small data-set. The data-set sample contains `286500` events logs for only `225` unique users.
 
 # Conclusion
 
 Let’s take a step back and look at the whole journey.
 
-We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning process steps.
-We implemented a model to predict the  customer propensity to churn. For that we performed `data cleaning`.
+We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning workflow steps. For that we needed to have a binary classifier for the `Churner` and `Engaged` customers.
 
-We then performed multiple `data explorations` to see how various indicators can help in distinguishing between `Churned` and `Engaged` users. Then, we defined the customer churn indicator. Some categorical and numerical features were then extracted from the dataset. Then, we peroformed the most challenging part og the project was the features engineering part to find the potential chrun indicators that could be fed into the Machine Learning model.
-We split the data into training and validation data sets. And as a final step of the whole ML process we did model training by trying out the three different models: Gradient-Boosted Trees, Logistic Regression, and Random Forest. We used cross validation and grid search to fine tune the different models. Their `performance` got compared using the `F1 score`.
+For that I performed the `data cleaning` to remove log events without a user Id and checked the missing vakues in the dataset. We then did multiple `data explorations` to see how various indicators can help in distinguishing between `Churned` and `Engaged` customers. Then,I defined the customer churn indicator based on wether the user visited the any of the pages `Cancellation Confirmation` and `Downgrade Submission` or not. Next in the features engineering step I extracted categorical and numerical features. For that I used the observed indicators during the data exploration. I also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day.
+We split the data into training and validation data sets. And as a final step I performed model training by trying out various models varying from simple to complex ones: Logistic Regression, Random Forest and Gradient-Boosted Trees. I leveraged cross validation and grid search to fine tune the different models. Their `performance` got compared using the `AUC` metric.
 
-Gradient-Boosted Trees turned to be the winning model in predicting how likely is a user to churn. We achieved about `70%` accuracy, and `0.7` F1 score.
+Gradient-Boosted Trees turned to be the winning model. We achieved about `0.64` AUC, and `0.59` F1 Score. Potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. The model might also be enhanced.
 
 ### Potential Improvements
 
- It should load the big dataset on a spark cluster and perform the feature engineering and model training with the whole dataset. We Could try other models algorithms in addition to the tried ones. But before that we would like to d more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would:
+We Could try other models algorithms. But before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would:
 
-- Build more features including more information granularity with the time factor (days, weeks) or the service Upgrade event (before and after) e.g. add more features reflecting the system usage over the last N days.
+- Add more temporal features reflecting the service usage over the last N days.
 - Optimize the data analysis and feature engineering steps applying more Spark best practices for having efficient data exploration as well as model training and testing processes.
 - Perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset.
-- Performing Hyperparameter tuning for other model algorithms and selecting the best one in term of classifying whether a user is likely to churn or not.
+- With a higher computations power, performing a better Hyperparameter tuning for other model algorithms on Spark Cluster.
 
-# Further reading about customers churn
+The project code can be found [here](https://github.com/slitayem/sparkify_dsnd).
+
+# Further reading about `Customer Churn`
 
 - [Customer Churn Metrics](https://blog.hubspot.com/service/customer-retention-metrics)
 - [Managing Customer Success to Reduce Churn](https://www.forentrepreneurs.com/customer-success/)
