@@ -54,7 +54,7 @@
 			<h1 class="title">Customers churn prediction for Sparkify music service</h1>
 			
 
-10 minutes to read
+18 minutes to read
 
 
 			<h2 class="date"><info datetime="2020-08-04 00:00:00 +0000">
@@ -99,7 +99,7 @@ The users of the service can use either the Premium or the Free Tier subscriptio
   <li>and then build a Machine Learning model helping to identify potential churning customers.</li>
 </ul>
 
-<p>The data analysis, feature engineering and model building was implemented using Apache Spark. This can be found <a href="https://github.com/slitayem/sparkify_dsnd">here</a>.</p>
+<p>The data analysis, feature engineering and model building was implemented using <code class="language-plaintext highlighter-rouge">PySpark</code>. This can be found <a href="https://github.com/slitayem/sparkify_dsnd">here</a>.</p>
 
 <blockquote>
   <p>The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists.</p>
@@ -129,7 +129,10 @@ The users of the service can use either the Premium or the Free Tier subscriptio
 <h1 id="data-cleaning">Data Cleaning</h1>
 
 <p>8346 Events with empty string as UserId were removed</p>
+
 <h1 id="data-exploration">Data Exploration</h1>
+
+<p><img src="/img/blog/2020-08-04/eda.png" alt="" height="60%" width="60%" class="center-image" /></p>
 
 <h2 id="churn-indicators">Churn indicators</h2>
 
@@ -137,118 +140,213 @@ The users of the service can use either the Premium or the Free Tier subscriptio
 
 <p>Following the above definition, the service churn rate is equal to <code class="language-plaintext highlighter-rouge">41%</code></p>
 
-<p><img src="/img/blog/2020-08-04/account_type_churn.png" alt="account type" height="55%" width="55%" class="center-image" /></p>
+<p><img src="/img/blog/2020-08-04/account_type_churn.png" alt="account type" height="40%" width="40%" class="center-image" /></p>
 
 <p><strong>customers registered for a longer period of time are less likely to churn (Loyal/Engaged).</strong></p>
 
-<p><img src="/img/blog/2020-08-04/loyal_customers.png" alt="loyal customers" height="75%" width="75%" class="center-image" /></p>
+<p><img src="/img/blog/2020-08-04/account_age_churners.png" alt="loyal customers" height="75%" width="75%" class="center-image" /></p>
 
-<p>Checking the service usage over the time before churn event, we observe that around 96% of the users have an account for at least 20 days.
+<h2 id="usage_days">Percentage of the users function of the service usage period</h2>
+
+<p>Checking the service usage over the time before the <code class="language-plaintext highlighter-rouge">churning event</code>, we observe that around <code class="language-plaintext highlighter-rouge">96%</code> of the users have an account for at least <code class="language-plaintext highlighter-rouge">20 days</code>.
 <img src="/img/blog/2020-08-04/service_usage_age.png" alt="account age" height="55%" width="55%" class="center-image" /></p>
 
-<p>Now let’s have a look at the serive pages visit. We observe that the <code class="language-plaintext highlighter-rouge">82%</code> of the events are for the page <code class="language-plaintext highlighter-rouge">NextSong</code>. Then to better visualize the pages visits count we decide to filter out the `NextSong page.</p>
+<p>Keeping <code class="language-plaintext highlighter-rouge">~96% of the users</code> (age greater than 20 days) should be sufficient to have a feature reflecting the service usage distribution over the time before churn event (here the last 20 days).</p>
 
 <h2 id="number-of-visits-per-page">Number of visits per page</h2>
+<p>Now let’s have a look at the pages visit. We observe that the <code class="language-plaintext highlighter-rouge">82%</code> of the events are for the page <code class="language-plaintext highlighter-rouge">NextSong</code>. Then, to be able to clearly visualize the pages visits count we decide to filter out the `NextSong page.</p>
 
 <p><img src="/img/blog/2020-08-04/page_visits.png" alt="page visits" height="75%" width="75%" class="center-image" /></p>
 
-<p>It appears that most of the page visit counts can have an effect on the user engagement e.g Thumbs Down, Roll Advert, NextSong</p>
+<p>We observe that most of the page visit counts can have an effect on the user engagement e.g <code class="language-plaintext highlighter-rouge">ThumbsDown</code>, <code class="language-plaintext highlighter-rouge">Roll Advert</code>, <code class="language-plaintext highlighter-rouge">NextSong</code>. Let’s see how those pages visits are having a discriminative role to distinguish between Churning and Engaged customers. This either with the customer interactions on the platform or the number of visits to some of the pages like <code class="language-plaintext highlighter-rouge">Error</code> page.</p>
 
-<h2 id="service-usage-and-user-engagement">Service usage and user engagement</h2>
+<h3 id="roll-adverts-distribution-per-user-type">Roll adverts distribution per user type</h3>
+<p><mark style="background-color: rgba(171, 205, 239, 0.6)"> Engaged users tend to have less Roll Adverts than the Churning users.</mark>This might be a good indicator to predict if user is likely to churn if he gets a high number of advertisements.</p>
+
+<p><img src="/img/blog/2020-08-04/roll_adverts.png" alt="" height="55%" width="55%" class="center-image" /></p>
+
+<p>It appears that on average each of the customers type got the same number of error pages. Let’s check the visits to the Thumbs Up and Down page also the number of sessions per user that could reflect how active is the customer in using the service.</p>
+
+<h3 id="number-of-errors-distribution-per-user-type">Number of errors distribution per user type</h3>
+
+<p><img src="/img/blog/2020-08-04/errors_distribution.png" alt="" height="60%" width="60%" class="center-image" />
+For a number of errors higher than 6, the number of chruning users is higher than the engaged ones. But in average there is no big difference between both users types in term of the number of visited error pages.</p>
+
+<h3 id="customers-interactions-on-the-service-platformthumbsupthumbsdown">Customers interactions on the service platform(<code class="language-plaintext highlighter-rouge">ThumbsUp</code>/<code class="language-plaintext highlighter-rouge">ThumbsDown</code>)</h3>
+
+<p><img src="/img/blog/2020-08-04/thumbsup_distribution.png" alt="" height="60%" width="60%" class="center-image" />
+<img src="/img/blog/2020-08-04/thumbsdown_distribution.png" alt="" height="60%" width="60%" class="center-image" /></p>
+
+<p>Having a value greater than 200 thumbsUp page visits (combined with other features) might be an indicator for high risk of churn. This is kind of counter intuitive but at the same time this tells us that user that is engaged the most might be the one penalizing the service the most easily.</p>
+
+<p>In general, it appears that churning users have less interactions in regard of giving a Thumbs Up or a Thumbs Down to a song. But, we observe that pages distribution is chifted towards a <mark style="background-color: rgba(171, 205, 239, 0.6)"> higher number of thumbsDown page visits for churning users </mark>. Using the number of thumbsDown pages visit as a feature might help the model to separate the churning users from the engaged ones.</p>
+
+<h2 id="service-usage-and-customers-engagement">Service usage and customers engagement</h2>
 <p>In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it.</p>
 
-<p>So let’s measure the service usage and engagement of the users.</p>
-<h3 id="number-of-items-per-session-by-user-type">Number of items per session by user type</h3>
+<p>So let’s measure the service usage and engagement of the users in term of number of songs the users listen to and users sessions.</p>
 
-<p><img src="/img/blog/2020-08-04/avg_songs_churn.png" alt="" class="center-image" />
-Number of items per session is lightly higher for engaged users.This might be because the engaged users can find more songs they like to listen to in the service platform.</p>
-<h3 id="number-of-items-per-session-by-account-level">Number of items per session by account level</h3>
+<h3 id="average-number-of-items-per-session">Average Number of items per session</h3>
 
-<p><img src="/img/blog/2020-08-04/avg_songs_level.png" alt="" class="center-image" />
-This might be because the engaged users can find more songs they like to listen to in the service platform.</p>
-<h3 id="number-of-songs-and-number-of-sessions-distribution-per-user">Number of songs and number of sessions distribution per user</h3>
-<p><img src="/img/blog/2020-08-04/nb_items_session.png" alt="" height="60%" width="60%" class="center-image" /></p>
+<p><img src="/img/blog/2020-08-04/avg_items_session.png" alt="" class="center-image" /></p>
 
-<p><img src="/img/blog/2020-08-04/nb_sessions_users.png" alt="" height="60%" width="60%" class="center-image" /></p>
+<p>It appears that the average number of items per session doesn’t seem to help on average to distinguish between the churning and engaged users. Around 100 sessions, the engaged users average number of items per session tends to be higher than for the churners. We can also see a clear separation between the churned and engaged users starting from 300 items per session.</p>
 
-<p>Number of items per session is higher for engaged users. This might be because the engaged users can find more songs they like to listen to in the service platform. Which is making them loyal to the service over time.</p>
-<h3 id="customers-interactions-on-the-service-platform">Customers interactions on the service platform</h3>
+<h3 id="average-number-of-sessions-per-user">Average number of sessions per user</h3>
 
-<p><img src="/img/blog/2020-08-04/thumbs_up.png" alt="" height="60%" width="60%" class="center-image" /> 
-<img src="/img/blog/2020-08-04/thumbs_down.png" alt="" height="60%" width="60%" class="center-image" /></p>
+<p><img src="/img/blog/2020-08-04/avg_sessions.png" alt="" height="60%" width="60%" class="center-image" /></p>
 
-<p>It appears that churning users have less interactions in regard of giving a Thumbs up or down to a song.</p>
+<p>The number of sessions per user tends n average to distinguish between the churned and engaged users. The churners tend to have a lower average number of sessions per day than the engaged users. If leaveraged as a feature this might be automatically picked-up by a tree based model e.g decision tree</p>
 
-<h3 id="average-number-of-songs-over-the-last-20-days">Average number of songs over the last 20 days</h3>
+<h3 id="average-service-usage-over-the-last-20-days-nbsessions-and-nbsongs">Average Service usage over the last 20 days (<code class="language-plaintext highlighter-rouge">nbSessions</code> and <code class="language-plaintext highlighter-rouge">nbSongs</code>)</h3>
 <p><img src="/img/blog/2020-08-04/avg_songs_20days.png" alt="" height="55%" width="55%" class="center-image" />
 The number of songs for <code class="language-plaintext highlighter-rouge">churning</code> users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data.</p>
 
-<h1 id="feature-engineering">Feature engineering</h1>
+<p><img src="/img/blog/2020-08-04/avg_sessions_20days.png" alt="" height="55%" width="55%" class="center-image" /></p>
 
-<p>During the data analysis step we could extract some indicators that could be used as features to distinguish between churning and engaged customers. Here is the list of all the used features for the model.</p>
+<p>We observe that in average the number of sessions for <code class="language-plaintext highlighter-rouge">churning</code> users is higher than for <code class="language-plaintext highlighter-rouge">Engaged</code> users.</p>
 
-<p>The final list of features I decided to incorporate into my ML models were:</p>
+<h1 id="features-engineering">Features Engineering</h1>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Number of songs per day over the last 20 days (array of 20 values)
-- registration_days (label encoded)
-- Average daily session duration
-- Average monthly session duration
-- Number of errors events
-- Number of songs per session
-- Number of thumbs up
-- Number of thumbs down
-- Last level of the user (Paid or Free)
-- Number of unique artists the user listened to
-- Daily number of items per session over the last 20 days (array of 20 values)
-- User Account age in days: uage duration since first log event day
-</code></pre></div></div>
+<p>In the data exploration step we could extract potential <mark style="background-color: rgba(171, 205, 239, 0.6)">indicators</mark> that can be used to <mark style="background-color: rgba(171, 205, 239, 0.6)">distinguish between churning and engaged customers</mark>.</p>
 
+<p>We observed that the number of visits to some of the pages could be used as indicators to to know if a customer is likely to churn or not. For example the engaged users were having more interactions on the service platform by visitng more often the <code class="language-plaintext highlighter-rouge">ThumbsUp</code> or <code class="language-plaintext highlighter-rouge">ThumbsDown</code> pages. Then we decide to use the following features to reflect the pages visits making difference between both types of users:</p>
+
+<ul>
+  <li>Binary feature with value equal to one if the number <code class="language-plaintext highlighter-rouge">ThumbsUp</code> page visits is greater than 20</li>
+  <li>Number of <code class="language-plaintext highlighter-rouge">ThumbsDown</code> page visits</li>
+  <li>Number of Roll Advert Page visits</li>
+</ul>
+
+<p>We observed that the <code class="language-plaintext highlighter-rouge">service usage</code> and level of engagemnt of the customer can be also a clear indicator. Which helped us to define the following features:</p>
+
+<ul>
+  <li>Average daily sessions duration</li>
+  <li>Average monthly sessions duration</li>
+  <li>Average daily Number of songs per session</li>
+  <li>Average daily Number of items per session</li>
+  <li>Daily number of songs over the last 20 days (vector of 20 values)</li>
+  <li>Daily number of sessions over the last 20 days (vector of 20 values)</li>
+</ul>
+
+<p>The decision in keeping the usage information over only the last <code class="language-plaintext highlighter-rouge">20 days</code> was a result of the check of the percentage of the dataset users that could be kept by number of days the customer have been using sparkify service. See the related analysis and plot in the data exploration part <a href="#usage_days">here</a></p>
+
+<p>One more feature that could help in having an idea about the customer satisfaction in using the service is to know whether the customer can find the artists songs he wants to listen to or not.</p>
+
+<ul>
+  <li>Number of unique artists the user listened to.</li>
+</ul>
+
+<p>We also decided to have some features to characterize the user subscription:</p>
+
+<ul>
+  <li>Last level of the user (Paid or Free)</li>
+  <li>User Account age in days: usage duration since first log event day</li>
+</ul>
+
+<p>We finally have a <code class="language-plaintext highlighter-rouge">54-Dimensional features vector</code> to represent that would be used for the model training.</p>
 <h1 id="model-training-and-evaluation">Model training and evaluation</h1>
 
-<p>We tried out various models to see how they compare and perform.
-We used 5-fold cross-validation to tune the hyper-parameters for each one of the models</p>
+<p><img src="/img/blog/2020-08-04/model_workflow.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Logistic Regression
-Random Forest
-Gradient Boosted Trees
-</code></pre></div></div>
+<p>The purpose of our predictive model is to predict which customers are likely to churn and which not. So it is essentially a binary classification problem. The classes are <code class="language-plaintext highlighter-rouge">Engaged</code> vs <code class="language-plaintext highlighter-rouge">Churned</code>.</p>
 
-<p>Given churned users are a fairly small subset, we decided to use F1 Score and accuracy metric to evalute the model performance and select the winning model in term of model performance.</p>
+<p>Classifying Engaged customers as Churning ones might lead the business to taking actions that might confuse the customer and even make them churning the service. It is also important to correctly classify Churning customers. Then our classifier should be precise in classifying both types of customers.</p>
+
+<h2 id="model-evaluation-metrics">Model evaluation metrics</h2>
+
+<p>Given that churned users are a fairly small subset compared to engaged users, we decided to use F1-Score and AUC metric to evaluate the model performance and select the winning model.</p>
 
 <blockquote>
-  <p><code class="language-plaintext highlighter-rouge">F1-Score</code>: This is the harmonic mean of Precision and Recall. It balances the tradeoff between precision and recall.</p>
+  <p><mark style="background-color: rgba(171, 205, 239, 0.6)"> F1-Score </mark>:  balances the tradeoff between the <code class="language-plaintext highlighter-rouge">precision</code> and <code class="language-plaintext highlighter-rouge">recall</code> metrics, which is useful in our binary classification problem with the actual classes scale.</p>
 </blockquote>
 <center>$$
-F1-Score = 2 * \frac{precision . recall}{precision + recall}
+F1 = 2 * \frac{precision * recall}{precision + recall}
 $$</center>
-<p><br />
-<code class="language-plaintext highlighter-rouge">Accuracy</code>: Describes the proportion of correct classifications mostly used when all the classes are equally important.
-<br /><center>$$
-Accuracy = \frac{TP + TN}{TP + FP + TN + FN}
-$$</center>
-<br />
-where TP = True positive; FP = False positive; TN = True negative; FN = False negative</p>
 
-<p><img src="/img/blog/2020-08-04/model_evaluation.png" alt="" height="60%" width="60%" class="center-image" /></p>
+<blockquote>
+  <p>The <mark style="background-color: rgba(171, 205, 239, 0.6)"> area under the ROC curve (AUC) </mark>: Its advantage over the accuracy is that it is <code class="language-plaintext highlighter-rouge">insensitive to imbalanced classes</code>. It doesn’t place more emphasis on one class over the other by assessing the overall classification performance by measuring how well predictions are ranked, rather than their absolute values.
+<br /></p>
+</blockquote>
 
-<p>Gradient Boosted Trees turned to be the winning model predicting how likely is a user to churn.</p>
+<h2 id="trained-models-and-evaluation">Trained Models and evaluation</h2>
+
+<p>We tried out various models starting from the simplest one <code class="language-plaintext highlighter-rouge">Logistic Regression</code> to the more complex ones(<code class="language-plaintext highlighter-rouge">Random Forest</code>, <code class="language-plaintext highlighter-rouge">Gradient-Boosted Trees</code>). We scaled the data to train to avoid that the <code class="language-plaintext highlighter-rouge">Logisitc Regression</code> model performs poorly when features differ widely in scale.
+The model were then compared in term of F1-Score and AUC.</p>
+
+<p>In order to have a less biased estimate of the model performance on unseen data we leveraged  <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation">k-Fold Cross-Validation</a>(k=3) from Spark Python API <a href="https://spark.apache.org/docs/latest/api/python/pyspark.ml.html?highlight=crossvalidator#pyspark.ml.tuning.CrossValidator">CrossValidator</a>.</p>
+
+<p>To use the same dataset for the various models algorithms, we performed data scaling using <a href="https://spark.apache.org/docs/latest/ml-features#standardscaler">StandardScaler</a>. That Standardizes features by normalizing each feature to have unit standard deviation and/or zero mean.
+Tree-based algorithms are not sensitive to the scale of the features but we need that for the <code class="language-plaintext highlighter-rouge">Logistic Regression</code> Classifier.</p>
+
+<h3 id="hyperparameters-tuning">Hyperparameters Tuning</h3>
+
+<p>To find the optimal hyperparameters of each of the tried models , we leveraged <code class="language-plaintext highlighter-rouge">Grid Search</code>. We then used the <code class="language-plaintext highlighter-rouge">AUC metric</code> to select the best model parameters and retrain the model on the training dataset (without the K-Fold data sampling).</p>
+
+<p>Here are the parameters used for the models:</p>
+
+<p><strong><a href="https://spark.apache.org/docs/latest/mllib-linear-methods.html#logistic-regression">Logistic Regression</a></strong></p>
+
+<ul>
+  <li><strong>elasticNetParam</strong> ElasticNet mixing parameter. In in range [0, 1]. 0 for L2 penalty and 1 for an L1 penalty, default=0.0: <strong>[0.1, 0.5]</strong></li>
+  <li><strong>maxIter</strong> Maximum number of iterations: <strong>[20, 70]</strong></li>
+</ul>
+
+<p><img src="/img/blog/2020-08-04/lr_params.png" alt="" height="40%" width="40%" class="center-image" /></p>
+
+<p><strong><a href="https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forests">Random Forest</a></strong></p>
+
+<ul>
+  <li><strong>maxDepth</strong> maximum tree depth, default=5: <strong>[4, 5, 7]</strong></li>
+  <li><strong>numTrees</strong> Number of Trees, default=20: <strong>[20, 50]</strong></li>
+</ul>
+
+<p><img src="/img/blog/2020-08-04/rf_params.png" alt="" height="40%" width="40%" class="center-image" /></p>
+
+<p><strong><a href="https://spark.apache.org/docs/latest/mllib-ensembles.html#gradient-boosted-trees-gbts">Gradient-Boosted Trees</a></strong></p>
+
+<ul>
+  <li><strong>maxDepth</strong> Maximum Tree Depth, default=5: <strong>[5, 7]</strong></li>
+  <li><strong>maxIter</strong> Maximum number of iterations, default=20: <strong>[70, 100]</strong></li>
+</ul>
+
+<p><img src="/img/blog/2020-08-04/gbt_params.png" alt="" height="40%" width="40%" class="center-image" /></p>
+
+<h3 id="trained-models-evaluation">Trained Models Evaluation</h3>
+
+<p>After the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the F1 Score and AUC metric.</p>
+
+<p><img src="/img/blog/2020-08-04/models_evaluation.png" alt="" height="80%" width="80%" class="center-image" /></p>
+
+<p>Gradient Boosted Tree turned to be the winning model predicting how likely is a user to churn.</p>
+
+<p>We have to emphasize that the results correspond to models that were trained and tested using a small data-set. The data-set sample contains <code class="language-plaintext highlighter-rouge">286500</code> events logs for only <code class="language-plaintext highlighter-rouge">225</code> unique users.</p>
+
 <h1 id="conclusion">Conclusion</h1>
 
 <p>Let’s take a step back and look at the whole journey.</p>
 
-<p>We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning process steps.
-We implemented a model to predict the  customer propensity to churn. For that we performed <code class="language-plaintext highlighter-rouge">data cleaning</code>.</p>
+<p>We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning workflow steps. For that we needed to have a binary classifier for the <code class="language-plaintext highlighter-rouge">Churner</code> and <code class="language-plaintext highlighter-rouge">Engaged</code> customers.</p>
 
-<p>We then performed multiple <code class="language-plaintext highlighter-rouge">data explorations</code> to see how various indicators can help in distinguishing between <code class="language-plaintext highlighter-rouge">Churned</code> and <code class="language-plaintext highlighter-rouge">Engaged</code> users. Then, we defined the customer churn indicator. Some categorical and numerical features were then extracted from the dataset. And we performed <code class="language-plaintext highlighter-rouge">feature engineering</code> to define the list of features that could be fed into the Machine Learning model.
-We split the data into training and validation data sets. And as a final step of the whole ML process we did model training by trying out the three different models: Gradient Boosted Tree, Logistic Regression, and Random Forest. We used cross validation and grid search to fine tune the different models. Their <code class="language-plaintext highlighter-rouge">performance</code> got compared using the <code class="language-plaintext highlighter-rouge">F1 score</code>.</p>
+<p>For that I performed the <code class="language-plaintext highlighter-rouge">data cleaning</code> to remove log events without a user Id and checked the missing vakues in the dataset. We then did multiple <code class="language-plaintext highlighter-rouge">data explorations</code> to see how various indicators can help in distinguishing between <code class="language-plaintext highlighter-rouge">Churned</code> and <code class="language-plaintext highlighter-rouge">Engaged</code> customers. Then,I defined the customer churn indicator based on wether the user visited the any of the pages <code class="language-plaintext highlighter-rouge">Cancellation Confirmation</code> and <code class="language-plaintext highlighter-rouge">Downgrade Submission</code> or not. Next in the features engineering step I extracted categorical and numerical features. For that I used the observed indicators during the data exploration. I also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day.
+We split the data into training and validation data sets. And as a final step I performed model training by trying out various models varying from simple to complex ones: Logistic Regression, Random Forest and Gradient-Boosted Trees. I leveraged cross validation and grid search to fine tune the different models. Their <code class="language-plaintext highlighter-rouge">performance</code> got compared using the <code class="language-plaintext highlighter-rouge">AUC</code> metric.</p>
 
-<p>Gradient Boosted Trees turned to be the winning model in predicting how likely is a user to churn. We achieved about <code class="language-plaintext highlighter-rouge">70%</code> accuracy, and <code class="language-plaintext highlighter-rouge">0.7</code> F1 score.</p>
+<p>Gradient-Boosted Trees turned to be the winning model. We achieved about <code class="language-plaintext highlighter-rouge">0.64</code> AUC, and <code class="language-plaintext highlighter-rouge">0.59</code> F1 Score. Potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. The model might also be enhanced.</p>
 
-<h1 id="next-steps">Next Steps</h1>
+<h3 id="potential-improvements">Potential Improvements</h3>
 
-<p>Load a more substantial dataset to a clustered Spark environment and run the training process with train, test and validation datasets.</p>
+<p>We Could try other models algorithms. But before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would:</p>
 
-<h1 id="further-reading-about-customers-churn">Further reading about customers churn</h1>
+<ul>
+  <li>Add more temporal features reflecting the service usage over the last N days.</li>
+  <li>Optimize the data analysis and feature engineering steps applying more Spark best practices for having efficient data exploration as well as model training and testing processes.</li>
+  <li>Perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset.</li>
+  <li>With a higher computations power, performing a better Hyperparameter tuning for other model algorithms on Spark Cluster.</li>
+</ul>
+
+<p>The project code can be found <a href="https://github.com/slitayem/sparkify_dsnd">here</a>.</p>
+
+<h1 id="further-reading-about-customer-churn">Further reading about <code class="language-plaintext highlighter-rouge">Customer Churn</code></h1>
 
 <ul>
   <li><a href="https://blog.hubspot.com/service/customer-retention-metrics">Customer Churn Metrics</a></li>
