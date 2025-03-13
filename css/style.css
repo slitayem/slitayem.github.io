@@ -195,3 +195,41 @@ a[href*="stackoverflow.com/"] {
     margin: 0 auto;
     display: block;
 }
+
+/* Profile Styling */
+.profile-content {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Colors for highlighting */
+.highlight-primary {
+    font-weight: bold;
+    color: #0056b3; /* Deep blue for primary focus */
+}
+
+.highlight-secondary {
+    font-weight: bold;
+    color: #008080; /* Teal for secondary emphasis */
+}
+
+.highlight-number {
+    font-weight: bold;
+    color: #d9534f; /* Red-orange for numbers */
+}
+
+/* Section title */
+.section-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #333;
+}
+
+/* List styling */
+ul {
+    padding-left: 20px;
+    list-style-type: square;
+}
