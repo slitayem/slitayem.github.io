@@ -1,55 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-08-09T21:36:15+00:00</updated><id>/feed.xml</id><title type="html">Saloua Litayem, Girly Geek</title><entry><title type="html">Customers churn prediction for Sparkify music service</title><link href="/blog/2020/08/04/churn-prediction" rel="alternate" type="text/html" title="Customers churn prediction for Sparkify music service" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>/blog/2020/08/04/churn-prediction</id><content type="html" xml:base="/blog/2020/08/04/churn-prediction">&lt;script src=&quot;https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-04-26T11:13:42+00:00</updated><id>/feed.xml</id><title type="html">Saloua Litayem, Girly Geek</title><entry><title type="html">Customers churn prediction for Sparkify music service</title><link href="/blog/2020/08/04/churn-prediction" rel="alternate" type="text/html" title="Customers churn prediction for Sparkify music service" /><published>2020-08-04T00:00:00+00:00</published><updated>2020-08-04T00:00:00+00:00</updated><id>/blog/2020/08/04/churn-prediction</id><content type="html" xml:base="/blog/2020/08/04/churn-prediction"><![CDATA[<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/churn.png&quot; alt=&quot;customer churn&quot; height=&quot;85%&quot; width=&quot;85%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/churn.png" alt="customer churn" height="85%" width="85%" class="center-image" /></p>
 
-&lt;p&gt;Generally, the ability to accurately predict future customer churn rates is &lt;a href=&quot;https://baremetrics.com/academy/churn-prediction-can-improve-business&quot;&gt;necessary&lt;/a&gt; for the business. It enables it to &lt;a href=&quot;https://www.profitwell.com/blog/churn-prediction&quot;&gt;secure&lt;/a&gt; valuable customers helping anticipate and prevent from churn trends.&lt;/p&gt;
+<p>Generally, the ability to accurately predict future customer churn rates is <a href="https://baremetrics.com/academy/churn-prediction-can-improve-business">necessary</a> for the business. It enables it to <a href="https://www.profitwell.com/blog/churn-prediction">secure</a> valuable customers helping anticipate and prevent from churn trends.</p>
 
-&lt;p&gt;Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer.&lt;/p&gt;
+<p>Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer.</p>
 
-&lt;blockquote&gt;
-  &lt;h2 id=&quot;churn-kills-businesses-prevention-keeps-them-healthy&quot;&gt;Churn kills businesses; prevention keeps them healthy&lt;/h2&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <h2 id="churn-kills-businesses-prevention-keeps-them-healthy">Churn kills businesses; prevention keeps them healthy</h2>
+</blockquote>
 
-&lt;p&gt;The article presents a Customer Churn Prediction Model project done in the context of &lt;a href=&quot;https://www.udacity.com/course/data-scientist-nanodegree--nd025&quot;&gt;Udacity Data Science Nanodegree&lt;/a&gt; Program.&lt;/p&gt;
+<p>The article presents a Customer Churn Prediction Model project done in the context of <a href="https://www.udacity.com/course/data-scientist-nanodegree--nd025">Udacity Data Science Nanodegree</a> Program.</p>
 
-&lt;h1 id=&quot;business-understanding&quot;&gt;Business Understanding&lt;/h1&gt;
+<h1 id="business-understanding">Business Understanding</h1>
 
-&lt;p&gt;We are assuming a hypothetical music streaming service (like spotify) called Sparkify.
-The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs.&lt;/p&gt;
+<p>We are assuming a hypothetical music streaming service (like spotify) called Sparkify.
+The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs.</p>
 
-&lt;p&gt;At any point the users can do any of the following:&lt;/p&gt;
+<p>At any point the users can do any of the following:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Upgrade from the free tier to the Premium subscription&lt;/li&gt;
-  &lt;li&gt;Downgrade from the Premium subscription to the free tier.&lt;/li&gt;
-  &lt;li&gt;Drop their account and leave the service&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>Upgrade from the free tier to the Premium subscription</li>
+  <li>Downgrade from the Premium subscription to the free tier.</li>
+  <li>Drop their account and leave the service</li>
+</ul>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/customers_attrition.png&quot; alt=&quot;customer churn&quot; height=&quot;40%&quot; width=&quot;30%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/customers_attrition.png" alt="customer churn" height="40%" width="30%" class="center-image" /></p>
 
-&lt;p&gt;The aim here is to:&lt;/p&gt;
+<p>The aim here is to:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;analyse the data,&lt;/li&gt;
-  &lt;li&gt;extract insights helping to identify churn indicators&lt;/li&gt;
-  &lt;li&gt;and then build a Machine Learning model helping to identify potential churning customers.&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>analyse the data,</li>
+  <li>extract insights helping to identify churn indicators</li>
+  <li>and then build a Machine Learning model helping to identify potential churning customers.</li>
+</ul>
 
-&lt;p&gt;The data analysis, feature engineering and model building was implemented using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PySpark&lt;/code&gt;. This can be found &lt;a href=&quot;https://github.com/slitayem/sparkify_dsnd&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+<p>The data analysis, feature engineering and model building was implemented using <code class="language-plaintext highlighter-rouge">PySpark</code>. This can be found <a href="https://github.com/slitayem/sparkify_dsnd">here</a>.</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists.&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists.</p>
+</blockquote>
 
-&lt;p&gt;Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships.&lt;/p&gt;
+<p>Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships.</p>
 
-&lt;h1 id=&quot;data&quot;&gt;Data&lt;/h1&gt;
+<h1 id="data">Data</h1>
 
-&lt;p&gt;The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps.&lt;/p&gt;
+<p>The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps.</p>
 
-&lt;p&gt;Here are the events key attributes&lt;/p&gt;
+<p>Here are the events key attributes</p>
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;|-- artist: artist name
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|-- artist: artist name
 |-- auth: authentication status
 |-- gender
 |-- itemInSession: Number of items in the session
@@ -58,334 +58,334 @@ The users of the service can use either the Premium or the Free Tier subscriptio
 |-- page: svisited page
 |-- registration: registration date
 |-- ts: levent timestamp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</code></pre></div></div>
 
-&lt;p&gt;The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days.&lt;/p&gt;
+<p>The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days.</p>
 
-&lt;h1 id=&quot;data-cleaning&quot;&gt;Data Cleaning&lt;/h1&gt;
+<h1 id="data-cleaning">Data Cleaning</h1>
 
-&lt;p&gt;8346 Events with empty string as UserId were removed&lt;/p&gt;
+<p>8346 Events with empty string as UserId were removed</p>
 
-&lt;h1 id=&quot;data-exploration&quot;&gt;Data Exploration&lt;/h1&gt;
+<h1 id="data-exploration">Data Exploration</h1>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/eda.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/eda.png" alt="" height="60%" width="60%" class="center-image" /></p>
 
-&lt;h2 id=&quot;churn-indicators&quot;&gt;Churn indicators&lt;/h2&gt;
+<h2 id="churn-indicators">Churn indicators</h2>
 
-&lt;p&gt;We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cancellation Confirmation&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Submit Downgrade&lt;/code&gt;.&lt;/p&gt;
+<p>We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages <code class="language-plaintext highlighter-rouge">Cancellation Confirmation</code> or <code class="language-plaintext highlighter-rouge">Submit Downgrade</code>.</p>
 
-&lt;p&gt;Following the above definition, the service churn rate is equal to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;41%&lt;/code&gt;&lt;/p&gt;
+<p>Following the above definition, the service churn rate is equal to <code class="language-plaintext highlighter-rouge">41%</code></p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/account_type_churn.png&quot; alt=&quot;account type&quot; height=&quot;40%&quot; width=&quot;40%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/account_type_churn.png" alt="account type" height="40%" width="40%" class="center-image" /></p>
 
-&lt;p&gt;&lt;strong&gt;customers registered for a longer period of time are less likely to churn (Loyal/Engaged).&lt;/strong&gt;&lt;/p&gt;
+<p><strong>customers registered for a longer period of time are less likely to churn (Loyal/Engaged).</strong></p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/account_age_churners.png&quot; alt=&quot;loyal customers&quot; height=&quot;75%&quot; width=&quot;75%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/account_age_churners.png" alt="loyal customers" height="75%" width="75%" class="center-image" /></p>
 
-&lt;h2 id=&quot;usage_days&quot;&gt;Percentage of the users function of the service usage period&lt;/h2&gt;
+<h2 id="usage_days">Percentage of the users function of the service usage period</h2>
 
-&lt;p&gt;Checking the service usage over the time before the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;churning event&lt;/code&gt;, we observe that around &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;96%&lt;/code&gt; of the users have an account for at least &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;20 days&lt;/code&gt;.
-&lt;img src=&quot;/img/blog/2020-08-04/service_usage_age.png&quot; alt=&quot;account age&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p>Checking the service usage over the time before the <code class="language-plaintext highlighter-rouge">churning event</code>, we observe that around <code class="language-plaintext highlighter-rouge">96%</code> of the users have an account for at least <code class="language-plaintext highlighter-rouge">20 days</code>.
+<img src="/img/blog/2020-08-04/service_usage_age.png" alt="account age" height="55%" width="55%" class="center-image" /></p>
 
-&lt;p&gt;Keeping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~96% of the users&lt;/code&gt; (age greater than 20 days) should be sufficient to have a feature reflecting the service usage distribution over the time before churn event (here the last 20 days).&lt;/p&gt;
+<p>Keeping <code class="language-plaintext highlighter-rouge">~96% of the users</code> (age greater than 20 days) should be sufficient to have a feature reflecting the service usage distribution over the time before churn event (here the last 20 days).</p>
 
-&lt;h2 id=&quot;number-of-visits-per-page&quot;&gt;Number of visits per page&lt;/h2&gt;
-&lt;p&gt;Now let’s have a look at the pages visit. We observe that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;82%&lt;/code&gt; of the events are for the page &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NextSong&lt;/code&gt;. Then, to be able to clearly visualize the pages visits count we decide to filter out the `NextSong page.&lt;/p&gt;
+<h2 id="number-of-visits-per-page">Number of visits per page</h2>
+<p>Now let’s have a look at the pages visit. We observe that the <code class="language-plaintext highlighter-rouge">82%</code> of the events are for the page <code class="language-plaintext highlighter-rouge">NextSong</code>. Then, to be able to clearly visualize the pages visits count we decide to filter out the `NextSong page.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/page_visits.png&quot; alt=&quot;page visits&quot; height=&quot;75%&quot; width=&quot;75%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/page_visits.png" alt="page visits" height="75%" width="75%" class="center-image" /></p>
 
-&lt;p&gt;We observe that most of the page visit counts can have an effect on the user engagement e.g &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsDown&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roll Advert&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NextSong&lt;/code&gt;. Let’s see how those pages visits are having a discriminative role to distinguish between Churning and Engaged customers. This either with the customer interactions on the platform or the number of visits to some of the pages like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Error&lt;/code&gt; page.&lt;/p&gt;
+<p>We observe that most of the page visit counts can have an effect on the user engagement e.g <code class="language-plaintext highlighter-rouge">ThumbsDown</code>, <code class="language-plaintext highlighter-rouge">Roll Advert</code>, <code class="language-plaintext highlighter-rouge">NextSong</code>. Let’s see how those pages visits are having a discriminative role to distinguish between Churning and Engaged customers. This either with the customer interactions on the platform or the number of visits to some of the pages like <code class="language-plaintext highlighter-rouge">Error</code> page.</p>
 
-&lt;h3 id=&quot;roll-adverts-distribution-per-user-type&quot;&gt;Roll adverts distribution per user type&lt;/h3&gt;
-&lt;p&gt;&lt;mark style=&quot;background-color: rgba(171, 205, 239, 0.6)&quot;&gt; Engaged users tend to have less Roll Adverts than the Churning users.&lt;/mark&gt;This might be a good indicator to predict if user is likely to churn if he gets a high number of advertisements.&lt;/p&gt;
+<h3 id="roll-adverts-distribution-per-user-type">Roll adverts distribution per user type</h3>
+<p><mark style="background-color: rgba(171, 205, 239, 0.6)"> Engaged users tend to have less Roll Adverts than the Churning users.</mark>This might be a good indicator to predict if user is likely to churn if he gets a high number of advertisements.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/roll_adverts.png&quot; alt=&quot;&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/roll_adverts.png" alt="" height="55%" width="55%" class="center-image" /></p>
 
-&lt;p&gt;It appears that on average each of the customers type got the same number of error pages. Let’s check the visits to the Thumbs Up and Down page also the number of sessions per user that could reflect how active is the customer in using the service.&lt;/p&gt;
+<p>It appears that on average each of the customers type got the same number of error pages. Let’s check the visits to the Thumbs Up and Down page also the number of sessions per user that could reflect how active is the customer in using the service.</p>
 
-&lt;h3 id=&quot;number-of-errors-distribution-per-user-type&quot;&gt;Number of errors distribution per user type&lt;/h3&gt;
+<h3 id="number-of-errors-distribution-per-user-type">Number of errors distribution per user type</h3>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/errors_distribution.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-For a number of errors higher than 6, the number of chruning users is higher than the engaged ones. But in average there is no big difference between both users types in term of the number of visited error pages.&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/errors_distribution.png" alt="" height="60%" width="60%" class="center-image" />
+For a number of errors higher than 6, the number of chruning users is higher than the engaged ones. But in average there is no big difference between both users types in term of the number of visited error pages.</p>
 
-&lt;h3 id=&quot;customers-interactions-on-the-service-platformthumbsupthumbsdown&quot;&gt;Customers interactions on the service platform(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsUp&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsDown&lt;/code&gt;)&lt;/h3&gt;
+<h3 id="customers-interactions-on-the-service-platformthumbsupthumbsdown">Customers interactions on the service platform(<code class="language-plaintext highlighter-rouge">ThumbsUp</code>/<code class="language-plaintext highlighter-rouge">ThumbsDown</code>)</h3>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/thumbsup_distribution.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;
-&lt;img src=&quot;/img/blog/2020-08-04/thumbsdown_distribution.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/thumbsup_distribution.png" alt="" height="60%" width="60%" class="center-image" />
+<img src="/img/blog/2020-08-04/thumbsdown_distribution.png" alt="" height="60%" width="60%" class="center-image" /></p>
 
-&lt;p&gt;Having a value greater than 200 thumbsUp page visits (combined with other features) might be an indicator for high risk of churn. This is kind of counter intuitive but at the same time this tells us that user that is engaged the most might be the one penalizing the service the most easily.&lt;/p&gt;
+<p>Having a value greater than 200 thumbsUp page visits (combined with other features) might be an indicator for high risk of churn. This is kind of counter intuitive but at the same time this tells us that user that is engaged the most might be the one penalizing the service the most easily.</p>
 
-&lt;p&gt;In general, it appears that churning users have less interactions in regard of giving a Thumbs Up or a Thumbs Down to a song. But, we observe that pages distribution is chifted towards a &lt;mark style=&quot;background-color: rgba(171, 205, 239, 0.6)&quot;&gt; higher number of thumbsDown page visits for churning users &lt;/mark&gt;. Using the number of thumbsDown pages visit as a feature might help the model to separate the churning users from the engaged ones.&lt;/p&gt;
+<p>In general, it appears that churning users have less interactions in regard of giving a Thumbs Up or a Thumbs Down to a song. But, we observe that pages distribution is chifted towards a <mark style="background-color: rgba(171, 205, 239, 0.6)"> higher number of thumbsDown page visits for churning users </mark>. Using the number of thumbsDown pages visit as a feature might help the model to separate the churning users from the engaged ones.</p>
 
-&lt;h2 id=&quot;service-usage-and-customers-engagement&quot;&gt;Service usage and customers engagement&lt;/h2&gt;
-&lt;p&gt;In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it.&lt;/p&gt;
+<h2 id="service-usage-and-customers-engagement">Service usage and customers engagement</h2>
+<p>In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it.</p>
 
-&lt;p&gt;So let’s measure the service usage and engagement of the users in term of number of songs the users listen to and users sessions.&lt;/p&gt;
+<p>So let’s measure the service usage and engagement of the users in term of number of songs the users listen to and users sessions.</p>
 
-&lt;h3 id=&quot;average-number-of-items-per-session&quot;&gt;Average Number of items per session&lt;/h3&gt;
+<h3 id="average-number-of-items-per-session">Average Number of items per session</h3>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_items_session.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/avg_items_session.png" alt="" class="center-image" /></p>
 
-&lt;p&gt;It appears that the average number of items per session doesn’t seem to help on average to distinguish between the churning and engaged users. Around 100 sessions, the engaged users average number of items per session tends to be higher than for the churners. We can also see a clear separation between the churned and engaged users starting from 300 items per session.&lt;/p&gt;
+<p>It appears that the average number of items per session doesn’t seem to help on average to distinguish between the churning and engaged users. Around 100 sessions, the engaged users average number of items per session tends to be higher than for the churners. We can also see a clear separation between the churned and engaged users starting from 300 items per session.</p>
 
-&lt;h3 id=&quot;average-number-of-sessions-per-user&quot;&gt;Average number of sessions per user&lt;/h3&gt;
+<h3 id="average-number-of-sessions-per-user">Average number of sessions per user</h3>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_sessions.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/avg_sessions.png" alt="" height="60%" width="60%" class="center-image" /></p>
 
-&lt;p&gt;The number of sessions per user tends n average to distinguish between the churned and engaged users. The churners tend to have a lower average number of sessions per day than the engaged users. If leaveraged as a feature this might be automatically picked-up by a tree based model e.g decision tree&lt;/p&gt;
+<p>The number of sessions per user tends n average to distinguish between the churned and engaged users. The churners tend to have a lower average number of sessions per day than the engaged users. If leaveraged as a feature this might be automatically picked-up by a tree based model e.g decision tree</p>
 
-&lt;h3 id=&quot;average-service-usage-over-the-last-20-days-nbsessions-and-nbsongs&quot;&gt;Average Service usage over the last 20 days (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbSessions&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbSongs&lt;/code&gt;)&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_songs_20days.png&quot; alt=&quot;&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;
-The number of songs for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;churning&lt;/code&gt; users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data.&lt;/p&gt;
+<h3 id="average-service-usage-over-the-last-20-days-nbsessions-and-nbsongs">Average Service usage over the last 20 days (<code class="language-plaintext highlighter-rouge">nbSessions</code> and <code class="language-plaintext highlighter-rouge">nbSongs</code>)</h3>
+<p><img src="/img/blog/2020-08-04/avg_songs_20days.png" alt="" height="55%" width="55%" class="center-image" />
+The number of songs for <code class="language-plaintext highlighter-rouge">churning</code> users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/avg_sessions_20days.png&quot; alt=&quot;&quot; height=&quot;55%&quot; width=&quot;55%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/avg_sessions_20days.png" alt="" height="55%" width="55%" class="center-image" /></p>
 
-&lt;p&gt;We observe that in average the number of sessions for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;churning&lt;/code&gt; users is higher than for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Engaged&lt;/code&gt; users.&lt;/p&gt;
+<p>We observe that in average the number of sessions for <code class="language-plaintext highlighter-rouge">churning</code> users is higher than for <code class="language-plaintext highlighter-rouge">Engaged</code> users.</p>
 
-&lt;h1 id=&quot;features-engineering&quot;&gt;Features Engineering&lt;/h1&gt;
+<h1 id="features-engineering">Features Engineering</h1>
 
-&lt;p&gt;In the data exploration step we could extract potential &lt;mark style=&quot;background-color: rgba(171, 205, 239, 0.6)&quot;&gt;indicators&lt;/mark&gt; that can be used to &lt;mark style=&quot;background-color: rgba(171, 205, 239, 0.6)&quot;&gt;distinguish between churning and engaged customers&lt;/mark&gt;.&lt;/p&gt;
+<p>In the data exploration step we could extract potential <mark style="background-color: rgba(171, 205, 239, 0.6)">indicators</mark> that can be used to <mark style="background-color: rgba(171, 205, 239, 0.6)">distinguish between churning and engaged customers</mark>.</p>
 
-&lt;p&gt;We observed that the number of visits to some of the pages could be used as indicators to to know if a customer is likely to churn or not. For example the engaged users were having more interactions on the service platform by visitng more often the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsUp&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsDown&lt;/code&gt; pages. Then we decide to use the following features to reflect the pages visits making difference between both types of users:&lt;/p&gt;
+<p>We observed that the number of visits to some of the pages could be used as indicators to to know if a customer is likely to churn or not. For example the engaged users were having more interactions on the service platform by visitng more often the <code class="language-plaintext highlighter-rouge">ThumbsUp</code> or <code class="language-plaintext highlighter-rouge">ThumbsDown</code> pages. Then we decide to use the following features to reflect the pages visits making difference between both types of users:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Binary feature with value equal to one if the number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsUp&lt;/code&gt; page visits is greater than 20&lt;/li&gt;
-  &lt;li&gt;Number of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThumbsDown&lt;/code&gt; page visits&lt;/li&gt;
-  &lt;li&gt;Number of Roll Advert Page visits&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>Binary feature with value equal to one if the number <code class="language-plaintext highlighter-rouge">ThumbsUp</code> page visits is greater than 20</li>
+  <li>Number of <code class="language-plaintext highlighter-rouge">ThumbsDown</code> page visits</li>
+  <li>Number of Roll Advert Page visits</li>
+</ul>
 
-&lt;p&gt;We observed that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;service usage&lt;/code&gt; and level of engagemnt of the customer can be also a clear indicator. Which helped us to define the following features:&lt;/p&gt;
+<p>We observed that the <code class="language-plaintext highlighter-rouge">service usage</code> and level of engagemnt of the customer can be also a clear indicator. Which helped us to define the following features:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Average daily sessions duration&lt;/li&gt;
-  &lt;li&gt;Average monthly sessions duration&lt;/li&gt;
-  &lt;li&gt;Average daily Number of songs per session&lt;/li&gt;
-  &lt;li&gt;Average daily Number of items per session&lt;/li&gt;
-  &lt;li&gt;Daily number of songs over the last 20 days (vector of 20 values)&lt;/li&gt;
-  &lt;li&gt;Daily number of sessions over the last 20 days (vector of 20 values)&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>Average daily sessions duration</li>
+  <li>Average monthly sessions duration</li>
+  <li>Average daily Number of songs per session</li>
+  <li>Average daily Number of items per session</li>
+  <li>Daily number of songs over the last 20 days (vector of 20 values)</li>
+  <li>Daily number of sessions over the last 20 days (vector of 20 values)</li>
+</ul>
 
-&lt;p&gt;The decision in keeping the usage information over only the last &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;20 days&lt;/code&gt; was a result of the check of the percentage of the dataset users that could be kept by number of days the customer have been using sparkify service. See the related analysis and plot in the data exploration part &lt;a href=&quot;#usage_days&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+<p>The decision in keeping the usage information over only the last <code class="language-plaintext highlighter-rouge">20 days</code> was a result of the check of the percentage of the dataset users that could be kept by number of days the customer have been using sparkify service. See the related analysis and plot in the data exploration part <a href="#usage_days">here</a></p>
 
-&lt;p&gt;One more feature that could help in having an idea about the customer satisfaction in using the service is to know whether the customer can find the artists songs he wants to listen to or not.&lt;/p&gt;
+<p>One more feature that could help in having an idea about the customer satisfaction in using the service is to know whether the customer can find the artists songs he wants to listen to or not.</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Number of unique artists the user listened to.&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>Number of unique artists the user listened to.</li>
+</ul>
 
-&lt;p&gt;We also decided to have some features to characterize the user subscription:&lt;/p&gt;
+<p>We also decided to have some features to characterize the user subscription:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Last level of the user (Paid or Free)&lt;/li&gt;
-  &lt;li&gt;User Account age in days: usage duration since first log event day&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>Last level of the user (Paid or Free)</li>
+  <li>User Account age in days: usage duration since first log event day</li>
+</ul>
 
-&lt;p&gt;We finally have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;54-Dimensional features vector&lt;/code&gt; to represent that would be used for the model training.&lt;/p&gt;
-&lt;h1 id=&quot;model-training-and-evaluation&quot;&gt;Model training and evaluation&lt;/h1&gt;
+<p>We finally have a <code class="language-plaintext highlighter-rouge">54-Dimensional features vector</code> to represent that would be used for the model training.</p>
+<h1 id="model-training-and-evaluation">Model training and evaluation</h1>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/model_workflow.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/model_workflow.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;The purpose of our predictive model is to predict which customers are likely to churn and which not. So it is essentially a binary classification problem. The classes are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Engaged&lt;/code&gt; vs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Churned&lt;/code&gt;.&lt;/p&gt;
+<p>The purpose of our predictive model is to predict which customers are likely to churn and which not. So it is essentially a binary classification problem. The classes are <code class="language-plaintext highlighter-rouge">Engaged</code> vs <code class="language-plaintext highlighter-rouge">Churned</code>.</p>
 
-&lt;p&gt;Classifying Engaged customers as Churning ones might lead the business to taking actions that might confuse the customer and even make them churning the service. It is also important to correctly classify Churning customers. Then our classifier should be precise in classifying both types of customers.&lt;/p&gt;
+<p>Classifying Engaged customers as Churning ones might lead the business to taking actions that might confuse the customer and even make them churning the service. It is also important to correctly classify Churning customers. Then our classifier should be precise in classifying both types of customers.</p>
 
-&lt;h2 id=&quot;model-evaluation-metrics&quot;&gt;Model evaluation metrics&lt;/h2&gt;
+<h2 id="model-evaluation-metrics">Model evaluation metrics</h2>
 
-&lt;p&gt;Given that churned users are a fairly small subset compared to engaged users, we decided to use F1-Score and AUC metric to evaluate the model performance and select the winning model.&lt;/p&gt;
+<p>Given that churned users are a fairly small subset compared to engaged users, we decided to use F1-Score and AUC metric to evaluate the model performance and select the winning model.</p>
 
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;mark style=&quot;background-color: rgba(171, 205, 239, 0.6)&quot;&gt; F1-Score &lt;/mark&gt;:  balances the tradeoff between the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;precision&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recall&lt;/code&gt; metrics, which is useful in our binary classification problem with the actual classes scale.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;center&gt;$$
+<blockquote>
+  <p><mark style="background-color: rgba(171, 205, 239, 0.6)"> F1-Score </mark>:  balances the tradeoff between the <code class="language-plaintext highlighter-rouge">precision</code> and <code class="language-plaintext highlighter-rouge">recall</code> metrics, which is useful in our binary classification problem with the actual classes scale.</p>
+</blockquote>
+<center>$$
 F1 = 2 * \frac{precision * recall}{precision + recall}
-$$&lt;/center&gt;
+$$</center>
 
-&lt;blockquote&gt;
-  &lt;p&gt;The &lt;mark style=&quot;background-color: rgba(171, 205, 239, 0.6)&quot;&gt; area under the ROC curve (AUC) &lt;/mark&gt;: Its advantage over the accuracy is that it is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insensitive to imbalanced classes&lt;/code&gt;. It doesn’t place more emphasis on one class over the other by assessing the overall classification performance by measuring how well predictions are ranked, rather than their absolute values.
-&lt;br /&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+<blockquote>
+  <p>The <mark style="background-color: rgba(171, 205, 239, 0.6)"> area under the ROC curve (AUC) </mark>: Its advantage over the accuracy is that it is <code class="language-plaintext highlighter-rouge">insensitive to imbalanced classes</code>. It doesn’t place more emphasis on one class over the other by assessing the overall classification performance by measuring how well predictions are ranked, rather than their absolute values.
+<br /></p>
+</blockquote>
 
-&lt;h2 id=&quot;trained-models-and-evaluation&quot;&gt;Trained Models and evaluation&lt;/h2&gt;
+<h2 id="trained-models-and-evaluation">Trained Models and evaluation</h2>
 
-&lt;p&gt;We tried out various models starting from the simplest one &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Logistic Regression&lt;/code&gt; to the more complex ones(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Random Forest&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gradient-Boosted Trees&lt;/code&gt;). We scaled the data to train to avoid that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Logisitc Regression&lt;/code&gt; model performs poorly when features differ widely in scale.
-The model were then compared in term of F1-Score and AUC.&lt;/p&gt;
+<p>We tried out various models starting from the simplest one <code class="language-plaintext highlighter-rouge">Logistic Regression</code> to the more complex ones(<code class="language-plaintext highlighter-rouge">Random Forest</code>, <code class="language-plaintext highlighter-rouge">Gradient-Boosted Trees</code>). We scaled the data to train to avoid that the <code class="language-plaintext highlighter-rouge">Logisitc Regression</code> model performs poorly when features differ widely in scale.
+The model were then compared in term of F1-Score and AUC.</p>
 
-&lt;p&gt;In order to have a less biased estimate of the model performance on unseen data we leveraged  &lt;a href=&quot;https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation&quot;&gt;k-Fold Cross-Validation&lt;/a&gt;(k=3) from Spark Python API &lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/pyspark.ml.html?highlight=crossvalidator#pyspark.ml.tuning.CrossValidator&quot;&gt;CrossValidator&lt;/a&gt;.&lt;/p&gt;
+<p>In order to have a less biased estimate of the model performance on unseen data we leveraged  <a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)#k-fold_cross-validation">k-Fold Cross-Validation</a>(k=3) from Spark Python API <a href="https://spark.apache.org/docs/latest/api/python/pyspark.ml.html?highlight=crossvalidator#pyspark.ml.tuning.CrossValidator">CrossValidator</a>.</p>
 
-&lt;p&gt;To use the same dataset for the various models algorithms, we performed data scaling using &lt;a href=&quot;https://spark.apache.org/docs/latest/ml-features#standardscaler&quot;&gt;StandardScaler&lt;/a&gt;. That Standardizes features by normalizing each feature to have unit standard deviation and/or zero mean.
-Tree-based algorithms are not sensitive to the scale of the features but we need that for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Logistic Regression&lt;/code&gt; Classifier.&lt;/p&gt;
+<p>To use the same dataset for the various models algorithms, we performed data scaling using <a href="https://spark.apache.org/docs/latest/ml-features#standardscaler">StandardScaler</a>. That Standardizes features by normalizing each feature to have unit standard deviation and/or zero mean.
+Tree-based algorithms are not sensitive to the scale of the features but we need that for the <code class="language-plaintext highlighter-rouge">Logistic Regression</code> Classifier.</p>
 
-&lt;h3 id=&quot;hyperparameters-tuning&quot;&gt;Hyperparameters Tuning&lt;/h3&gt;
+<h3 id="hyperparameters-tuning">Hyperparameters Tuning</h3>
 
-&lt;p&gt;To find the optimal hyperparameters of each of the tried models , we leveraged &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Grid Search&lt;/code&gt;. We then used the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AUC metric&lt;/code&gt; to select the best model parameters and retrain the model on the training dataset (without the K-Fold data sampling).&lt;/p&gt;
+<p>To find the optimal hyperparameters of each of the tried models , we leveraged <code class="language-plaintext highlighter-rouge">Grid Search</code>. We then used the <code class="language-plaintext highlighter-rouge">AUC metric</code> to select the best model parameters and retrain the model on the training dataset (without the K-Fold data sampling).</p>
 
-&lt;p&gt;Here are the parameters used for the models:&lt;/p&gt;
+<p>Here are the parameters used for the models:</p>
 
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://spark.apache.org/docs/latest/mllib-linear-methods.html#logistic-regression&quot;&gt;Logistic Regression&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+<p><strong><a href="https://spark.apache.org/docs/latest/mllib-linear-methods.html#logistic-regression">Logistic Regression</a></strong></p>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;elasticNetParam&lt;/strong&gt; ElasticNet mixing parameter. In in range [0, 1]. 0 for L2 penalty and 1 for an L1 penalty, default=0.0: &lt;strong&gt;[0.1, 0.5]&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;maxIter&lt;/strong&gt; Maximum number of iterations: &lt;strong&gt;[20, 70]&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li><strong>elasticNetParam</strong> ElasticNet mixing parameter. In in range [0, 1]. 0 for L2 penalty and 1 for an L1 penalty, default=0.0: <strong>[0.1, 0.5]</strong></li>
+  <li><strong>maxIter</strong> Maximum number of iterations: <strong>[20, 70]</strong></li>
+</ul>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/lr_params.png&quot; alt=&quot;&quot; height=&quot;40%&quot; width=&quot;40%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/lr_params.png" alt="" height="40%" width="40%" class="center-image" /></p>
 
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forests&quot;&gt;Random Forest&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+<p><strong><a href="https://spark.apache.org/docs/latest/ml-classification-regression.html#random-forests">Random Forest</a></strong></p>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;maxDepth&lt;/strong&gt; maximum tree depth, default=5: &lt;strong&gt;[4, 5, 7]&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;numTrees&lt;/strong&gt; Number of Trees, default=20: &lt;strong&gt;[20, 50]&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li><strong>maxDepth</strong> maximum tree depth, default=5: <strong>[4, 5, 7]</strong></li>
+  <li><strong>numTrees</strong> Number of Trees, default=20: <strong>[20, 50]</strong></li>
+</ul>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/rf_params.png&quot; alt=&quot;&quot; height=&quot;40%&quot; width=&quot;40%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/rf_params.png" alt="" height="40%" width="40%" class="center-image" /></p>
 
-&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://spark.apache.org/docs/latest/mllib-ensembles.html#gradient-boosted-trees-gbts&quot;&gt;Gradient-Boosted Trees&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+<p><strong><a href="https://spark.apache.org/docs/latest/mllib-ensembles.html#gradient-boosted-trees-gbts">Gradient-Boosted Trees</a></strong></p>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;maxDepth&lt;/strong&gt; Maximum Tree Depth, default=5: &lt;strong&gt;[5, 7]&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;maxIter&lt;/strong&gt; Maximum number of iterations, default=20: &lt;strong&gt;[70, 100]&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li><strong>maxDepth</strong> Maximum Tree Depth, default=5: <strong>[5, 7]</strong></li>
+  <li><strong>maxIter</strong> Maximum number of iterations, default=20: <strong>[70, 100]</strong></li>
+</ul>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/gbt_params.png&quot; alt=&quot;&quot; height=&quot;40%&quot; width=&quot;40%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/gbt_params.png" alt="" height="40%" width="40%" class="center-image" /></p>
 
-&lt;h3 id=&quot;trained-models-evaluation&quot;&gt;Trained Models Evaluation&lt;/h3&gt;
+<h3 id="trained-models-evaluation">Trained Models Evaluation</h3>
 
-&lt;p&gt;After the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the F1 Score and AUC metric.&lt;/p&gt;
+<p>After the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the F1 Score and AUC metric.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-08-04/models_evaluation.png&quot; alt=&quot;&quot; height=&quot;80%&quot; width=&quot;80%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-08-04/models_evaluation.png" alt="" height="80%" width="80%" class="center-image" /></p>
 
-&lt;p&gt;Gradient Boosted Tree turned to be the winning model predicting how likely is a user to churn.&lt;/p&gt;
+<p>Gradient Boosted Tree turned to be the winning model predicting how likely is a user to churn.</p>
 
-&lt;p&gt;We have to emphasize that the results correspond to models that were trained and tested using a small data-set. The data-set sample contains &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;286500&lt;/code&gt; events logs for only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;225&lt;/code&gt; unique users.&lt;/p&gt;
+<p>We have to emphasize that the results correspond to models that were trained and tested using a small data-set. The data-set sample contains <code class="language-plaintext highlighter-rouge">286500</code> events logs for only <code class="language-plaintext highlighter-rouge">225</code> unique users.</p>
 
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+<h1 id="conclusion">Conclusion</h1>
 
-&lt;p&gt;Let’s take a step back and look at the whole journey.&lt;/p&gt;
+<p>Let’s take a step back and look at the whole journey.</p>
 
-&lt;p&gt;We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning workflow steps. For that we needed to have a binary classifier for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Churner&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Engaged&lt;/code&gt; customers.&lt;/p&gt;
+<p>We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning workflow steps. For that we needed to have a binary classifier for the <code class="language-plaintext highlighter-rouge">Churner</code> and <code class="language-plaintext highlighter-rouge">Engaged</code> customers.</p>
 
-&lt;p&gt;I started by performing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data cleaning&lt;/code&gt; to remove log events without a user Id and checked the missing vakues in the dataset. I then did multiple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data explorations&lt;/code&gt; to see how various indicators can help in distinguishing between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Churned&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Engaged&lt;/code&gt; customers. I defined the customer churn indicator based on wether the user visited the any of the pages &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cancellation Confirmation&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Downgrade Submission&lt;/code&gt; or not. Next in the features engineering step I extracted categorical and numerical features. For that I used the observed indicators during the data exploration. I also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day.
-We split the data into training and validation data sets. And as a final step I performed model training by trying out various models varying from simple to complex ones: Logistic Regression, Random Forest and Gradient-Boosted Trees. I leveraged cross validation and grid search to fine tune the different models. Their &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;performance&lt;/code&gt; got compared using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AUC&lt;/code&gt; metric.&lt;/p&gt;
+<p>I started by performing the <code class="language-plaintext highlighter-rouge">data cleaning</code> to remove log events without a user Id and checked the missing vakues in the dataset. I then did multiple <code class="language-plaintext highlighter-rouge">data explorations</code> to see how various indicators can help in distinguishing between <code class="language-plaintext highlighter-rouge">Churned</code> and <code class="language-plaintext highlighter-rouge">Engaged</code> customers. I defined the customer churn indicator based on wether the user visited the any of the pages <code class="language-plaintext highlighter-rouge">Cancellation Confirmation</code> and <code class="language-plaintext highlighter-rouge">Downgrade Submission</code> or not. Next in the features engineering step I extracted categorical and numerical features. For that I used the observed indicators during the data exploration. I also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day.
+We split the data into training and validation data sets. And as a final step I performed model training by trying out various models varying from simple to complex ones: Logistic Regression, Random Forest and Gradient-Boosted Trees. I leveraged cross validation and grid search to fine tune the different models. Their <code class="language-plaintext highlighter-rouge">performance</code> got compared using the <code class="language-plaintext highlighter-rouge">AUC</code> metric.</p>
 
-&lt;p&gt;Gradient-Boosted Trees turned to be the winning model. We achieved about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.64&lt;/code&gt; AUC, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.59&lt;/code&gt; F1 Score. Potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. The model might also be enhanced.&lt;/p&gt;
+<p>Gradient-Boosted Trees turned to be the winning model. We achieved about <code class="language-plaintext highlighter-rouge">0.64</code> AUC, and <code class="language-plaintext highlighter-rouge">0.59</code> F1 Score. Potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. The model might also be enhanced.</p>
 
-&lt;h3 id=&quot;potential-improvements&quot;&gt;Potential Improvements&lt;/h3&gt;
+<h3 id="potential-improvements">Potential Improvements</h3>
 
-&lt;p&gt;We Could try other models algorithms. But before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would:&lt;/p&gt;
+<p>We Could try other models algorithms. But before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Add more temporal features reflecting the service usage over the last N days.&lt;/li&gt;
-  &lt;li&gt;Optimize the data analysis and feature engineering steps applying more Spark best practices for having efficient data exploration as well as model training and testing processes.&lt;/li&gt;
-  &lt;li&gt;Perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset.&lt;/li&gt;
-  &lt;li&gt;With a higher computations power, performing a better Hyperparameter tuning for other model algorithms on Spark Cluster.&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li>Add more temporal features reflecting the service usage over the last N days.</li>
+  <li>Optimize the data analysis and feature engineering steps applying more Spark best practices for having efficient data exploration as well as model training and testing processes.</li>
+  <li>Perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset.</li>
+  <li>With a higher computations power, performing a better Hyperparameter tuning for other model algorithms on Spark Cluster.</li>
+</ul>
 
-&lt;p&gt;The project code can be found &lt;a href=&quot;https://github.com/slitayem/sparkify_dsnd&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+<p>The project code can be found <a href="https://github.com/slitayem/sparkify_dsnd">here</a>.</p>
 
-&lt;h1 id=&quot;further-reading-about-customer-churn&quot;&gt;Further reading about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Customer Churn&lt;/code&gt;&lt;/h1&gt;
+<h1 id="further-reading-about-customer-churn">Further reading about <code class="language-plaintext highlighter-rouge">Customer Churn</code></h1>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.hubspot.com/service/customer-retention-metrics&quot;&gt;Customer Churn Metrics&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.forentrepreneurs.com/customer-success/&quot;&gt;Managing Customer Success to Reduce Churn&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://neilpatel.com/blog/never-losing-saas-customers/&quot;&gt;8 Advanced Tips for Never Losing SaaS Customers&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://baremetrics.com/academy/churn-prediction-can-improve-business&quot;&gt;How Churn Prediction Can Improve Your Business&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">Generally, the ability to accurately predict future customer churn rates is necessary for the business. It enables it to secure valuable customers helping anticipate and prevent from churn trends. Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer. Churn kills businesses; prevention keeps them healthy The article presents a Customer Churn Prediction Model project done in the context of Udacity Data Science Nanodegree Program. Business Understanding We are assuming a hypothetical music streaming service (like spotify) called Sparkify. The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs. At any point the users can do any of the following: Upgrade from the free tier to the Premium subscription Downgrade from the Premium subscription to the free tier. Drop their account and leave the service The aim here is to: analyse the data, extract insights helping to identify churn indicators and then build a Machine Learning model helping to identify potential churning customers. The data analysis, feature engineering and model building was implemented using PySpark. This can be found here. The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists. Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships. Data The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps. Here are the events key attributes |-- artist: artist name |-- auth: authentication status |-- gender |-- itemInSession: Number of items in the session |-- length: double (nullable = true) |-- level: users subscription level |-- page: svisited page |-- registration: registration date |-- ts: levent timestamp The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days. Data Cleaning 8346 Events with empty string as UserId were removed Data Exploration Churn indicators We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages Cancellation Confirmation or Submit Downgrade. Following the above definition, the service churn rate is equal to 41% customers registered for a longer period of time are less likely to churn (Loyal/Engaged). Percentage of the users function of the service usage period Checking the service usage over the time before the churning event, we observe that around 96% of the users have an account for at least 20 days. Keeping ~96% of the users (age greater than 20 days) should be sufficient to have a feature reflecting the service usage distribution over the time before churn event (here the last 20 days). Number of visits per page Now let’s have a look at the pages visit. We observe that the 82% of the events are for the page NextSong. Then, to be able to clearly visualize the pages visits count we decide to filter out the `NextSong page. We observe that most of the page visit counts can have an effect on the user engagement e.g ThumbsDown, Roll Advert, NextSong. Let’s see how those pages visits are having a discriminative role to distinguish between Churning and Engaged customers. This either with the customer interactions on the platform or the number of visits to some of the pages like Error page. Roll adverts distribution per user type Engaged users tend to have less Roll Adverts than the Churning users.This might be a good indicator to predict if user is likely to churn if he gets a high number of advertisements. It appears that on average each of the customers type got the same number of error pages. Let’s check the visits to the Thumbs Up and Down page also the number of sessions per user that could reflect how active is the customer in using the service. Number of errors distribution per user type For a number of errors higher than 6, the number of chruning users is higher than the engaged ones. But in average there is no big difference between both users types in term of the number of visited error pages. Customers interactions on the service platform(ThumbsUp/ThumbsDown) Having a value greater than 200 thumbsUp page visits (combined with other features) might be an indicator for high risk of churn. This is kind of counter intuitive but at the same time this tells us that user that is engaged the most might be the one penalizing the service the most easily. In general, it appears that churning users have less interactions in regard of giving a Thumbs Up or a Thumbs Down to a song. But, we observe that pages distribution is chifted towards a higher number of thumbsDown page visits for churning users . Using the number of thumbsDown pages visit as a feature might help the model to separate the churning users from the engaged ones. Service usage and customers engagement In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it. So let’s measure the service usage and engagement of the users in term of number of songs the users listen to and users sessions. Average Number of items per session It appears that the average number of items per session doesn’t seem to help on average to distinguish between the churning and engaged users. Around 100 sessions, the engaged users average number of items per session tends to be higher than for the churners. We can also see a clear separation between the churned and engaged users starting from 300 items per session. Average number of sessions per user The number of sessions per user tends n average to distinguish between the churned and engaged users. The churners tend to have a lower average number of sessions per day than the engaged users. If leaveraged as a feature this might be automatically picked-up by a tree based model e.g decision tree Average Service usage over the last 20 days (nbSessions and nbSongs) The number of songs for churning users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data. We observe that in average the number of sessions for churning users is higher than for Engaged users. Features Engineering In the data exploration step we could extract potential indicators that can be used to distinguish between churning and engaged customers. We observed that the number of visits to some of the pages could be used as indicators to to know if a customer is likely to churn or not. For example the engaged users were having more interactions on the service platform by visitng more often the ThumbsUp or ThumbsDown pages. Then we decide to use the following features to reflect the pages visits making difference between both types of users: Binary feature with value equal to one if the number ThumbsUp page visits is greater than 20 Number of ThumbsDown page visits Number of Roll Advert Page visits We observed that the service usage and level of engagemnt of the customer can be also a clear indicator. Which helped us to define the following features: Average daily sessions duration Average monthly sessions duration Average daily Number of songs per session Average daily Number of items per session Daily number of songs over the last 20 days (vector of 20 values) Daily number of sessions over the last 20 days (vector of 20 values) The decision in keeping the usage information over only the last 20 days was a result of the check of the percentage of the dataset users that could be kept by number of days the customer have been using sparkify service. See the related analysis and plot in the data exploration part here One more feature that could help in having an idea about the customer satisfaction in using the service is to know whether the customer can find the artists songs he wants to listen to or not. Number of unique artists the user listened to. We also decided to have some features to characterize the user subscription: Last level of the user (Paid or Free) User Account age in days: usage duration since first log event day We finally have a 54-Dimensional features vector to represent that would be used for the model training. Model training and evaluation The purpose of our predictive model is to predict which customers are likely to churn and which not. So it is essentially a binary classification problem. The classes are Engaged vs Churned. Classifying Engaged customers as Churning ones might lead the business to taking actions that might confuse the customer and even make them churning the service. It is also important to correctly classify Churning customers. Then our classifier should be precise in classifying both types of customers. Model evaluation metrics Given that churned users are a fairly small subset compared to engaged users, we decided to use F1-Score and AUC metric to evaluate the model performance and select the winning model. F1-Score : balances the tradeoff between the precision and recall metrics, which is useful in our binary classification problem with the actual classes scale. $$ F1 = 2 * \frac{precision * recall}{precision + recall} $$ The area under the ROC curve (AUC) : Its advantage over the accuracy is that it is insensitive to imbalanced classes. It doesn’t place more emphasis on one class over the other by assessing the overall classification performance by measuring how well predictions are ranked, rather than their absolute values. Trained Models and evaluation We tried out various models starting from the simplest one Logistic Regression to the more complex ones(Random Forest, Gradient-Boosted Trees). We scaled the data to train to avoid that the Logisitc Regression model performs poorly when features differ widely in scale. The model were then compared in term of F1-Score and AUC. In order to have a less biased estimate of the model performance on unseen data we leveraged k-Fold Cross-Validation(k=3) from Spark Python API CrossValidator. To use the same dataset for the various models algorithms, we performed data scaling using StandardScaler. That Standardizes features by normalizing each feature to have unit standard deviation and/or zero mean. Tree-based algorithms are not sensitive to the scale of the features but we need that for the Logistic Regression Classifier. Hyperparameters Tuning To find the optimal hyperparameters of each of the tried models , we leveraged Grid Search. We then used the AUC metric to select the best model parameters and retrain the model on the training dataset (without the K-Fold data sampling). Here are the parameters used for the models: Logistic Regression elasticNetParam ElasticNet mixing parameter. In in range [0, 1]. 0 for L2 penalty and 1 for an L1 penalty, default=0.0: [0.1, 0.5] maxIter Maximum number of iterations: [20, 70] Random Forest maxDepth maximum tree depth, default=5: [4, 5, 7] numTrees Number of Trees, default=20: [20, 50] Gradient-Boosted Trees maxDepth Maximum Tree Depth, default=5: [5, 7] maxIter Maximum number of iterations, default=20: [70, 100] Trained Models Evaluation After the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the F1 Score and AUC metric. Gradient Boosted Tree turned to be the winning model predicting how likely is a user to churn. We have to emphasize that the results correspond to models that were trained and tested using a small data-set. The data-set sample contains 286500 events logs for only 225 unique users. Conclusion Let’s take a step back and look at the whole journey. We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning workflow steps. For that we needed to have a binary classifier for the Churner and Engaged customers. I started by performing the data cleaning to remove log events without a user Id and checked the missing vakues in the dataset. I then did multiple data explorations to see how various indicators can help in distinguishing between Churned and Engaged customers. I defined the customer churn indicator based on wether the user visited the any of the pages Cancellation Confirmation and Downgrade Submission or not. Next in the features engineering step I extracted categorical and numerical features. For that I used the observed indicators during the data exploration. I also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day. We split the data into training and validation data sets. And as a final step I performed model training by trying out various models varying from simple to complex ones: Logistic Regression, Random Forest and Gradient-Boosted Trees. I leveraged cross validation and grid search to fine tune the different models. Their performance got compared using the AUC metric. Gradient-Boosted Trees turned to be the winning model. We achieved about 0.64 AUC, and 0.59 F1 Score. Potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. The model might also be enhanced. Potential Improvements We Could try other models algorithms. But before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would: Add more temporal features reflecting the service usage over the last N days. Optimize the data analysis and feature engineering steps applying more Spark best practices for having efficient data exploration as well as model training and testing processes. Perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset. With a higher computations power, performing a better Hyperparameter tuning for other model algorithms on Spark Cluster. The project code can be found here. Further reading about Customer Churn Customer Churn Metrics Managing Customer Success to Reduce Churn 8 Advanced Tips for Never Losing SaaS Customers How Churn Prediction Can Improve Your Business</summary></entry><entry><title type="html">How do developers perceive the OSS quality and how often do they contribute?</title><link href="/blog/2020/06/14/oss-contrib-analysis" rel="alternate" type="text/html" title="How do developers perceive the OSS quality and how often do they contribute?" /><published>2020-06-14T00:00:00+00:00</published><updated>2020-06-14T00:00:00+00:00</updated><id>/blog/2020/06/14/oss-contrib-analysis</id><content type="html" xml:base="/blog/2020/06/14/oss-contrib-analysis">&lt;!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height=&quot;50%&quot; width=&quot;50%&quot;} --&gt;
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/open-source-software.png&quot; alt=&quot;oss&quot; height=&quot;85%&quot; width=&quot;85%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<ul>
+  <li><a href="https://blog.hubspot.com/service/customer-retention-metrics">Customer Churn Metrics</a></li>
+  <li><a href="https://www.forentrepreneurs.com/customer-success/">Managing Customer Success to Reduce Churn</a></li>
+  <li><a href="https://neilpatel.com/blog/never-losing-saas-customers/">8 Advanced Tips for Never Losing SaaS Customers</a></li>
+  <li><a href="https://baremetrics.com/academy/churn-prediction-can-improve-business">How Churn Prediction Can Improve Your Business</a></li>
+</ul>]]></content><author><name></name></author><summary type="html"><![CDATA[Generally, the ability to accurately predict future customer churn rates is necessary for the business. It enables it to secure valuable customers helping anticipate and prevent from churn trends. Taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. And once product engagement is increased, the business will lose less customer. Churn kills businesses; prevention keeps them healthy The article presents a Customer Churn Prediction Model project done in the context of Udacity Data Science Nanodegree Program. Business Understanding We are assuming a hypothetical music streaming service (like spotify) called Sparkify. The users of the service can use either the Premium or the Free Tier subscription. The premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs. At any point the users can do any of the following: Upgrade from the free tier to the Premium subscription Downgrade from the Premium subscription to the free tier. Drop their account and leave the service The aim here is to: analyse the data, extract insights helping to identify churn indicators and then build a Machine Learning model helping to identify potential churning customers. The data analysis, feature engineering and model building was implemented using PySpark. This can be found here. The value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists. Retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships. Data The used data contains the user activity events logs happening in the service. Those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps. Here are the events key attributes |-- artist: artist name |-- auth: authentication status |-- gender |-- itemInSession: Number of items in the session |-- length: double (nullable = true) |-- level: users subscription level |-- page: svisited page |-- registration: registration date |-- ts: levent timestamp The presented data analysis was performed on a subset of the data (~28K events records). The data timespan is 63 days. Data Cleaning 8346 Events with empty string as UserId were removed Data Exploration Churn indicators We define churning customers as the users who either downgraded their subscription plan or canceled their account. In other words, a churned customer is one who visited one of the service pages Cancellation Confirmation or Submit Downgrade. Following the above definition, the service churn rate is equal to 41% customers registered for a longer period of time are less likely to churn (Loyal/Engaged). Percentage of the users function of the service usage period Checking the service usage over the time before the churning event, we observe that around 96% of the users have an account for at least 20 days. Keeping ~96% of the users (age greater than 20 days) should be sufficient to have a feature reflecting the service usage distribution over the time before churn event (here the last 20 days). Number of visits per page Now let’s have a look at the pages visit. We observe that the 82% of the events are for the page NextSong. Then, to be able to clearly visualize the pages visits count we decide to filter out the `NextSong page. We observe that most of the page visit counts can have an effect on the user engagement e.g ThumbsDown, Roll Advert, NextSong. Let’s see how those pages visits are having a discriminative role to distinguish between Churning and Engaged customers. This either with the customer interactions on the platform or the number of visits to some of the pages like Error page. Roll adverts distribution per user type Engaged users tend to have less Roll Adverts than the Churning users.This might be a good indicator to predict if user is likely to churn if he gets a high number of advertisements. It appears that on average each of the customers type got the same number of error pages. Let’s check the visits to the Thumbs Up and Down page also the number of sessions per user that could reflect how active is the customer in using the service. Number of errors distribution per user type For a number of errors higher than 6, the number of chruning users is higher than the engaged ones. But in average there is no big difference between both users types in term of the number of visited error pages. Customers interactions on the service platform(ThumbsUp/ThumbsDown) Having a value greater than 200 thumbsUp page visits (combined with other features) might be an indicator for high risk of churn. This is kind of counter intuitive but at the same time this tells us that user that is engaged the most might be the one penalizing the service the most easily. In general, it appears that churning users have less interactions in regard of giving a Thumbs Up or a Thumbs Down to a song. But, we observe that pages distribution is chifted towards a higher number of thumbsDown page visits for churning users . Using the number of thumbsDown pages visit as a feature might help the model to separate the churning users from the engaged ones. Service usage and customers engagement In general, if a customer regularly uses the service, there is nothing to worry about. If, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it. So let’s measure the service usage and engagement of the users in term of number of songs the users listen to and users sessions. Average Number of items per session It appears that the average number of items per session doesn’t seem to help on average to distinguish between the churning and engaged users. Around 100 sessions, the engaged users average number of items per session tends to be higher than for the churners. We can also see a clear separation between the churned and engaged users starting from 300 items per session. Average number of sessions per user The number of sessions per user tends n average to distinguish between the churned and engaged users. The churners tend to have a lower average number of sessions per day than the engaged users. If leaveraged as a feature this might be automatically picked-up by a tree based model e.g decision tree Average Service usage over the last 20 days (nbSessions and nbSongs) The number of songs for churning users is decreasing over the last 20 days of logged events in the service. This might be more discriminant when using more data. We observe that in average the number of sessions for churning users is higher than for Engaged users. Features Engineering In the data exploration step we could extract potential indicators that can be used to distinguish between churning and engaged customers. We observed that the number of visits to some of the pages could be used as indicators to to know if a customer is likely to churn or not. For example the engaged users were having more interactions on the service platform by visitng more often the ThumbsUp or ThumbsDown pages. Then we decide to use the following features to reflect the pages visits making difference between both types of users: Binary feature with value equal to one if the number ThumbsUp page visits is greater than 20 Number of ThumbsDown page visits Number of Roll Advert Page visits We observed that the service usage and level of engagemnt of the customer can be also a clear indicator. Which helped us to define the following features: Average daily sessions duration Average monthly sessions duration Average daily Number of songs per session Average daily Number of items per session Daily number of songs over the last 20 days (vector of 20 values) Daily number of sessions over the last 20 days (vector of 20 values) The decision in keeping the usage information over only the last 20 days was a result of the check of the percentage of the dataset users that could be kept by number of days the customer have been using sparkify service. See the related analysis and plot in the data exploration part here One more feature that could help in having an idea about the customer satisfaction in using the service is to know whether the customer can find the artists songs he wants to listen to or not. Number of unique artists the user listened to. We also decided to have some features to characterize the user subscription: Last level of the user (Paid or Free) User Account age in days: usage duration since first log event day We finally have a 54-Dimensional features vector to represent that would be used for the model training. Model training and evaluation The purpose of our predictive model is to predict which customers are likely to churn and which not. So it is essentially a binary classification problem. The classes are Engaged vs Churned. Classifying Engaged customers as Churning ones might lead the business to taking actions that might confuse the customer and even make them churning the service. It is also important to correctly classify Churning customers. Then our classifier should be precise in classifying both types of customers. Model evaluation metrics Given that churned users are a fairly small subset compared to engaged users, we decided to use F1-Score and AUC metric to evaluate the model performance and select the winning model. F1-Score : balances the tradeoff between the precision and recall metrics, which is useful in our binary classification problem with the actual classes scale. $$ F1 = 2 * \frac{precision * recall}{precision + recall} $$ The area under the ROC curve (AUC) : Its advantage over the accuracy is that it is insensitive to imbalanced classes. It doesn’t place more emphasis on one class over the other by assessing the overall classification performance by measuring how well predictions are ranked, rather than their absolute values. Trained Models and evaluation We tried out various models starting from the simplest one Logistic Regression to the more complex ones(Random Forest, Gradient-Boosted Trees). We scaled the data to train to avoid that the Logisitc Regression model performs poorly when features differ widely in scale. The model were then compared in term of F1-Score and AUC. In order to have a less biased estimate of the model performance on unseen data we leveraged k-Fold Cross-Validation(k=3) from Spark Python API CrossValidator. To use the same dataset for the various models algorithms, we performed data scaling using StandardScaler. That Standardizes features by normalizing each feature to have unit standard deviation and/or zero mean. Tree-based algorithms are not sensitive to the scale of the features but we need that for the Logistic Regression Classifier. Hyperparameters Tuning To find the optimal hyperparameters of each of the tried models , we leveraged Grid Search. We then used the AUC metric to select the best model parameters and retrain the model on the training dataset (without the K-Fold data sampling). Here are the parameters used for the models: Logistic Regression elasticNetParam ElasticNet mixing parameter. In in range [0, 1]. 0 for L2 penalty and 1 for an L1 penalty, default=0.0: [0.1, 0.5] maxIter Maximum number of iterations: [20, 70] Random Forest maxDepth maximum tree depth, default=5: [4, 5, 7] numTrees Number of Trees, default=20: [20, 50] Gradient-Boosted Trees maxDepth Maximum Tree Depth, default=5: [5, 7] maxIter Maximum number of iterations, default=20: [70, 100] Trained Models Evaluation After the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the F1 Score and AUC metric. Gradient Boosted Tree turned to be the winning model predicting how likely is a user to churn. We have to emphasize that the results correspond to models that were trained and tested using a small data-set. The data-set sample contains 286500 events logs for only 225 unique users. Conclusion Let’s take a step back and look at the whole journey. We wanted to predict customers churn for a hypothetical music streaming service. That using Apache Spark in all the Machine Learning workflow steps. For that we needed to have a binary classifier for the Churner and Engaged customers. I started by performing the data cleaning to remove log events without a user Id and checked the missing vakues in the dataset. I then did multiple data explorations to see how various indicators can help in distinguishing between Churned and Engaged customers. I defined the customer churn indicator based on wether the user visited the any of the pages Cancellation Confirmation and Downgrade Submission or not. Next in the features engineering step I extracted categorical and numerical features. For that I used the observed indicators during the data exploration. I also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day. We split the data into training and validation data sets. And as a final step I performed model training by trying out various models varying from simple to complex ones: Logistic Regression, Random Forest and Gradient-Boosted Trees. I leveraged cross validation and grid search to fine tune the different models. Their performance got compared using the AUC metric. Gradient-Boosted Trees turned to be the winning model. We achieved about 0.64 AUC, and 0.59 F1 Score. Potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. The model might also be enhanced. Potential Improvements We Could try other models algorithms. But before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. For that we would: Add more temporal features reflecting the service usage over the last N days. Optimize the data analysis and feature engineering steps applying more Spark best practices for having efficient data exploration as well as model training and testing processes. Perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset. With a higher computations power, performing a better Hyperparameter tuning for other model algorithms on Spark Cluster. The project code can be found here. Further reading about Customer Churn Customer Churn Metrics Managing Customer Success to Reduce Churn 8 Advanced Tips for Never Losing SaaS Customers How Churn Prediction Can Improve Your Business]]></summary></entry><entry><title type="html">How do developers perceive the OSS quality and how often do they contribute?</title><link href="/blog/2020/06/14/oss-contrib-analysis" rel="alternate" type="text/html" title="How do developers perceive the OSS quality and how often do they contribute?" /><published>2020-06-14T00:00:00+00:00</published><updated>2020-06-14T00:00:00+00:00</updated><id>/blog/2020/06/14/oss-contrib-analysis</id><content type="html" xml:base="/blog/2020/06/14/oss-contrib-analysis"><![CDATA[<!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height="50%" width="50%"} -->
+<p><img src="/img/blog/2020-06-14/open-source-software.png" alt="oss" height="85%" width="85%" class="center-image" /></p>
 
-&lt;p&gt;Several studies &lt;a class=&quot;citation&quot; href=&quot;#Finnegan2007HowPO&quot;&gt;(Finnegan &amp;amp; Morgan, 2007)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#bianco2010&quot;&gt;(del Bianco et al., 2010)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2019&quot;&gt;(Lenarduzzi et al., 2019)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2020&quot;&gt;(Lenarduzzi et al., 2020)&lt;/a&gt; have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;increasing&lt;/a&gt; interest particularly in &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;industry&lt;/a&gt;. This can be seen by &lt;a href=&quot;https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691&quot;&gt;Microsoft's position&lt;/a&gt; change on OSS development over the past two decades.&lt;/p&gt;
+<p>Several studies <a class="citation" href="#Finnegan2007HowPO">(Finnegan &amp; Morgan, 2007)</a> <a class="citation" href="#bianco2010">(del Bianco et al., 2010)</a> <a class="citation" href="#Lenarduzzi2019">(Lenarduzzi et al., 2019)</a> <a class="citation" href="#Lenarduzzi2020">(Lenarduzzi et al., 2020)</a> have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an <a href="https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/">increasing</a> interest particularly in <a href="https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/">industry</a>. This can be seen by <a href="https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691">Microsoft's position</a> change on OSS development over the past two decades.</p>
 
-&lt;p&gt;Since 10 years stackoverflow have been publishing annual &lt;a href=&quot;https://insights.stackoverflow.com/survey/&quot;&gt;Developer Survey&lt;/a&gt; results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality.&lt;/p&gt;
+<p>Since 10 years stackoverflow have been publishing annual <a href="https://insights.stackoverflow.com/survey/">Developer Survey</a> results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality.</p>
 
-&lt;p&gt;We will answer to the following questions from the survey data:&lt;/p&gt;
+<p>We will answer to the following questions from the survey data:</p>
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#contrib_freq&quot;&gt;How often do developers contribute to OSS?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#hobbyist_dev&quot;&gt;Do Hobyist developers contribute more often to OSS?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#oss_quality_bias&quot;&gt;Does OSS quality perception play a bias role towards OSS contribution?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#experience&quot;&gt;Are experienced developers contributing more frequently to OSS?&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#salary&quot;&gt;Do developers contributing to the OSS have a higher income?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+<ul>
+  <li><a href="#contrib_freq">How often do developers contribute to OSS?</a></li>
+  <li><a href="#hobbyist_dev">Do Hobyist developers contribute more often to OSS?</a></li>
+  <li><a href="#oss_quality_bias">Does OSS quality perception play a bias role towards OSS contribution?</a></li>
+  <li><a href="#experience">Are experienced developers contributing more frequently to OSS?</a></li>
+  <li><a href="#salary">Do developers contributing to the OSS have a higher income?</a></li>
+</ul>
 
-&lt;p&gt;The analysis notebook is available &lt;a href=&quot;https://github.com/slitayem/stackoverflow_survey_analysis&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+<p>The analysis notebook is available <a href="https://github.com/slitayem/stackoverflow_survey_analysis">here</a>.</p>
 
-&lt;p&gt;Let’s start with a quick overview of the data.
-We see that most of the survey respondents are from the USA.&lt;/p&gt;
+<p>Let’s start with a quick overview of the data.
+We see that most of the survey respondents are from the USA.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/top15_countries.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/top15_countries.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;More than 80% of the respondents are developers.&lt;/p&gt;
+<p>More than 80% of the respondents are developers.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/developer_type.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/developer_type.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;Most of the respondents are preceiving the OSS quality the same as or even of HIGHER quality than the closed source software.&lt;/p&gt;
+<p>Most of the respondents are preceiving the OSS quality the same as or even of HIGHER quality than the closed source software.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_perception_respondents.png&quot; alt=&quot;&quot; height=&quot;80%&quot; width=&quot;80%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/oss_perception_respondents.png" alt="" height="80%" width="80%" class="center-image" /></p>
 
-&lt;p&gt;&lt;a name=&quot;contrib_freq&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;how-often-do-developers-contribute-to-oss&quot;&gt;How often do developers contribute to OSS?&lt;/h2&gt;
-&lt;p&gt;36.3 % of the developers have never contributed to Open Source Software while 63.6 % contribute to the OSS. But we see that only only 12.4% contribute once a month or more often.&lt;/p&gt;
+<p><a name="contrib_freq"></a></p>
+<h2 id="how-often-do-developers-contribute-to-oss">How often do developers contribute to OSS?</h2>
+<p>36.3 % of the developers have never contributed to Open Source Software while 63.6 % contribute to the OSS. But we see that only only 12.4% contribute once a month or more often.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_contribution_frequency.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/oss_contribution_frequency.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;&lt;a name=&quot;hobbyist_dev&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;do-hobyist-developers-contribute-more-often-to-oss&quot;&gt;Do Hobyist developers contribute more often to OSS?&lt;/h2&gt;
+<p><a name="hobbyist_dev"></a></p>
+<h2 id="do-hobyist-developers-contribute-more-often-to-oss">Do Hobyist developers contribute more often to OSS?</h2>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/hobbyist_oss_contribution.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/hobbyist_oss_contribution.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;The analysis shows that the hobbyist developers contribute more often to the OSS than non hobbyist ones. But among the survey respondents 23K hobbyists (32% of the hobbyists) have never contributed to the OSS.&lt;/p&gt;
+<p>The analysis shows that the hobbyist developers contribute more often to the OSS than non hobbyist ones. But among the survey respondents 23K hobbyists (32% of the hobbyists) have never contributed to the OSS.</p>
 
-&lt;p&gt;&lt;a name=&quot;oss_quality_bias&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;does-oss-quality-perception-play-a-bias-role-towards-oss-contribution&quot;&gt;Does OSS quality perception play a bias role towards OSS contribution?&lt;/h2&gt;
-&lt;p&gt;What if a bad OSS quality perception happens to be a blocker for OSS contribution. The respondents are then separated in two groups (hobbyists or not hobbyists). Then, respondents are grouped by the way they are perceiving OSS quality in addtion to the frequency of contribution to OSS.
-The data analysis shows that developers contributing the least to OSS are the ones who are perceiving OSS as on average of lower quality than proprietary software and not developing as a hobby.&lt;/p&gt;
+<p><a name="oss_quality_bias"></a></p>
+<h2 id="does-oss-quality-perception-play-a-bias-role-towards-oss-contribution">Does OSS quality perception play a bias role towards OSS contribution?</h2>
+<p>What if a bad OSS quality perception happens to be a blocker for OSS contribution. The respondents are then separated in two groups (hobbyists or not hobbyists). Then, respondents are grouped by the way they are perceiving OSS quality in addtion to the frequency of contribution to OSS.
+The data analysis shows that developers contributing the least to OSS are the ones who are perceiving OSS as on average of lower quality than proprietary software and not developing as a hobby.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_quality_perception.png&quot; alt=&quot;&quot; height=&quot;90%&quot; width=&quot;90%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/oss_quality_perception.png" alt="" height="90%" width="90%" class="center-image" /></p>
 
-&lt;p&gt;&lt;a name=&quot;experience&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;are-experienced-developers-contributing-more-frequently-to-oss&quot;&gt;Are experienced developers contributing more frequently to OSS?&lt;/h2&gt;
-&lt;p&gt;In the figure below, I was interested in checking the seniority level of developers contributing to OSS. For that, the survey respondents are grouped by years of experience ranges.&lt;/p&gt;
+<p><a name="experience"></a></p>
+<h2 id="are-experienced-developers-contributing-more-frequently-to-oss">Are experienced developers contributing more frequently to OSS?</h2>
+<p>In the figure below, I was interested in checking the seniority level of developers contributing to OSS. For that, the survey respondents are grouped by years of experience ranges.</p>
 
-&lt;p&gt;We notice that the more years of experiences developers gain the less they contribute to OSS.&lt;/p&gt;
+<p>We notice that the more years of experiences developers gain the less they contribute to OSS.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/oss_experience_years_groups.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/oss_experience_years_groups.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;&lt;a name=&quot;salary&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;do-developers-contributing-to-the-oss-have-a-higher-income&quot;&gt;Do developers contributing to the OSS have a higher income?&lt;/h2&gt;
-&lt;p&gt;The respondents salary data shows significant skewness and kurtosis.&lt;/p&gt;
+<p><a name="salary"></a></p>
+<h2 id="do-developers-contributing-to-the-oss-have-a-higher-income">Do developers contributing to the OSS have a higher income?</h2>
+<p>The respondents salary data shows significant skewness and kurtosis.</p>
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Kurtosis 18551.71
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Kurtosis 18551.71
 Skew 136
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</code></pre></div></div>
 
-&lt;p&gt;The salary distribution appears to be right-tailed. For a better interpretation of the data I removed the outliers massively skewing it. Then, only salaries less than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;20 * salary median&lt;/code&gt; are kept. The figure below shows the salary distribution after outliers removal from the data.&lt;/p&gt;
+<p>The salary distribution appears to be right-tailed. For a better interpretation of the data I removed the outliers massively skewing it. Then, only salaries less than <code class="language-plaintext highlighter-rouge">20 * salary median</code> are kept. The figure below shows the salary distribution after outliers removal from the data.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/salary_distribution.png&quot; alt=&quot;&quot; height=&quot;70%&quot; width=&quot;70%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/salary_distribution.png" alt="" height="70%" width="70%" class="center-image" /></p>
 
-&lt;p&gt;The mean salary appears to be higher for respondents who are contributing more often for the OSS. The reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the OSS community. Much Open Source work is volunteered. But for some developers especially when contributions require significant time, &lt;a href=&quot;https://opensource.guide/getting-paid/&quot;&gt;getting paid&lt;/a&gt; to contribute to OSS is the only way they can participate. That might also be a reason for which OSS contributors are earning more than others.&lt;/p&gt;
+<p>The mean salary appears to be higher for respondents who are contributing more often for the OSS. The reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the OSS community. Much Open Source work is volunteered. But for some developers especially when contributions require significant time, <a href="https://opensource.guide/getting-paid/">getting paid</a> to contribute to OSS is the only way they can participate. That might also be a reason for which OSS contributors are earning more than others.</p>
 
-&lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/opensourcers_av_salary.png&quot; alt=&quot;&quot; height=&quot;60%&quot; width=&quot;60%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
+<p><img src="/img/blog/2020-06-14/opensourcers_av_salary.png" alt="" height="60%" width="60%" class="center-image" /></p>
 
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-&lt;p&gt;In this article, we took a look at the OSS contribution of developers according to Stack Overflow 2019 survey data. We checked developers perception of the OSS as well as wether they code as a hobby or not. That showed that developers coding as a hobby and having a good perception of OSS are more likely to contribute to OSS. Finally, we looked at the mean salary for each frequency of contribution group. We found that those who contributing more often to the OSS are more likely to earn a higher salary. The findings here are observational, not the result of a formal study.&lt;/p&gt;
+<h1 id="conclusion">Conclusion</h1>
+<p>In this article, we took a look at the OSS contribution of developers according to Stack Overflow 2019 survey data. We checked developers perception of the OSS as well as wether they code as a hobby or not. That showed that developers coding as a hobby and having a good perception of OSS are more likely to contribute to OSS. Finally, we looked at the mean salary for each frequency of contribution group. We found that those who contributing more often to the OSS are more likely to earn a higher salary. The findings here are observational, not the result of a formal study.</p>
 
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+<h2 id="references">References</h2>
 
-&lt;ol class=&quot;bibliography&quot;&gt;&lt;li&gt;&lt;span id=&quot;Finnegan2007HowPO&quot;&gt;Finnegan, P., &amp;amp; Morgan, L. (2007). How Perceptions of Open Source Software Influence Adoption: An Exploratory Study. &lt;i&gt;ECIS&lt;/i&gt;.&lt;/span&gt;
+<ol class="bibliography"><li><span id="Finnegan2007HowPO">Finnegan, P., &amp; Morgan, L. (2007). How Perceptions of Open Source Software Influence Adoption: An Exploratory Study. <i>ECIS</i>.</span>
 
 
 
-&lt;!-- &lt;pre&gt;@inproceedings{Finnegan2007HowPO,
+<!-- <pre>@inproceedings{Finnegan2007HowPO,
   title = {How Perceptions of Open Source Software Influence Adoption: An Exploratory Study},
   author = {Finnegan, Patrick and Morgan, Lorraine},
   booktitle = {ECIS},
   year = {2007}
 }
-&lt;/pre&gt; --&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span id=&quot;bianco2010&quot;&gt;del Bianco, V., Lavazza, L., Morasca, S., Taibi, D., &amp;amp; Tosi, D. (2010). &lt;i&gt;An Investigation of the Users’ Perception of OSS Quality&lt;/i&gt;. &lt;i&gt;319&lt;/i&gt;, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2&lt;/span&gt;
+</pre> --></li>
+<li><span id="bianco2010">del Bianco, V., Lavazza, L., Morasca, S., Taibi, D., &amp; Tosi, D. (2010). <i>An Investigation of the Users’ Perception of OSS Quality</i>. <i>319</i>, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2</span>
 
 
 
-&lt;!-- &lt;pre&gt;@inproceedings{bianco2010,
+<!-- <pre>@inproceedings{bianco2010,
   author = {del Bianco, Vieri and Lavazza, Luigi and Morasca, Sandro and Taibi, Davide and Tosi, Davide},
   year = {2010},
   month = may,
@@ -394,28 +394,28 @@ Skew 136
   volume = {319},
   doi = {10.1007/978-3-642-13244-5_2}
 }
-&lt;/pre&gt; --&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span id=&quot;Lenarduzzi2019&quot;&gt;Lenarduzzi, V., Tosi, D., Lavazza, L., &amp;amp; Morasca, S. (2019, May). &lt;i&gt;Why Do Developers Adopt Open Source Software? Past, Present and Future&lt;/i&gt;.&lt;/span&gt;
+</pre> --></li>
+<li><span id="Lenarduzzi2019">Lenarduzzi, V., Tosi, D., Lavazza, L., &amp; Morasca, S. (2019, May). <i>Why Do Developers Adopt Open Source Software? Past, Present and Future</i>.</span>
 
 
 
-&lt;!-- &lt;pre&gt;@inproceedings{Lenarduzzi2019,
+<!-- <pre>@inproceedings{Lenarduzzi2019,
   author = {Lenarduzzi, Valentina and Tosi, Davide and Lavazza, Luigi and Morasca, Sandro},
   year = {2019},
   month = may,
   pages = {},
   title = {Why Do Developers Adopt Open Source Software? Past, Present and Future}
 }
-&lt;/pre&gt; --&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span id=&quot;Lenarduzzi2020&quot;&gt;Lenarduzzi, V., Taibi, D., Tosi, D., Lavazza, L., &amp;amp; Morasca, S. (2020, June). &lt;i&gt;Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review&lt;/i&gt;.&lt;/span&gt;
+</pre> --></li>
+<li><span id="Lenarduzzi2020">Lenarduzzi, V., Taibi, D., Tosi, D., Lavazza, L., &amp; Morasca, S. (2020, June). <i>Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review</i>.</span>
 
 
 
-&lt;!-- &lt;pre&gt;@inproceedings{Lenarduzzi2020,
+<!-- <pre>@inproceedings{Lenarduzzi2020,
   author = {Lenarduzzi, Valentina and Taibi, Davide and Tosi, Davide and Lavazza, Luigi and Morasca, Sandro},
   year = {2020},
   month = jun,
   pages = {},
   title = {Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review}
 }
-&lt;/pre&gt; --&gt;&lt;/li&gt;&lt;/ol&gt;</content><author><name></name></author><summary type="html">Several studies (Finnegan &amp;amp; Morgan, 2007) (del Bianco et al., 2010) (Lenarduzzi et al., 2019) (Lenarduzzi et al., 2020) have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an increasing interest particularly in industry. This can be seen by Microsoft's position change on OSS development over the past two decades. Since 10 years stackoverflow have been publishing annual Developer Survey results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality. We will answer to the following questions from the survey data: How often do developers contribute to OSS? Do Hobyist developers contribute more often to OSS? Does OSS quality perception play a bias role towards OSS contribution? Are experienced developers contributing more frequently to OSS? Do developers contributing to the OSS have a higher income? The analysis notebook is available here. Let’s start with a quick overview of the data. We see that most of the survey respondents are from the USA. More than 80% of the respondents are developers. Most of the respondents are preceiving the OSS quality the same as or even of HIGHER quality than the closed source software. How often do developers contribute to OSS? 36.3 % of the developers have never contributed to Open Source Software while 63.6 % contribute to the OSS. But we see that only only 12.4% contribute once a month or more often. Do Hobyist developers contribute more often to OSS? The analysis shows that the hobbyist developers contribute more often to the OSS than non hobbyist ones. But among the survey respondents 23K hobbyists (32% of the hobbyists) have never contributed to the OSS. Does OSS quality perception play a bias role towards OSS contribution? What if a bad OSS quality perception happens to be a blocker for OSS contribution. The respondents are then separated in two groups (hobbyists or not hobbyists). Then, respondents are grouped by the way they are perceiving OSS quality in addtion to the frequency of contribution to OSS. The data analysis shows that developers contributing the least to OSS are the ones who are perceiving OSS as on average of lower quality than proprietary software and not developing as a hobby. Are experienced developers contributing more frequently to OSS? In the figure below, I was interested in checking the seniority level of developers contributing to OSS. For that, the survey respondents are grouped by years of experience ranges. We notice that the more years of experiences developers gain the less they contribute to OSS. Do developers contributing to the OSS have a higher income? The respondents salary data shows significant skewness and kurtosis. Kurtosis 18551.71 Skew 136 The salary distribution appears to be right-tailed. For a better interpretation of the data I removed the outliers massively skewing it. Then, only salaries less than 20 * salary median are kept. The figure below shows the salary distribution after outliers removal from the data. The mean salary appears to be higher for respondents who are contributing more often for the OSS. The reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the OSS community. Much Open Source work is volunteered. But for some developers especially when contributions require significant time, getting paid to contribute to OSS is the only way they can participate. That might also be a reason for which OSS contributors are earning more than others. Conclusion In this article, we took a look at the OSS contribution of developers according to Stack Overflow 2019 survey data. We checked developers perception of the OSS as well as wether they code as a hobby or not. That showed that developers coding as a hobby and having a good perception of OSS are more likely to contribute to OSS. Finally, we looked at the mean salary for each frequency of contribution group. We found that those who contributing more often to the OSS are more likely to earn a higher salary. The findings here are observational, not the result of a formal study. References Finnegan, P., &amp;amp; Morgan, L. (2007). How Perceptions of Open Source Software Influence Adoption: An Exploratory Study. ECIS. del Bianco, V., Lavazza, L., Morasca, S., Taibi, D., &amp;amp; Tosi, D. (2010). An Investigation of the Users’ Perception of OSS Quality. 319, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2 Lenarduzzi, V., Tosi, D., Lavazza, L., &amp;amp; Morasca, S. (2019, May). Why Do Developers Adopt Open Source Software? Past, Present and Future. Lenarduzzi, V., Taibi, D., Tosi, D., Lavazza, L., &amp;amp; Morasca, S. (2020, June). Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review.</summary></entry></feed>
+</pre> --></li></ol>]]></content><author><name></name></author><summary type="html"><![CDATA[Several studies (Finnegan &amp; Morgan, 2007) (del Bianco et al., 2010) (Lenarduzzi et al., 2019) (Lenarduzzi et al., 2020) have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an increasing interest particularly in industry. This can be seen by Microsoft's position change on OSS development over the past two decades. Since 10 years stackoverflow have been publishing annual Developer Survey results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality. We will answer to the following questions from the survey data: How often do developers contribute to OSS? Do Hobyist developers contribute more often to OSS? Does OSS quality perception play a bias role towards OSS contribution? Are experienced developers contributing more frequently to OSS? Do developers contributing to the OSS have a higher income? The analysis notebook is available here. Let’s start with a quick overview of the data. We see that most of the survey respondents are from the USA. More than 80% of the respondents are developers. Most of the respondents are preceiving the OSS quality the same as or even of HIGHER quality than the closed source software. How often do developers contribute to OSS? 36.3 % of the developers have never contributed to Open Source Software while 63.6 % contribute to the OSS. But we see that only only 12.4% contribute once a month or more often. Do Hobyist developers contribute more often to OSS? The analysis shows that the hobbyist developers contribute more often to the OSS than non hobbyist ones. But among the survey respondents 23K hobbyists (32% of the hobbyists) have never contributed to the OSS. Does OSS quality perception play a bias role towards OSS contribution? What if a bad OSS quality perception happens to be a blocker for OSS contribution. The respondents are then separated in two groups (hobbyists or not hobbyists). Then, respondents are grouped by the way they are perceiving OSS quality in addtion to the frequency of contribution to OSS. The data analysis shows that developers contributing the least to OSS are the ones who are perceiving OSS as on average of lower quality than proprietary software and not developing as a hobby. Are experienced developers contributing more frequently to OSS? In the figure below, I was interested in checking the seniority level of developers contributing to OSS. For that, the survey respondents are grouped by years of experience ranges. We notice that the more years of experiences developers gain the less they contribute to OSS. Do developers contributing to the OSS have a higher income? The respondents salary data shows significant skewness and kurtosis. Kurtosis 18551.71 Skew 136 The salary distribution appears to be right-tailed. For a better interpretation of the data I removed the outliers massively skewing it. Then, only salaries less than 20 * salary median are kept. The figure below shows the salary distribution after outliers removal from the data. The mean salary appears to be higher for respondents who are contributing more often for the OSS. The reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the OSS community. Much Open Source work is volunteered. But for some developers especially when contributions require significant time, getting paid to contribute to OSS is the only way they can participate. That might also be a reason for which OSS contributors are earning more than others. Conclusion In this article, we took a look at the OSS contribution of developers according to Stack Overflow 2019 survey data. We checked developers perception of the OSS as well as wether they code as a hobby or not. That showed that developers coding as a hobby and having a good perception of OSS are more likely to contribute to OSS. Finally, we looked at the mean salary for each frequency of contribution group. We found that those who contributing more often to the OSS are more likely to earn a higher salary. The findings here are observational, not the result of a formal study. References Finnegan, P., &amp; Morgan, L. (2007). How Perceptions of Open Source Software Influence Adoption: An Exploratory Study. ECIS. del Bianco, V., Lavazza, L., Morasca, S., Taibi, D., &amp; Tosi, D. (2010). An Investigation of the Users’ Perception of OSS Quality. 319, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2 Lenarduzzi, V., Tosi, D., Lavazza, L., &amp; Morasca, S. (2019, May). Why Do Developers Adopt Open Source Software? Past, Present and Future. Lenarduzzi, V., Taibi, D., Tosi, D., Lavazza, L., &amp; Morasca, S. (2020, June). Open Source Software Evaluation, Selection, and Adoption: a Systematic Literature Review.]]></summary></entry></feed>
