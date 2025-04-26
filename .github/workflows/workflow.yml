@@ -14,9 +14,10 @@ jobs:
       with:
         ref: source
     - name: Set up Ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@086ffb1a2090c870a3f881cc91ea83aa4243d408
       with:
-        ruby-version: 2.7.x
+        ruby-version: '3.1'
+        bundler-cache: true
     - name: Build Jekyll site
       run: |
         set -xo pipefail
