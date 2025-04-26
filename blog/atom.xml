@@ -324,7 +324,7 @@ We split the data into training and validation data sets. And as a final step I 
 					<description>&lt;!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height=&quot;50%&quot; width=&quot;50%&quot;} --&gt;
 &lt;p&gt;&lt;img src=&quot;/img/blog/2020-06-14/open-source-software.png&quot; alt=&quot;oss&quot; height=&quot;85%&quot; width=&quot;85%&quot; class=&quot;center-image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Several studies &lt;a class=&quot;citation&quot; href=&quot;#Finnegan2007HowPO&quot;&gt;(Finnegan &amp;amp; Morgan, 2007)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#bianco2010&quot;&gt;(del Bianco et al., 2010)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2019&quot;&gt;(Lenarduzzi et al., 2019)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2020&quot;&gt;(Lenarduzzi et al., 2020)&lt;/a&gt; have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;increasing&lt;/a&gt; interest particularly in &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;industry&lt;/a&gt;. This can be seen by &lt;a href=&quot;https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691&quot;&gt;Microsoft's position&lt;/a&gt; change on OSS development over the past two decades.&lt;/p&gt;
+&lt;p&gt;Several studies &lt;a class=&quot;citation&quot; href=&quot;#Finnegan2007HowPO&quot;&gt;(Finnegan &amp;amp; Morgan, 2007)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#bianco2010&quot;&gt;(del Bianco et al., 2010)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2019&quot;&gt;(Lenarduzzi et al., 2019)&lt;/a&gt; &lt;a class=&quot;citation&quot; href=&quot;#Lenarduzzi2020&quot;&gt;(Lenarduzzi et al., 2020)&lt;/a&gt; have shown that the motivations to adopt OSS have changed over time towards a better perception of it. OSS has been experiencing an &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;increasing&lt;/a&gt; interest particularly in &lt;a href=&quot;https://techcrunch.com/2019/01/12/how-open-source-software-took-over-the-world/&quot;&gt;industry&lt;/a&gt;. This can be seen by &lt;a href=&quot;https://www.lightreading.com/enterprise-cloud/digital-transformation/how-microsoft-became-an-unlikely-open-source-champion/a/d-id/740691&quot;&gt;Microsoft&apos;s position&lt;/a&gt; change on OSS development over the past two decades.&lt;/p&gt;
 
 &lt;p&gt;Since 10 years stackoverflow have been publishing annual &lt;a href=&quot;https://insights.stackoverflow.com/survey/&quot;&gt;Developer Survey&lt;/a&gt; results always showing insightful key results. Digging deeper into the survey from 2019 let us know more about the Open Source Software (OSS) contributions as well as the developers perception of OSS quality.&lt;/p&gt;
 
@@ -422,7 +422,7 @@ Skew 136
   year = {2010},
   month = may,
   pages = {15-28},
-  title = {An Investigation of the Users' Perception of OSS Quality},
+  title = {An Investigation of the Users&apos; Perception of OSS Quality},
   volume = {319},
   doi = {10.1007/978-3-642-13244-5_2}
 }
