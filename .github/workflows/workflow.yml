@@ -13,6 +13,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: source
+        fetch-depth: 0  # fetch full history including all branches
     - name: Set up Ruby
       uses: ruby/setup-ruby@086ffb1a2090c870a3f881cc91ea83aa4243d408
       with:
@@ -22,7 +23,9 @@ jobs:
       run: |
         set -xo pipefail
         rm -rf _site/*
+        # Install Ruby dependency manager
         gem install bundler
+        # Install depenecies listed in Gemfile
         bundle install
         bundle exec jekyll build
     - name: Deploy site
@@ -33,13 +36,16 @@ jobs:
         set -xo pipefail
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git checkout master
+        git clean -fd
+        git fetch origin master
         ls -Q | grep -v _site | xargs rm -rf
         mv _site/* .
         rm -rf _site
         rm -rf .jekyll-cache
+        # if there are no changes to commit (empty list), stop the script gracefully
         [[ -n "$(git status --porcelain)" ]] || exit 0
         git add .
-        git commit -m "Deploy $(date +'%Y-%m-%d %H:%M:%S') from source"
+        BRANCH_NAME=${GITHUB_REF#refs/heads/}
+        git commit -m "Build $(git rev-parse --short=10 $BRANCH_NAME)"
         # push the built site to the master branch using the deployment token
         git push "https://x-access-token:${DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" master
