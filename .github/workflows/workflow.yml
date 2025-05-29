@@ -21,10 +21,7 @@ jobs:
     - name: Build Jekyll site
       run: |
         set -xo pipefail
-        rm -rf _site/*
-        # Install depenecies listed in Gemfile
-        bundle install
-        bundle exec jekyll build
+        make rebuild
     - name: Deploy site
       if: github.ref == 'refs/heads/source'
       env:
@@ -33,17 +30,21 @@ jobs:
         set -xo pipefail
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+
         git clean -fd
         git fetch origin master
         git checkout master
+
         ls -Q | grep -v _site | xargs rm -rf
         mv _site/* .
-        rm -rf _site
-        rm -rf .jekyll-cache
+
+        make clean
+
         # if there are no changes to commit (empty list), stop the script gracefully
         [[ -n "$(git status --porcelain)" ]] || exit 0
         git add .
         BRANCH_NAME=${GITHUB_REF#refs/heads/}
         git commit -m "Build $(git rev-parse --short=10 $BRANCH_NAME)"
+
         # push the built site to the master branch using the deployment token
         git push "https://x-access-token:${DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" master
