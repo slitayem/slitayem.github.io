@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout from source branch
       uses: actions/checkout@v1
       with:
         ref: source
@@ -25,7 +25,7 @@ jobs:
         gem install bundler
         bundle install
         bundle exec jekyll build
-    - name: Deploy
+    - name: Deploy site
       if: github.ref == 'refs/heads/source'
       env:
         DEPLOY_TOKEN: ${{ secrets.JEKYLL_TOKEN }}
