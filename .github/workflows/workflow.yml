@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout from source branch
-      uses: actions/checkout@v1
+      uses: actions/checkout@v4
       with:
         ref: source
     - name: Set up Ruby
@@ -40,5 +40,6 @@ jobs:
         rm -rf .jekyll-cache
         [[ -n "$(git status --porcelain)" ]] || exit 0
         git add .
-        git commit -m "Build $(git rev-parse source | grep -o '^.\{10\}')"
+        git commit -m "Deploy $(date +'%Y-%m-%d %H:%M:%S') from source"
+        # push the built site to the master branch using the deployment token
         git push "https://x-access-token:${DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" master
