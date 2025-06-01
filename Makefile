@@ -19,7 +19,7 @@ build:
 
 # Serve the site locally with live reload
 serve:
-	bundle exec jekyll serve --livereload --port $(PORT)
+	bundle exec jekyll serve --livereload --port $(PORT) --open-url http://localhost:$(PORT)
 
 # Clean generated site
 clean:
