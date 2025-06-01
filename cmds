@@ -1,5 +1,0 @@
-# install plugins
-sudo gem install jekyll-feed
-sudo gem install jekyll-scholar
-# run a preview locally
-jekyll serve --drafts
