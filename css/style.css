@@ -136,62 +136,50 @@ color: #4679BD;
 	width: 75%;
 }
 
-/* a {
-text-decoration: none;
-	color: #4679BD;
-}
-
-a:hover {
-	text-decoration: underline;
-} */
-/*
-a[href^="http"] {
-	padding-left: 19px;
-	background-size: 16px 16px;
-	background-repeat: no-repeat;
-	background-position: left center;
-	} */
-
-a[href*="twitter.com/"] {
-	background:url(https://twitter.com/favicon.ico) no-repeat left center;
-	padding-left:19px;
-}
-	
-a[href*="facebook.com/"] {
-	background:url(https://www.facebook.com/favicon.ico) no-repeat left center;
-	padding-left:19px;
-}
-
-a[href*="facebook.com/"] {
-	background:url(https://www.google.com/favicon.ico) no-repeat left center;
-	padding-left:19px;
-}
-
-a[href*="github.com/"] {
-	background:url(https://www.github.com/favicon.ico) no-repeat left center;
-	padding-left:19px;
-	background-size: 16px 16px;
-}
-
-a[href*="linkedin.com/"] {
-	background:url(https://www.linkedin.com/favicon.ico) no-repeat left center;
-	padding-left:21px;
-}
-
-a[href*="scholar.google.com/"] {
-	background:url(https://scholar.google.com/favicon.ico) no-repeat left center;
-	padding-left:19px;
-	background-size: 16px 16px;
-}
-
-a[href*="stackoverflow.com/"] {
-	background:url(https://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico) no-repeat left center;
-	padding-left:19px;
-	background-size: 16px 16px;
-}
-
 .center-image
 {
     margin: 0 auto;
     display: block;
+}
+
+.contact-card {
+  padding-right: 19px;
+/* Apply the padding and background styles to links with http URLs inside .contact-card */
+  &[href^="http"] {
+    padding-left: 19px;
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+
+  /* targets the <span> elements inside any element with the class .contact-card. */
+  span {
+    font-weight: 500;
+  }
+
+  &:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  /* Specific brand colors (scoped to their respective contact-card) */
+  &.contact-card i.fa-linkedin {
+    color: #0077b5;
+  }
+
+  &.contact-card i.fa-x-twitter {
+    color: #000;
+  }
+
+  &.contact-card i.fa-graduation-cap {
+    color: #4285F4;
+  }
+
+  &.contact-card i.fa-stack-overflow {
+    color: #f48024;
+  }
+
+  &.contact-card i.fa-github {
+    color: #333;
+  }
 }
