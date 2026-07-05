@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog — Saloua Litayem</title>
+<meta name="description" content="Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams." />
+<meta property="og:title" content="Blog — Saloua Litayem" />
+<meta property="og:description" content="Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23f5f8fa'/%3E%3Crect x='9' y='9' width='14' height='14' fill='%23669bbc'/%3E%3C/svg%3E" />
+<link rel="alternate" type="application/atom+xml" title="Saloua Litayem — Blog" href="/blog/atom.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/theme.css" />
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCMRL4ZYQD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PCMRL4ZYQD');
+</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/"><span></span>Saloua Litayem</a>
+    <div class="nav-wrap">
+      <nav class="main">
+        <a href="/#writing">Writing</a>
+        <a href="/#work">Work</a>
+        <a href="/learning">Learning</a>
+        <a href="/#about">About</a>
+        <a href="/blog" class="active">Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<script>
+(function(){
+  var btn = document.getElementById('theme-toggle');
+  if(!btn) return;
+  var root = document.documentElement;
+  function effective(){
+    var stored;
+    try{ stored = localStorage.getItem('theme'); }catch(e){}
+    if(stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  btn.addEventListener('click', function(){
+    var next = effective() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(e){}
+  });
+})();
+</script>
+
+
+<main class="wrap">
+
+  <section class="subhero">
+    <a class="back" href="/">← Home</a>
+    <span class="eyebrow" style="display:block;margin-top:1rem;">Writing</span>
+    <h1>From the blog.</h1>
+    <p class="sub">Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams.</p>
+  </section>
+
+  <section>
+    <div class="blog-controls">
+      <input type="search" id="blog-search" class="search-input" placeholder="Search posts…" aria-label="Search posts" />
+      <div class="tag-filters" id="tag-filters">
+        <button type="button" class="tag-filter active" data-tag="all">All</button>
+        
+        
+        <button type="button" class="tag-filter" data-tag="data analysis">Data Analysis</button>
+        
+        <button type="button" class="tag-filter" data-tag="data science">Data Science</button>
+        
+        <button type="button" class="tag-filter" data-tag="machine learning">Machine Learning</button>
+        
+        <button type="button" class="tag-filter" data-tag="open source">Open Source</button>
+        
+      </div>
+    </div>
+    <div class="posts">
+      
+      <a class="post" href="/blog/2020/08/04/churn-prediction"
+         data-tags="machine learning|data science"
+         data-search="customers churn prediction for sparkify music service generally, the ability to accurately predict future customer churn rates is necessary for the business. it enables it to secure valuable customers helping anticipate and prevent from churn trends.taking action to secure the customer’s time and attention, and bring it back to the product will increase engagement. and once product engagement is increased, the business will lose less customer.  churn kills businesses; prevention keeps them healthythe article presents a customer churn prediction model project done in the context of udacity data science nanodegree program.business understandingwe are assuming a hypothetical music streaming service (like spotify) called sparkify.the users of the service can use either the premium or the free tier subscription. the premium plan with the monthly fees payment enables the use of the service without any advertisements between the songs.at any point the users can do any of the following:  upgrade from the free tier to the premium subscription  downgrade from the premium subscription to the free tier.  drop their account and leave the servicethe aim here is to:  analyse the data,  extract insights helping to identify churn indicators  and then build a machine learning model helping to identify potential churning customers.the data analysis, feature engineering and model building was implemented using pyspark. this can be found here.  the value of having a predictive model for customer attrition is mainly in identifying customer churn risk where we don’t already know that a risk exists.retaining existing customers circumvents the costs of seeking new and potentially risky customers, and allows organizations to focus more accurately on the needs of the existing customers by building relationships.datathe used data contains the user activity events logs happening in the service. those contain visited pages, service upgrade or downgrade events, demographic information and events timestamps.here are the events key attributes|-- artist: artist name|-- auth: authentication status|-- gender|-- iteminsession: number of items in the session|-- length: double (nullable = true)|-- level: users subscription level|-- page: svisited page|-- registration: registration date|-- ts: levent timestampthe presented data analysis was performed on a subset of the data (~28k events records). the data timespan is 63 days.data cleaning8346 events with empty string as userid were removeddata explorationchurn indicatorswe define churning customers as the users who either downgraded their subscription plan or canceled their account. in other words, a churned customer is one who visited one of the service pages cancellation confirmation or submit downgrade.following the above definition, the service churn rate is equal to 41%customers registered for a longer period of time are less likely to churn (loyal/engaged).percentage of the users function of the service usage periodchecking the service usage over the time before the churning event, we observe that around 96% of the users have an account for at least 20 days.keeping ~96% of the users (age greater than 20 days) should be sufficient to have a feature reflecting the service usage distribution over the time before churn event (here the last 20 days).number of visits per pagenow let’s have a look at the pages visit. we observe that the 82% of the events are for the page nextsong. then, to be able to clearly visualize the pages visits count we decide to filter out the `nextsong page.we observe that most of the page visit counts can have an effect on the user engagement e.g thumbsdown, roll advert, nextsong. let’s see how those pages visits are having a discriminative role to distinguish between churning and engaged customers. this either with the customer interactions on the platform or the number of visits to some of the pages like error page.roll adverts distribution per user type engaged users tend to have less roll adverts than the churning users.this might be a good indicator to predict if user is likely to churn if he gets a high number of advertisements.it appears that on average each of the customers type got the same number of error pages. let’s check the visits to the thumbs up and down page also the number of sessions per user that could reflect how active is the customer in using the service.number of errors distribution per user typefor a number of errors higher than 6, the number of chruning users is higher than the engaged ones. but in average there is no big difference between both users types in term of the number of visited error pages.customers interactions on the service platform(thumbsup/thumbsdown)having a value greater than 200 thumbsup page visits (combined with other features) might be an indicator for high risk of churn. this is kind of counter intuitive but at the same time this tells us that user that is engaged the most might be the one penalizing the service the most easily.in general, it appears that churning users have less interactions in regard of giving a thumbs up or a thumbs down to a song. but, we observe that pages distribution is chifted towards a  higher number of thumbsdown page visits for churning users . using the number of thumbsdown pages visit as a feature might help the model to separate the churning users from the engaged ones.service usage and customers engagementin general, if a customer regularly uses the service, there is nothing to worry about. if, on the other hand, the customer’s usage level drops off, there is a need to find out why it dropped and what to do about it.so let’s measure the service usage and engagement of the users in term of number of songs the users listen to and users sessions.average number of items per sessionit appears that the average number of items per session doesn’t seem to help on average to distinguish between the churning and engaged users. around 100 sessions, the engaged users average number of items per session tends to be higher than for the churners. we can also see a clear separation between the churned and engaged users starting from 300 items per session.average number of sessions per userthe number of sessions per user tends n average to distinguish between the churned and engaged users. the churners tend to have a lower average number of sessions per day than the engaged users. if leaveraged as a feature this might be automatically picked-up by a tree based model e.g decision treeaverage service usage over the last 20 days (nbsessions and nbsongs)the number of songs for churning users is decreasing over the last 20 days of logged events in the service. this might be more discriminant when using more data.we observe that in average the number of sessions for churning users is higher than for engaged users.features engineeringin the data exploration step we could extract potential indicators that can be used to distinguish between churning and engaged customers.we observed that the number of visits to some of the pages could be used as indicators to to know if a customer is likely to churn or not. for example the engaged users were having more interactions on the service platform by visitng more often the thumbsup or thumbsdown pages. then we decide to use the following features to reflect the pages visits making difference between both types of users:  binary feature with value equal to one if the number thumbsup page visits is greater than 20  number of thumbsdown page visits  number of roll advert page visitswe observed that the service usage and level of engagemnt of the customer can be also a clear indicator. which helped us to define the following features:  average daily sessions duration  average monthly sessions duration  average daily number of songs per session  average daily number of items per session  daily number of songs over the last 20 days (vector of 20 values)  daily number of sessions over the last 20 days (vector of 20 values)the decision in keeping the usage information over only the last 20 days was a result of the check of the percentage of the dataset users that could be kept by number of days the customer have been using sparkify service. see the related analysis and plot in the data exploration part hereone more feature that could help in having an idea about the customer satisfaction in using the service is to know whether the customer can find the artists songs he wants to listen to or not.  number of unique artists the user listened to.we also decided to have some features to characterize the user subscription:  last level of the user (paid or free)  user account age in days: usage duration since first log event daywe finally have a 54-dimensional features vector to represent that would be used for the model training.model training and evaluationthe purpose of our predictive model is to predict which customers are likely to churn and which not. so it is essentially a binary classification problem. the classes are engaged vs churned.classifying engaged customers as churning ones might lead the business to taking actions that might confuse the customer and even make them churning the service. it is also important to correctly classify churning customers. then our classifier should be precise in classifying both types of customers.model evaluation metricsgiven that churned users are a fairly small subset compared to engaged users, we decided to use f1-score and auc metric to evaluate the model performance and select the winning model.   f1-score :  balances the tradeoff between the precision and recall metrics, which is useful in our binary classification problem with the actual classes scale.$$f1 = 2 * \frac{precision * recall}{precision + recall}$$  the  area under the roc curve (auc) : its advantage over the accuracy is that it is insensitive to imbalanced classes. it doesn’t place more emphasis on one class over the other by assessing the overall classification performance by measuring how well predictions are ranked, rather than their absolute values.trained models and evaluationwe tried out various models starting from the simplest one logistic regression to the more complex ones(random forest, gradient-boosted trees). we scaled the data to train to avoid that the logisitc regression model performs poorly when features differ widely in scale.the model were then compared in term of f1-score and auc.in order to have a less biased estimate of the model performance on unseen data we leveraged  k-fold cross-validation(k=3) from spark python api crossvalidator.to use the same dataset for the various models algorithms, we performed data scaling using standardscaler. that standardizes features by normalizing each feature to have unit standard deviation and/or zero mean.tree-based algorithms are not sensitive to the scale of the features but we need that for the logistic regression classifier.hyperparameters tuningto find the optimal hyperparameters of each of the tried models , we leveraged grid search. we then used the auc metric to select the best model parameters and retrain the model on the training dataset (without the k-fold data sampling).here are the parameters used for the models:logistic regression  elasticnetparam elasticnet mixing parameter. in in range [0, 1]. 0 for l2 penalty and 1 for an l1 penalty, default=0.0: [0.1, 0.5]  maxiter maximum number of iterations: [20, 70]random forest  maxdepth maximum tree depth, default=5: [4, 5, 7]  numtrees number of trees, default=20: [20, 50]gradient-boosted trees  maxdepth maximum tree depth, default=5: [5, 7]  maxiter maximum number of iterations, default=20: [70, 100]trained models evaluationafter the hyperparameter tuning the models were re-trained with the the best performing parameters and evaluated using the f1 score and auc metric.gradient boosted tree turned to be the winning model predicting how likely is a user to churn.we have to emphasize that the results correspond to models that were trained and tested using a small data-set. the data-set sample contains 286500 events logs for only 225 unique users.conclusionlet’s take a step back and look at the whole journey.we wanted to predict customers churn for a hypothetical music streaming service. that using apache spark in all the machine learning workflow steps. for that we needed to have a binary classifier for the churner and engaged customers.i started by performing the data cleaning to remove log events without a user id and checked the missing vakues in the dataset. i then did multiple data explorations to see how various indicators can help in distinguishing between churned and engaged customers. i defined the customer churn indicator based on wether the user visited the any of the pages cancellation confirmation and downgrade submission or not. next in the features engineering step i extracted categorical and numerical features. for that i used the observed indicators during the data exploration. i also explored the last 20 days of service usage to represent the behaviour of the user before the churn event based on the number of sessions and the number of songs each day.we split the data into training and validation data sets. and as a final step i performed model training by trying out various models varying from simple to complex ones: logistic regression, random forest and gradient-boosted trees. i leveraged cross validation and grid search to fine tune the different models. their performance got compared using the auc metric.gradient-boosted trees turned to be the winning model. we achieved about 0.64 auc, and 0.59 f1 score. potentially with the whole dataset, the data exploration observation and features engineering will be more informative and stable. the model might also be enhanced.potential improvementswe could try other models algorithms. but before that we would like to do more substantial data exploration and features engineering to have a more accurate model in detecting whether a user is likely to churn or not. for that we would:  add more temporal features reflecting the service usage over the last n days.  optimize the data analysis and feature engineering steps applying more spark best practices for having efficient data exploration as well as model training and testing processes.  perform data exploration on bigger batches of data subsets before using the big dataset due to the substential statistical differences with the big dataset.  with a higher computations power, performing a better hyperparameter tuning for other model algorithms on spark cluster.the project code can be found here.further reading about customer churn  customer churn metrics  managing customer success to reduce churn  8 advanced tips for never losing saas customers  how churn prediction can improve your business">
+        <span class="pmeta">Aug 4, 2020</span>
+        <span class="ptitle">Customers churn prediction for Sparkify music service</span>
+        <span class="pdesc">Generally, the ability to accurately predict future customer churn rates is necessary for the business. It enables it to secure valuable customers helping anticipate and prevent from churn trends.Taking action to secure...</span>
+        
+        <span class="ptags"><span class="tag">Machine Learning</span><span class="tag">Data Science</span></span>
+        
+      </a>
+      
+      <a class="post" href="/blog/2020/06/14/oss-contrib-analysis"
+         data-tags="open source|data analysis"
+         data-search="how do developers perceive the oss quality and how often do they contribute? several studies (finnegan &amp;amp; morgan, 2007) (del bianco et al., 2010) (lenarduzzi et al., 2019) (lenarduzzi et al., 2020) have shown that the motivations to adopt oss have changed over time towards a better perception of it. oss has been experiencing an increasing interest particularly in industry. this can be seen by microsoft&#39;s position change on oss development over the past two decades.since 10 years stackoverflow have been publishing annual developer survey results always showing insightful key results. digging deeper into the survey from 2019 let us know more about the open source software (oss) contributions as well as the developers perception of oss quality.we will answer to the following questions from the survey data:  how often do developers contribute to oss?  do hobyist developers contribute more often to oss?  does oss quality perception play a bias role towards oss contribution?  are experienced developers contributing more frequently to oss?  do developers contributing to the oss have a higher income?the analysis notebook is available here.let’s start with a quick overview of the data.we see that most of the survey respondents are from the usa.more than 80% of the respondents are developers.most of the respondents are preceiving the oss quality the same as or even of higher quality than the closed source software.how often do developers contribute to oss?36.3 % of the developers have never contributed to open source software while 63.6 % contribute to the oss. but we see that only only 12.4% contribute once a month or more often.do hobyist developers contribute more often to oss?the analysis shows that the hobbyist developers contribute more often to the oss than non hobbyist ones. but among the survey respondents 23k hobbyists (32% of the hobbyists) have never contributed to the oss.does oss quality perception play a bias role towards oss contribution?what if a bad oss quality perception happens to be a blocker for oss contribution. the respondents are then separated in two groups (hobbyists or not hobbyists). then, respondents are grouped by the way they are perceiving oss quality in addtion to the frequency of contribution to oss.the data analysis shows that developers contributing the least to oss are the ones who are perceiving oss as on average of lower quality than proprietary software and not developing as a hobby.are experienced developers contributing more frequently to oss?in the figure below, i was interested in checking the seniority level of developers contributing to oss. for that, the survey respondents are grouped by years of experience ranges.we notice that the more years of experiences developers gain the less they contribute to oss.do developers contributing to the oss have a higher income?the respondents salary data shows significant skewness and kurtosis.kurtosis 18551.71skew 136the salary distribution appears to be right-tailed. for a better interpretation of the data i removed the outliers massively skewing it. then, only salaries less than 20 * salary median are kept. the figure below shows the salary distribution after outliers removal from the data.the mean salary appears to be higher for respondents who are contributing more often for the oss. the reason for that might be because developers are acquiring more experience and seniority not only by the number of years in working experience but also while contributing to more projects and learning from the oss community. much open source work is volunteered. but for some developers especially when contributions require significant time, getting paid to contribute to oss is the only way they can participate. that might also be a reason for which oss contributors are earning more than others.conclusionin this article, we took a look at the oss contribution of developers according to stack overflow 2019 survey data. we checked developers perception of the oss as well as wether they code as a hobby or not. that showed that developers coding as a hobby and having a good perception of oss are more likely to contribute to oss. finally, we looked at the mean salary for each frequency of contribution group. we found that those who contributing more often to the oss are more likely to earn a higher salary. the findings here are observational, not the result of a formal study.referencesfinnegan, p., &amp;amp; morgan, l. (2007). how perceptions of open source software influence adoption: an exploratory study. ecis.del bianco, v., lavazza, l., morasca, s., taibi, d., &amp;amp; tosi, d. (2010). an investigation of the users’ perception of oss quality. 319, 15–28. https://doi.org/10.1007/978-3-642-13244-5_2lenarduzzi, v., tosi, d., lavazza, l., &amp;amp; morasca, s. (2019, may). why do developers adopt open source software? past, present and future.lenarduzzi, v., taibi, d., tosi, d., lavazza, l., &amp;amp; morasca, s. (2020, june). open source software evaluation, selection, and adoption: a systematic literature review.">
+        <span class="pmeta">Jun 14, 2020</span>
+        <span class="ptitle">How do developers perceive the OSS quality and how often do they contribute?</span>
+        <span class="pdesc">Several studies (Finnegan &amp; Morgan, 2007) (del Bianco et al., 2010) (Lenarduzzi et al., 2019) (Lenarduzzi et al., 2020) have shown that the motivations to adopt OSS have changed over time towards...</span>
+        
+        <span class="ptags"><span class="tag">Open Source</span><span class="tag">Data Analysis</span></span>
+        
+      </a>
+      
+      <p class="no-posts" id="no-results" style="display:none;">No posts match your search.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© Saloua Litayem 2026 · Munich, Germany</div>
+</footer>
+
+
+<script>
+(function(){
+  var search = document.getElementById('blog-search');
+  var tagButtons = document.querySelectorAll('.tag-filter');
+  var posts = document.querySelectorAll('.posts .post');
+  var noResults = document.getElementById('no-results');
+  var activeTag = 'all';
+
+  function applyFilters(){
+    var q = (search && search.value ? search.value : '').trim().toLowerCase();
+    var visible = 0;
+    posts.forEach(function(p){
+      var tags = (p.getAttribute('data-tags') || '').split('|').filter(Boolean);
+      var matchesTag = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
+      var matchesSearch = !q || (p.getAttribute('data-search') || '').indexOf(q) !== -1;
+      var show = matchesTag && matchesSearch;
+      p.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+  }
+
+  if (search) search.addEventListener('input', applyFilters);
+
+  tagButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tagButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeTag = btn.getAttribute('data-tag');
+      applyFilters();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
