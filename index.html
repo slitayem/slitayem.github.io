@@ -30,7 +30,7 @@ description: Saloua Litayem — Data & AI leader in Munich. I build AI products 
   <!-- HERO -->
   <section class="hero">
     <span class="eyebrow">Data &amp; AI · Munich</span>
-    <h1>Building AI products and the<br /><em>teams behind them.</h1>
+    <h1>Building AI products and the<br /><em>teams behind them</em>.</h1>
     <p class="sub">15+ years turning research and machine learning into products people actually use. This is my corner of the web: what I'm building, what I'm reading, and what I'm still figuring out.</p>
     <p class="now">Currently <b>Head of AI Platform &amp; Agents Foundry</b> at Conrad Electronic SE</p>
     <div class="links">
@@ -160,7 +160,13 @@ description: Saloua Litayem — Data & AI leader in Munich. I build AI products 
         <input name="name" type="text" placeholder="Your name" required aria-label="Your name" />
         <input name="email" type="email" placeholder="Your email" required aria-label="Your email" />
       </div>
-      <textarea name="message" rows="4" placeholder="Your message" required aria-label="Your message"></textarea>
+      <div class="rte-toolbar" role="toolbar" aria-label="Formatting" aria-controls="cmessage">
+        <button type="button" data-cmd="bold" title="Bold" aria-label="Bold"><b>B</b></button>
+        <button type="button" data-cmd="italic" title="Italic" aria-label="Italic"><i>I</i></button>
+        <button type="button" data-cmd="createLink" title="Insert link" aria-label="Insert link">&#128279;</button>
+      </div>
+      <div id="cmessage" class="rte-input" contenteditable="true" data-placeholder="Your message" role="textbox" aria-multiline="true" aria-label="Your message"></div>
+      <input type="hidden" name="message" />
       <button type="submit" class="btn pri" id="csend">Send message</button>
       <!-- <p class="cnote" id="cstatus" role="status" aria-live="polite">Your message goes straight to my inbox — my address stays private.</p> -->
     </form>
@@ -170,23 +176,107 @@ description: Saloua Litayem — Data & AI leader in Munich. I build AI products 
 
 {% include site-footer.html %}
 
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.11/dist/purify.min.js" integrity="sha384-o44XUELLEnv/iSlA1NWxBweqbD4TSR0qgq2VzVsxtkHS989JJjGKSE9vkfo5MN4K" crossorigin="anonymous"></script>
 <script>
 (function(){
   var f=document.getElementById('cform'); if(!f) return;
   var s=document.getElementById('cstatus'), b=document.getElementById('csend');
+  var editor=document.getElementById('cmessage'), hidden=f.message;
+
+  // Rich content can also arrive via paste (copied from an arbitrary,
+  // possibly malicious page), not just the toolbar - force plain text on
+  // paste so no HTML ever enters the editor through that path.
+  editor.addEventListener('paste', function(e){
+    e.preventDefault();
+    var text=(e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+  });
+
+  // execCommand is deprecated but remains the simplest dependency-free way
+  // to drive a lightweight contenteditable toolbar across current browsers.
+  document.querySelectorAll('.rte-toolbar button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      editor.focus();
+      var cmd=btn.dataset.cmd;
+      if(cmd==='createLink'){
+        var url=window.prompt('Link URL (https://, http://, or mailto:)');
+        if(!url) return;
+        // Reject javascript:/data: and other schemes up front, in addition
+        // to the DOMPurify pass below stripping unsafe hrefs regardless.
+        if(!/^(https?:|mailto:)/i.test(url)){
+          window.alert('Please enter a valid http(s):// or mailto: link.');
+          return;
+        }
+        document.execCommand(cmd, false, url);
+      } else {
+        document.execCommand(cmd, false, null);
+      }
+      updateToolbarState();
+    });
+  });
+
+  function updateToolbarState(){
+    document.querySelectorAll('.rte-toolbar button').forEach(function(btn){
+      var cmd=btn.dataset.cmd;
+      if(cmd==='createLink') return;
+      try{ btn.classList.toggle('active', document.queryCommandState(cmd)); }catch(e){}
+    });
+  }
+  editor.addEventListener('keyup', updateToolbarState);
+  editor.addEventListener('mouseup', updateToolbarState);
+
+  // Defense in depth: paste is already forced to plain text above and the
+  // toolbar only ever creates a small set of tags, but sanitize with
+  // DOMPurify (an established, audited component - not hand-rolled) before
+  // anything is read out of the editor, in case of drag-and-drop or other
+  // DOM injection paths this doesn't already cover. Strips scripts, event
+  // handlers, javascript:/data: URLs, styles, iframes, everything but the
+  // few tags/attributes the editor itself can legitimately produce.
+  function sanitizeEditor(){
+    if(!window.DOMPurify) return;
+    var clean=DOMPurify.sanitize(editor.innerHTML, {
+      ALLOWED_TAGS:['b','strong','i','em','a','br','div','p'],
+      ALLOWED_ATTR:['href']
+    });
+    if(clean!==editor.innerHTML) editor.innerHTML=clean;
+  }
+
+  // Converts the sanitized rich-text content to plain text (bold -> **x**,
+  // italic -> _x_, links -> "text (url)") before it's emailed, so the
+  // message stays readable in any client instead of raw HTML markup.
+  function htmlToText(node){
+    var out='';
+    node.childNodes.forEach(function(n){
+      if(n.nodeType===3){ out+=n.textContent; return; }
+      if(n.nodeType!==1) return;
+      var tag=n.tagName.toLowerCase(), inner=htmlToText(n);
+      if(tag==='b'||tag==='strong') out+='**'+inner+'**';
+      else if(tag==='i'||tag==='em') out+='_'+inner+'_';
+      else if(tag==='a'){ var href=n.getAttribute('href'); out+=href?inner+' ('+href+')':inner; }
+      else if(tag==='br') out+='\n';
+      else if(tag==='div'||tag==='p') out+=inner+'\n';
+      else out+=inner;
+    });
+    return out;
+  }
+  editor.addEventListener('input', function(){ sanitizeEditor(); hidden.value=htmlToText(editor).trim(); });
+
   f.addEventListener('submit', function(e){
     e.preventDefault();
     if(f.botcheck && f.botcheck.value){ return; }
+    sanitizeEditor();
+    hidden.value=htmlToText(editor).trim();
+    if(!hidden.value){ editor.focus(); return; }
     var data=Object.fromEntries(new FormData(f).entries());
-    b.disabled=true; b.textContent='Sending…'; s.textContent='';
+    b.disabled=true; b.textContent='Sending…'; if(s) s.textContent='';
     fetch('https://api.web3forms.com/submit',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify(data)
     }).then(function(r){return r.json();}).then(function(j){
-      if(j.success){ f.reset(); b.textContent='Sent'; s.textContent='Thanks — your message has been sent. I will be in touch.'; }
-      else { b.disabled=false; b.textContent='Send message'; s.textContent='Something went wrong. Please reach me on LinkedIn instead.'; }
-    }).catch(function(){ b.disabled=false; b.textContent='Send message'; s.textContent='Something went wrong. Please reach me on LinkedIn instead.'; });
+      if(j.success){ f.reset(); editor.innerHTML=''; b.textContent='Sent'; if(s) s.textContent='Thanks — your message has been sent. I will be in touch.'; }
+      else { b.disabled=false; b.textContent='Send message'; if(s) s.textContent='Something went wrong. Please reach me on LinkedIn instead.'; }
+    }).catch(function(){ b.disabled=false; b.textContent='Send message'; if(s) s.textContent='Something went wrong. Please reach me on LinkedIn instead.'; });
   });
 })();
 </script>
