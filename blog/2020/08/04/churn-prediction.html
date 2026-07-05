@@ -75,6 +75,138 @@
 			<h2 class="date"><info datetime="2020-08-04 00:00:00 +0000">
 				04 Aug 2020 
 			</info></h2>
+			<div class="listen-bar" id="listen-bar" style="display:none;">
+	<button type="button" class="btn btn-default" id="listen-toggle">
+		<i class="fa-solid fa-play" aria-hidden="true"></i> Listen to this article
+	</button>
+	<button type="button" class="btn btn-default" id="listen-stop" style="display:none;">
+		<i class="fa-solid fa-stop" aria-hidden="true"></i> Stop
+	</button>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+	if (!('speechSynthesis' in window)) return;
+	var bar = document.getElementById('listen-bar');
+	var toggleBtn = document.getElementById('listen-toggle');
+	var stopBtn = document.getElementById('listen-stop');
+	var body = document.querySelector('.notebody');
+	if (!bar || !toggleBtn || !stopBtn || !body) return;
+
+	// Speaking one very long utterance is known to cut out partway through
+	// in some browsers, so split into sentence-sized chunks and speak them
+	// one at a time, queued via onend, instead of a single huge utterance.
+	var text = body.textContent.replace(/\s+/g, ' ').trim();
+	var chunks = text.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [text];
+	var idx = 0;
+	var speaking = false;
+	var paused = false;
+	var stopped = false;
+
+	// Browsers ship several voices; the plain default is often the flattest,
+	// most robotic-sounding one. Prefer the natural/neural ones known to
+	// sound human, falling back to any local English voice, then whatever's
+	// default. getVoices() can return empty until 'voiceschanged' fires (a
+	// well-known quirk, mainly in Chrome), so listen for that too.
+	var preferredVoice = null;
+	var preferredNames = [
+		'Google US English', 'Google UK English Female', 'Microsoft Aria Online (Natural)',
+		'Microsoft Jenny Online (Natural)', 'Samantha', 'Karen', 'Moira', 'Daniel'
+	];
+
+	function pickVoice(){
+		var voices = window.speechSynthesis.getVoices();
+		if (!voices.length) return;
+		var match = null;
+		for (var i = 0; i < preferredNames.length && !match; i++){
+			match = voices.find(function(v){ return v.name.indexOf(preferredNames[i]) !== -1; });
+		}
+		if (!match){
+			match = voices.find(function(v){ return v.localService && v.lang.indexOf('en') === 0; });
+		}
+		preferredVoice = match || null;
+	}
+
+	pickVoice();
+	if (!preferredVoice && 'onvoiceschanged' in window.speechSynthesis){
+		window.speechSynthesis.onvoiceschanged = pickVoice;
+	}
+
+	function setToggle(icon, label){
+		toggleBtn.innerHTML = '<i class="fa-solid ' + icon + '" aria-hidden="true"></i> ' + label;
+	}
+
+	function reset(){
+		speaking = false;
+		paused = false;
+		idx = 0;
+		stopBtn.style.display = 'none';
+		setToggle('fa-play', 'Listen to this article');
+	}
+
+	function speakNext(){
+		if (stopped || idx >= chunks.length){
+			reset();
+			return;
+		}
+		var utter = new SpeechSynthesisUtterance(chunks[idx]);
+		if (preferredVoice) utter.voice = preferredVoice;
+		utter.rate = 0.95;
+		utter.pitch = 1;
+		// cancel() fires onend (or onerror, depending on the browser) for the
+		// utterance it interrupts - without checking `stopped` here, clicking
+		// Stop just made this immediately queue up the next chunk instead of
+		// actually stopping.
+		utter.onend = function(){
+			if (stopped) return;
+			idx++;
+			speakNext();
+		};
+		utter.onerror = function(){
+			if (stopped) return;
+			idx++;
+			speakNext();
+		};
+		window.speechSynthesis.speak(utter);
+	}
+
+	bar.style.display = 'block';
+
+	toggleBtn.addEventListener('click', function(){
+		if (!speaking){
+			speaking = true;
+			paused = false;
+			stopped = false;
+			idx = 0;
+			window.speechSynthesis.cancel();
+			speakNext();
+			stopBtn.style.display = '';
+			setToggle('fa-pause', 'Pause');
+		} else if (!paused){
+			window.speechSynthesis.pause();
+			paused = true;
+			setToggle('fa-play', 'Resume');
+		} else {
+			window.speechSynthesis.resume();
+			paused = false;
+			setToggle('fa-pause', 'Pause');
+		}
+	});
+
+	stopBtn.addEventListener('click', function(){
+		stopped = true;
+		window.speechSynthesis.cancel();
+		reset();
+	});
+
+	// Don't let it keep talking in the background after navigating away.
+	window.addEventListener('beforeunload', function(){
+		stopped = true;
+		window.speechSynthesis.cancel();
+	});
+});
+</script>
+
 			<!-- Post content -->
 			<div class="notebody">
 				<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
