@@ -96,10 +96,10 @@ Tags automatically show up as filter pills on `/blog` and beneath the post tease
 
 1. **Write your change on a feature branch and open a PR into `source`.** CI builds the Jekyll site to validate it (including generating `_data/secrets.yml` from the `WEB3FORMS_ACCESS_KEY` secret, same as the local setup above). PRs from the legacy branches listed above are rejected - branch off the latest `source` instead.
 2. **Once it's on `source`, open a PR from `source` into `develop` and merge it yourself** (also build-validated by CI). This is a normal, human-reviewed merge - `develop` holds the same Jekyll source as `source`, so the diff is real content, not build output. `branch-policy` only allows `source` as the head here.
-3. **Merging that PR triggers the `deploy` job**, which builds the site once from `develop` and opens a PR from a bot branch (`promote/master-<sha>`) into `master`, then merges it itself. `branch-policy` only allows heads matching `promote/master-*` into `master`, so this is the only path that can update it.
-4. **`master` is what GitHub Pages actually serves** - merging into it is the only thing that publishes anything live.
+3. **Merging that PR triggers the `deploy` job**, which builds the site once from `develop` and opens a PR from a bot branch (`promote/master-<sha>`) into `master`. `branch-policy` only allows heads matching `promote/master-*` into `master`, so this is the only path that can update it.
+4. **A human merges that PR to actually publish.** The job stops after opening it (link is in the run's job summary) - it never merges its own PR. **Deployment only happens at the moment someone merges into `master`**, since that's the only thing GitHub Pages responds to.
 
-The `develop → master` promotion is fully automated (no manual approval step), since it's just "build what's already on `develop` and ship it" - the actual content review happens on the `source → develop` PR. If you want a manual gate before something goes live, remove the final `gh pr merge` call in the `deploy` job's "Promote build to master" step and merge that PR by hand instead.
+This is a deliberate choice: nothing goes live unattended. The `source → develop` PR is where content gets reviewed; the `develop → master` PR is the actual "publish now" gate - review is optional there since the content was already approved, but the merge itself is a deliberate action, not automatic.
 
 ### Required repository secrets
 
@@ -107,12 +107,12 @@ Set under Settings → Secrets and variables → Actions:
 
 - `WEB3FORMS_ACCESS_KEY` - the Web3Forms access key for the homepage contact form, injected into `_data/secrets.yml` at build time.
 
-No PAT is needed for deploys - the pipeline pushes and opens/merges its promotion PRs using the ephemeral `GITHUB_TOKEN`, scoped per job.
+No PAT is needed for deploys - the pipeline pushes and opens its promotion PR using the ephemeral `GITHUB_TOKEN`, scoped per job. It never merges anything into `master` itself.
 
 ### Required repository settings
 
 For the pipeline above to work, these need to be set in the GitHub repo settings (not in code):
 
-- **Settings → Actions → General → Workflow permissions**: check "Allow GitHub Actions to create and approve pull requests" - required for the deploy job's `gh pr create`/`gh pr merge` calls.
-- **Settings → Branches**: require a pull request before merging on `source`, `develop`, and `master`. You can require approvals on `source`/`develop` (both are human-merged), but **not** on `master` - a required-approval count there blocks the bot from self-merging the `develop → master` promotion.
+- **Settings → Actions → General → Workflow permissions**: check "Allow GitHub Actions to create and approve pull requests" - required for the deploy job's `gh pr create` call.
+- **Settings → Branches**: require a pull request before merging on `source`, `develop`, and `master`. Since every merge into any of the three is a human action, requiring approvals is fine on all three if you want that extra step (the bot-authored `master` PR isn't a self-approval, so this won't block anything).
 - **Settings → Pages**: "deploy from a branch", branch `master`, folder `/`.

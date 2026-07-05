@@ -104,11 +104,10 @@ jobs:
         set -euxo pipefail
         make rebuild
 
-  # Only fires when a PR into `develop` is actually merged. Builds once, then
-  # promotes that build to master via a bot branch and PR of its own, merged
-  # by this job itself so the chain doesn't depend on a second workflow
-  # trigger (see note at the top of the file on why: GITHUB_TOKEN-driven
-  # merges don't fire new workflow runs).
+  # Only fires when a PR into `develop` is actually merged. Builds once and
+  # opens a PR proposing that build as `master` - it stops there. Deployment
+  # (GitHub Pages serving the new build) only happens once a human actually
+  # merges that PR; this job never merges it itself.
   deploy:
     needs: branch-policy
     if: github.event.pull_request.merged == true && github.base_ref == 'develop'
@@ -117,8 +116,8 @@ jobs:
     concurrency:
       group: promote-develop-to-master
       cancel-in-progress: false
-    # Needed to push the build-promotion branch and to create/merge the
-    # pull request below.
+    # Needed to push the build-promotion branch and open the pull request
+    # below - not to merge it, that's left to a human.
     permissions:
       contents: write
       pull-requests: write
@@ -144,7 +143,7 @@ jobs:
       run: |
         set -euxo pipefail
         make rebuild
-    - name: Promote build to master
+    - name: Propose build to master
       shell: bash
       run: |
         set -euxo pipefail
@@ -174,7 +173,9 @@ jobs:
         git commit -m "Build ${develop_sha}"
         git push --force-with-lease origin "$branch"
 
+        # Opened, not merged: a human merges this PR to actually publish.
         pr_url="$(gh pr create --head "$branch" --base master \
           --title "Promote build ${develop_sha} to master" \
-          --body "Automated build of develop@${develop_sha}.")"
-        gh pr merge "$pr_url" --merge --delete-branch
+          --body "Automated build of develop@${develop_sha}. Merge this PR to publish it to GitHub Pages.")"
+        echo "### Ready to publish" >> "$GITHUB_STEP_SUMMARY"
+        echo "Review and merge to deploy: $pr_url" >> "$GITHUB_STEP_SUMMARY"
