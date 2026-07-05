@@ -1,10 +1,12 @@
 name: Build and deploy Jekyll site to GitHub Pages
 
 # No push trigger anywhere: nothing lands on source/develop/master except via
-# a merged pull request. Pipeline: source (PR) -> develop (auto-promoted
-# build) -> master (auto-promoted from develop, GitHub Pages serves this).
-# Pair with branch protection (require a PR before merging) on all three
-# branches - see the deploy job for exactly what that requires.
+# a merged pull request. Pipeline: source (human PR, where changes are
+# implemented) -> develop (human PR, same Jekyll-source format as source, so
+# these diffs stay meaningful) -> master (auto-promoted build from develop,
+# GitHub Pages serves this). Pair with branch protection (require a PR before
+# merging) on all three branches - see the deploy job for exactly what that
+# requires.
 on:
   pull_request:
     branches:
@@ -22,10 +24,10 @@ jobs:
   # Defense in depth alongside the `on.pull_request.branches` filter above.
   # Enforces the shape of the pipeline itself:
   #   -> source:  anything except the repo's legacy/long-lived branches
-  #   -> develop: only this workflow's own build-promotion branches
-  #   -> master:  only 'develop', literally
-  # A human (or a compromised token) opening a PR straight into develop or
-  # master, bypassing the pipeline, gets rejected here.
+  #   -> develop: only 'source', literally - that's where changes are made
+  #   -> master:  only this workflow's own build-promotion branches
+  # A human (or a compromised token) opening a PR straight into master,
+  # bypassing the automated build, gets rejected here.
   branch-policy:
     runs-on: ubuntu-latest
     timeout-minutes: 2
@@ -53,14 +55,14 @@ jobs:
             esac
             ;;
           develop)
-            if [[ "$head_ref" != promote/develop-* ]]; then
-              echo "::error::'develop' only accepts this pipeline's own build-promotion branches (got '$head_ref'). Push changes to 'source' - the pipeline promotes builds to 'develop' automatically."
+            if [[ "$head_ref" != "source" ]]; then
+              echo "::error::'develop' only accepts merges from 'source' (got '$head_ref'). Land your change on 'source' first."
               exit 1
             fi
             ;;
           master)
-            if [[ "$head_ref" != "develop" ]]; then
-              echo "::error::'master' can only be updated via a merge from 'develop' (got '$head_ref')."
+            if [[ "$head_ref" != promote/master-* ]]; then
+              echo "::error::'master' can only be updated by this pipeline's automated promotion from 'develop' (got '$head_ref')."
               exit 1
             fi
             ;;
@@ -70,12 +72,13 @@ jobs:
             ;;
         esac
 
-  # Validates that a PR into `source` builds cleanly. Checks out the merge of
-  # the PR head into `source` (GitHub Actions' default ref for pull_request
-  # events) so it tests what would actually land if the PR is merged.
+  # Validates that a PR builds cleanly, for PRs into either `source` or
+  # `develop`. Checks out the merge of the PR head into its base branch
+  # (GitHub Actions' default ref for pull_request events) so it tests what
+  # would actually land if the PR is merged.
   build:
     needs: branch-policy
-    if: github.event.action != 'closed' && github.base_ref == 'source'
+    if: github.event.action != 'closed' && (github.base_ref == 'source' || github.base_ref == 'develop')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     concurrency:
@@ -101,31 +104,31 @@ jobs:
         set -euxo pipefail
         make rebuild
 
-  # Only fires when a PR into `source` is actually merged. Builds once, then
-  # promotes that same build through develop and on into master - both hops
-  # go through a real pull request, merged by this job itself so the chain
-  # doesn't depend on a second workflow trigger (see note at the top of the
-  # file on why: GITHUB_TOKEN-driven merges don't fire new workflow runs).
+  # Only fires when a PR into `develop` is actually merged. Builds once, then
+  # promotes that build to master via a bot branch and PR of its own, merged
+  # by this job itself so the chain doesn't depend on a second workflow
+  # trigger (see note at the top of the file on why: GITHUB_TOKEN-driven
+  # merges don't fire new workflow runs).
   deploy:
     needs: branch-policy
-    if: github.event.pull_request.merged == true && github.base_ref == 'source'
+    if: github.event.pull_request.merged == true && github.base_ref == 'develop'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:
-      group: promote-source-to-production
+      group: promote-develop-to-master
       cancel-in-progress: false
-    # Needed to push the build-promotion branch and to create/merge both
-    # pull requests below.
+    # Needed to push the build-promotion branch and to create/merge the
+    # pull request below.
     permissions:
       contents: write
       pull-requests: write
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-    - name: Checkout source branch
+    - name: Checkout develop branch
       uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
       with:
-        ref: source
+        ref: develop
         fetch-depth: 0
     - name: Set up Ruby
       uses: ruby/setup-ruby@086ffb1a2090c870a3f881cc91ea83aa4243d408
@@ -141,57 +144,37 @@ jobs:
       run: |
         set -euxo pipefail
         make rebuild
-    - name: Promote build to develop
-      id: to_develop
+    - name: Promote build to master
       shell: bash
       run: |
         set -euxo pipefail
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-        source_sha="$(git rev-parse --short=10 HEAD)"
-        branch="promote/develop-${source_sha}"
+        develop_sha="$(git rev-parse --short=10 HEAD)"
+        branch="promote/master-${develop_sha}"
 
         # _site/ is gitignored, so it survives `clean` and the branch switch below.
         git clean -fd
-        git fetch origin develop
-        git checkout -B "$branch" origin/develop
+        git fetch origin master
+        git checkout -B "$branch" origin/master
 
         shopt -s extglob
         rm -rf -- !(_site)
         mv _site/* .
         make clean
 
-        # if there are no changes to promote, stop the pipeline here
+        # if there are no changes to promote, stop here
         if [[ -z "$(git status --porcelain)" ]]; then
-          echo "skip=true" >> "$GITHUB_OUTPUT"
-          exit 0
-        fi
-
-        git add .
-        git commit -m "Build ${source_sha}"
-        git push --force-with-lease origin "$branch"
-
-        pr_url="$(gh pr create --head "$branch" --base develop \
-          --title "Promote build ${source_sha} to develop" \
-          --body "Automated build of source@${source_sha}.")"
-        gh pr merge "$pr_url" --merge --delete-branch
-
-        echo "skip=false" >> "$GITHUB_OUTPUT"
-    - name: Promote develop to master
-      if: steps.to_develop.outputs.skip == 'false'
-      shell: bash
-      run: |
-        set -euxo pipefail
-        git fetch origin develop master
-        develop_sha="$(git rev-parse --short=10 origin/develop)"
-
-        if git diff --quiet origin/master origin/develop; then
           echo "develop already matches master; nothing to promote."
           exit 0
         fi
 
-        pr_url="$(gh pr create --head develop --base master \
+        git add .
+        git commit -m "Build ${develop_sha}"
+        git push --force-with-lease origin "$branch"
+
+        pr_url="$(gh pr create --head "$branch" --base master \
           --title "Promote build ${develop_sha} to master" \
-          --body "Automated promotion of develop@${develop_sha} to production.")"
-        gh pr merge "$pr_url" --merge
+          --body "Automated build of develop@${develop_sha}.")"
+        gh pr merge "$pr_url" --merge --delete-branch

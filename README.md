@@ -88,18 +88,18 @@ Tags automatically show up as filter pills on `/blog` and beneath the post tease
 | Branch | Purpose |
 |---|---|
 | `source` | Where you make all changes - Jekyll source: posts, includes, layouts, CSS, config. |
-| `develop` | Staging branch holding the latest built output, auto-promoted from `source`. Not edited directly. |
+| `develop` | Integration branch, same Jekyll-source format as `source`. Only accepts merges from `source`. |
 | `master` | Build output only. This is what GitHub Pages actually serves (custom domain `craftatscale.dev` via the `CNAME` file) - overwritten automatically by CI on every publish, never edit it directly. |
 | `backup-*`, `*-04.07` | Legacy/snapshot branches, not part of the active deploy path - the workflow's `branch-policy` job rejects PRs from them. |
 
-Nothing is ever pushed directly to `develop` or `master`, and merges only ever flow one direction: `source → develop → master`. `.github/workflows/workflow.yml` enforces this (see the `branch-policy` job) and drives the pipeline itself:
+`.github/workflows/workflow.yml` enforces this shape (see the `branch-policy` job) and drives the pipeline itself:
 
 1. **Write your change on a feature branch and open a PR into `source`.** CI builds the Jekyll site to validate it (including generating `_data/secrets.yml` from the `WEB3FORMS_ACCESS_KEY` secret, same as the local setup above). PRs from the legacy branches listed above are rejected - branch off the latest `source` instead.
-2. **Merging that PR** triggers the `deploy` job, which builds the site once and opens a PR proposing that build as the new content of `develop`. This PR is created and merged automatically by the workflow.
-3. **That merge into `develop`** immediately triggers a second automated PR, `develop → master` (this one literally has `develop` as its head branch). It's also auto-merged.
+2. **Once it's on `source`, open a PR from `source` into `develop` and merge it yourself** (also build-validated by CI). This is a normal, human-reviewed merge - `develop` holds the same Jekyll source as `source`, so the diff is real content, not build output. `branch-policy` only allows `source` as the head here.
+3. **Merging that PR triggers the `deploy` job**, which builds the site once from `develop` and opens a PR from a bot branch (`promote/master-<sha>`) into `master`, then merges it itself. `branch-policy` only allows heads matching `promote/master-*` into `master`, so this is the only path that can update it.
 4. **`master` is what GitHub Pages actually serves** - merging into it is the only thing that publishes anything live.
 
-Both promotion PRs are fully automated (no manual approval step) since the real review already happens on the `source` PR, where the actual content diff is visible. If you want a manual gate before something goes live, remove the final `gh pr merge` call in the `deploy` job's "Promote develop to master" step and merge that PR by hand instead.
+The `develop → master` promotion is fully automated (no manual approval step), since it's just "build what's already on `develop` and ship it" - the actual content review happens on the `source → develop` PR. If you want a manual gate before something goes live, remove the final `gh pr merge` call in the `deploy` job's "Promote build to master" step and merge that PR by hand instead.
 
 ### Required repository secrets
 
@@ -114,5 +114,5 @@ No PAT is needed for deploys - the pipeline pushes and opens/merges its promotio
 For the pipeline above to work, these need to be set in the GitHub repo settings (not in code):
 
 - **Settings → Actions → General → Workflow permissions**: check "Allow GitHub Actions to create and approve pull requests" - required for the deploy job's `gh pr create`/`gh pr merge` calls.
-- **Settings → Branches**: require a pull request before merging on `source` and `master` (and ideally `develop` too, as defense in depth alongside the `branch-policy` job). Do **not** require approvals on `develop`/`master` if you want the automation above to keep working - a required-approval count blocks the bot from self-merging.
+- **Settings → Branches**: require a pull request before merging on `source`, `develop`, and `master`. You can require approvals on `source`/`develop` (both are human-merged), but **not** on `master` - a required-approval count there blocks the bot from self-merging the `develop → master` promotion.
 - **Settings → Pages**: "deploy from a branch", branch `master`, folder `/`.
