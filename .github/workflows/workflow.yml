@@ -1,18 +1,91 @@
 name: Build and deploy Jekyll site to GitHub Pages
 
+# No push trigger anywhere: nothing lands on source/develop/master except via
+# a merged pull request. Pipeline: source (PR) -> develop (auto-promoted
+# build) -> master (auto-promoted from develop, GitHub Pages serves this).
+# Pair with branch protection (require a PR before merging) on all three
+# branches - see the deploy job for exactly what that requires.
 on:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
+    - source
+    - develop
     - master
+    types: [opened, synchronize, reopened, closed]
+
+# Least-privilege default; only the deploy job elevates, and only for the
+# duration of the promotion steps.
+permissions:
+  contents: read
 
 jobs:
-  build:
+  # Defense in depth alongside the `on.pull_request.branches` filter above.
+  # Enforces the shape of the pipeline itself:
+  #   -> source:  anything except the repo's legacy/long-lived branches
+  #   -> develop: only this workflow's own build-promotion branches
+  #   -> master:  only 'develop', literally
+  # A human (or a compromised token) opening a PR straight into develop or
+  # master, bypassing the pipeline, gets rejected here.
+  branch-policy:
     runs-on: ubuntu-latest
+    timeout-minutes: 2
     steps:
-    - name: Checkout from source branch
-      uses: actions/checkout@v4
+    - name: Enforce the branching model
+      # base_ref/head_ref are attacker-controlled on a fork PR (they're just
+      # branch names); pass them through env instead of interpolating the
+      # ${{ }} expression directly into the script to avoid shell injection.
+      env:
+        BASE_REF: ${{ github.base_ref }}
+        HEAD_REF: ${{ github.head_ref }}
+      run: |
+        set -euo pipefail
+        base_ref="$BASE_REF"
+        head_ref="$HEAD_REF"
+        echo "PR: $head_ref -> $base_ref"
+
+        case "$base_ref" in
+          source)
+            case "$head_ref" in
+              master|develop|Source-04.07|backup-develop|backup-master|backup-source-failure|develop-04.07|master-04.07)
+                echo "::error::'$head_ref' is a legacy branch and can't be merged into 'source'. Branch off the latest 'source' instead."
+                exit 1
+                ;;
+            esac
+            ;;
+          develop)
+            if [[ "$head_ref" != promote/develop-* ]]; then
+              echo "::error::'develop' only accepts this pipeline's own build-promotion branches (got '$head_ref'). Push changes to 'source' - the pipeline promotes builds to 'develop' automatically."
+              exit 1
+            fi
+            ;;
+          master)
+            if [[ "$head_ref" != "develop" ]]; then
+              echo "::error::'master' can only be updated via a merge from 'develop' (got '$head_ref')."
+              exit 1
+            fi
+            ;;
+          *)
+            echo "::error::Unexpected base branch '$base_ref'."
+            exit 1
+            ;;
+        esac
+
+  # Validates that a PR into `source` builds cleanly. Checks out the merge of
+  # the PR head into `source` (GitHub Actions' default ref for pull_request
+  # events) so it tests what would actually land if the PR is merged.
+  build:
+    needs: branch-policy
+    if: github.event.action != 'closed' && github.base_ref == 'source'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: build-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+    - name: Checkout PR merge ref
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
       with:
-        ref: source
+        persist-credentials: false
     - name: Set up Ruby
       uses: ruby/setup-ruby@086ffb1a2090c870a3f881cc91ea83aa4243d408
       with:
@@ -26,32 +99,98 @@ jobs:
         mkdir -p _data
         printf 'web3forms_access_key: "%s"\n' "$WEB3FORMS_ACCESS_KEY" > _data/secrets.yml
     - name: Build Jekyll site
+      shell: bash
       run: |
-        set -xo pipefail
+        set -euxo pipefail
         make rebuild
-    - name: Deploy site
-      if: github.ref == 'refs/heads/source'
-      env:
-        DEPLOY_TOKEN: ${{ secrets.JEKYLL_TOKEN }}
+
+  # Only fires when a PR into `source` is actually merged. Builds once, then
+  # promotes that same build through develop and on into master - both hops
+  # go through a real pull request, merged by this job itself so the chain
+  # doesn't depend on a second workflow trigger (see note at the top of the
+  # file on why: GITHUB_TOKEN-driven merges don't fire new workflow runs).
+  deploy:
+    needs: branch-policy
+    if: github.event.pull_request.merged == true && github.base_ref == 'source'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: promote-source-to-production
+      cancel-in-progress: false
+    # Needed to push the build-promotion branch and to create/merge both
+    # pull requests below.
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - name: Checkout source branch
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      with:
+        ref: source
+        fetch-depth: 0
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@086ffb1a2090c870a3f881cc91ea83aa4243d408
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+    - name: Build Jekyll site
+      shell: bash
       run: |
-        set -xo pipefail
+        set -euxo pipefail
+        make rebuild
+    - name: Promote build to develop
+      id: to_develop
+      shell: bash
+      run: |
+        set -euxo pipefail
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
+        source_sha="$(git rev-parse --short=10 HEAD)"
+        branch="promote/develop-${source_sha}"
+
+        # _site/ is gitignored, so it survives `clean` and the branch switch below.
         git clean -fd
-        git fetch origin master
-        git checkout master
+        git fetch origin develop
+        git checkout -B "$branch" origin/develop
 
-        ls -Q | grep -v _site | xargs rm -rf
+        shopt -s extglob
+        rm -rf -- !(_site)
         mv _site/* .
-
         make clean
 
-        # if there are no changes to commit (empty list), stop the script gracefully
-        [[ -n "$(git status --porcelain)" ]] || exit 0
-        git add .
-        BRANCH_NAME=${GITHUB_REF#refs/heads/}
-        git commit -m "Build $(git rev-parse --short=10 $BRANCH_NAME)"
+        # if there are no changes to promote, stop the pipeline here
+        if [[ -z "$(git status --porcelain)" ]]; then
+          echo "skip=true" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
 
-        # push the built site to the master branch using the deployment token
-        git push "https://x-access-token:${DEPLOY_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" master
+        git add .
+        git commit -m "Build ${source_sha}"
+        git push --force-with-lease origin "$branch"
+
+        pr_url="$(gh pr create --head "$branch" --base develop \
+          --title "Promote build ${source_sha} to develop" \
+          --body "Automated build of source@${source_sha}.")"
+        gh pr merge "$pr_url" --merge --delete-branch
+
+        echo "skip=false" >> "$GITHUB_OUTPUT"
+    - name: Promote develop to master
+      if: steps.to_develop.outputs.skip == 'false'
+      shell: bash
+      run: |
+        set -euxo pipefail
+        git fetch origin develop master
+        develop_sha="$(git rev-parse --short=10 origin/develop)"
+
+        if git diff --quiet origin/master origin/develop; then
+          echo "develop already matches master; nothing to promote."
+          exit 0
+        fi
+
+        pr_url="$(gh pr create --head develop --base master \
+          --title "Promote build ${develop_sha} to master" \
+          --body "Automated promotion of develop@${develop_sha} to production.")"
+        gh pr merge "$pr_url" --merge

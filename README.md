@@ -1,6 +1,6 @@
 # slitayem.github.io
 
-Personal website — a Jekyll site served via GitHub Pages.
+Personal website and blog — a Jekyll site served via GitHub Pages at [craftatscale.dev](https://craftatscale.dev).
 
 ## Stack
 
@@ -8,48 +8,64 @@ Personal website — a Jekyll site served via GitHub Pages.
 - Two template eras coexist: the current flat HTML+Liquid pages (home, `/blog`, `/learning`, `/cv`, all `layout: null`) share `css/theme.css`; individual blog posts still render through the older `_layouts/post.html` → `_layouts/default.html` layout chain.
 - No JS build step — fonts/icons load from Google Fonts and Iconify CDNs, and any page scripts are plain inline `<script>` tags.
 
-## Branch model
+## Local setup
 
-| Branch | Purpose |
-|---|---|
-| `source` | Where you make all changes — Jekyll source: posts, includes, layouts, CSS, config. |
-| `master` | Build output only. This is what GitHub Pages actually serves at slitayem.github.io. It's overwritten automatically by CI on every publish — never edit it directly. |
-| `develop`, `backup-*` | Older/snapshot branches, not part of the active deploy path. |
+### Prerequisites
 
-## Deployment pipeline
+- Ruby 3.1 (matches the version CI builds with, see `.github/workflows/workflow.yml`). On macOS, `scripts/install_jekyl.sh` installs `chruby` + Ruby via Homebrew and wires up auto-switching in `~/.zshrc`.
+- Bundler (`gem install bundler` if you didn't get it from the script above).
 
-Defined in `.github/workflows/workflow.yml`. Any push to a branch other than `master` triggers it:
+Install the Ruby dependencies from the `Gemfile`:
 
-1. **Checkout** — always checks out `source` (hardcoded), regardless of which branch triggered the run.
-2. **Set up Ruby** 3.1.
-3. **Inject secrets** — writes `_data/secrets.yml` from the `WEB3FORMS_ACCESS_KEY` repo secret, so the contact form's Web3Forms key never lives in source control (see `_data/secrets.yml.example` for the local equivalent).
-4. **Build** — `make rebuild` (clean → `bundle install` → `jekyll build` into `_site/`).
-5. **Deploy** — only runs if the *triggering* branch was `source`:
-   - Checks out `master`.
-   - Wipes everything except the freshly built `_site/`, then moves its contents to the branch root.
-   - Runs `make clean` to drop build artifacts.
-   - Commits and pushes the result to `master` using the `JEKYLL_TOKEN` secret.
-
-Net effect: **push to `source` → CI builds the site → publishes the compiled HTML/CSS to `master` → GitHub Pages serves it.** There's no manual build or deploy step — pushing to `source` is the whole release process. Pushes to any other non-`master` branch (e.g. a feature branch) will build and validate but skip the deploy step.
-
-## Required repository secrets
-
-Set under Settings → Secrets and variables → Actions:
-
-- `JEKYLL_TOKEN` — a token with push access to this repo, used to publish the built site to `master`.
-- `WEB3FORMS_ACCESS_KEY` — the Web3Forms access key for the homepage contact form, injected at build time.
-
-## Local development
-
-```
-make install   # bundle install
-make build     # jekyll build -> _site/
-make serve     # jekyll serve --livereload at http://localhost:4000
-make clean     # remove _site, .jekyll-cache, .bundle
-make rebuild   # clean + install + build
+```sh
+make install
 ```
 
-For the contact form to work locally, copy `_data/secrets.yml.example` to `_data/secrets.yml` and fill in a real key (gitignored, never committed).
+(`make list-deps` prints the currently installed gems if you need to sanity-check the environment.)
+
+For the homepage contact form to work locally, copy `_data/secrets.yml.example` to `_data/secrets.yml` and fill in a real Web3Forms key (gitignored, never committed - in CI this file is generated instead from the `WEB3FORMS_ACCESS_KEY` repo secret).
+
+### Pre-commit hooks
+
+This repo uses [pre-commit](https://pre-commit.com/) to catch YAML/workflow mistakes and basic hygiene issues before they're committed. One-time setup:
+
+```sh
+pip install pre-commit   # or: brew install pre-commit
+pre-commit install
+```
+
+From then on, `git commit` automatically runs:
+
+- `check-yaml`, `yamllint` (config: `.yamllint.yaml`) - YAML syntax and style, covers `.github/workflows/*.yml` and `_config.yml`
+- `actionlint` - lints GitHub Actions workflows, including script-injection and shell issues in `run:` steps (install `shellcheck`, e.g. `brew install shellcheck`, to get the shell-script checks too)
+- `check-merge-conflict`, `check-case-conflict`, `check-added-large-files`, `detect-private-key`, `end-of-file-fixer`, `trailing-whitespace`, `mixed-line-ending` - general hygiene
+
+`markdownlint` (config: `.markdownlint.yaml`) is available on demand for `_posts/*.md` but isn't run automatically, since the existing posts have enough pre-existing style quirks that enforcing it on every commit would mostly flag old content:
+
+```sh
+pre-commit run markdownlint --hook-stage manual --files _posts/your-post.md
+```
+
+To run every hook against the whole repo (e.g. after changing `.pre-commit-config.yaml`):
+
+```sh
+pre-commit run --all-files
+```
+
+## Local testing of changes
+
+```sh
+make serve            # http://localhost:4000, with livereload
+make serve PORT=8080   # or a different port
+```
+
+Before opening a PR, confirm a clean build succeeds the same way CI does:
+
+```sh
+make rebuild   # clean + install + build, output goes to _site/
+```
+
+`make clean` removes `_site/`, `.jekyll-cache/`, and `.bundle` if you need to start fresh.
 
 ## Adding a blog post
 
@@ -65,8 +81,38 @@ tags: [Tag One, Tag Two]
 ---
 ```
 
-Tags automatically show up as filter pills on `/blog` and beneath the post teaser on the homepage — no extra wiring needed.
+Tags automatically show up as filter pills on `/blog` and beneath the post teaser on the homepage - no extra wiring needed.
 
-## Publishing
+## Branching model and deployment
 
-Commit to `source` and push. The workflow above handles the build and publish to `master` automatically.
+| Branch | Purpose |
+|---|---|
+| `source` | Where you make all changes - Jekyll source: posts, includes, layouts, CSS, config. |
+| `develop` | Staging branch holding the latest built output, auto-promoted from `source`. Not edited directly. |
+| `master` | Build output only. This is what GitHub Pages actually serves (custom domain `craftatscale.dev` via the `CNAME` file) - overwritten automatically by CI on every publish, never edit it directly. |
+| `backup-*`, `*-04.07` | Legacy/snapshot branches, not part of the active deploy path - the workflow's `branch-policy` job rejects PRs from them. |
+
+Nothing is ever pushed directly to `develop` or `master`, and merges only ever flow one direction: `source → develop → master`. `.github/workflows/workflow.yml` enforces this (see the `branch-policy` job) and drives the pipeline itself:
+
+1. **Write your change on a feature branch and open a PR into `source`.** CI builds the Jekyll site to validate it (including generating `_data/secrets.yml` from the `WEB3FORMS_ACCESS_KEY` secret, same as the local setup above). PRs from the legacy branches listed above are rejected - branch off the latest `source` instead.
+2. **Merging that PR** triggers the `deploy` job, which builds the site once and opens a PR proposing that build as the new content of `develop`. This PR is created and merged automatically by the workflow.
+3. **That merge into `develop`** immediately triggers a second automated PR, `develop → master` (this one literally has `develop` as its head branch). It's also auto-merged.
+4. **`master` is what GitHub Pages actually serves** - merging into it is the only thing that publishes anything live.
+
+Both promotion PRs are fully automated (no manual approval step) since the real review already happens on the `source` PR, where the actual content diff is visible. If you want a manual gate before something goes live, remove the final `gh pr merge` call in the `deploy` job's "Promote develop to master" step and merge that PR by hand instead.
+
+### Required repository secrets
+
+Set under Settings → Secrets and variables → Actions:
+
+- `WEB3FORMS_ACCESS_KEY` - the Web3Forms access key for the homepage contact form, injected into `_data/secrets.yml` at build time.
+
+No PAT is needed for deploys - the pipeline pushes and opens/merges its promotion PRs using the ephemeral `GITHUB_TOKEN`, scoped per job.
+
+### Required repository settings
+
+For the pipeline above to work, these need to be set in the GitHub repo settings (not in code):
+
+- **Settings → Actions → General → Workflow permissions**: check "Allow GitHub Actions to create and approve pull requests" - required for the deploy job's `gh pr create`/`gh pr merge` calls.
+- **Settings → Branches**: require a pull request before merging on `source` and `master` (and ideally `develop` too, as defense in depth alongside the `branch-policy` job). Do **not** require approvals on `develop`/`master` if you want the automation above to keep working - a required-approval count blocks the bot from self-merging.
+- **Settings → Pages**: "deploy from a branch", branch `master`, folder `/`.

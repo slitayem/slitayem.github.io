@@ -32,8 +32,8 @@ scholar:
   source: ./_bibliography
   bibliography_template: bib
 exclude:
-    - Gemfile
-    - Gemfile.lock
-    - LICENSE
-    - README.md
-    - scripts/*
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - scripts/*
