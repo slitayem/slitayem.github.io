@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Saloua Litayem — Data & AI, in practice</title>
+<meta name="description" content="Saloua Litayem — Data & AI leader in Munich. I build AI products and the teams behind them, and write about doing it well." />
+<meta property="og:title" content="Saloua Litayem — Data & AI, in practice" />
+<meta property="og:description" content="Saloua Litayem — Data & AI leader in Munich. I build AI products and the teams behind them, and write about doing it well." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23f5f8fa'/%3E%3Crect x='9' y='9' width='14' height='14' fill='%23669bbc'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/theme.css" />
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCMRL4ZYQD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PCMRL4ZYQD');
+</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/"><span></span>Saloua Litayem</a>
+    <div class="nav-wrap">
+      <nav class="main">
+        <a href="/#writing">Writing</a>
+        <a href="/#work">Work</a>
+        <a href="/learning">Learning</a>
+        <a href="/#about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<script>
+(function(){
+  var btn = document.getElementById('theme-toggle');
+  if(!btn) return;
+  var root = document.documentElement;
+  function effective(){
+    var stored;
+    try{ stored = localStorage.getItem('theme'); }catch(e){}
+    if(stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  btn.addEventListener('click', function(){
+    var next = effective() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(e){}
+  });
+})();
+</script>
+
+
+<main class="wrap" id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Data &amp; AI · Munich</span>
+    <h1>Building AI products and the<br /><em>teams behind them</em>.</h1>
+    <p class="sub">15+ years turning research and machine learning into products people actually use. This is my corner of the web: what I'm building, what I'm reading, and what I'm still figuring out.</p>
+    <p class="now">Currently <b>Head of AI Platform &amp; Agents Foundry</b> at Conrad Electronic SE</p>
+    <div class="links">
+      <a class="btn pri" href="#writing"><svg viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 5h16v2H4zm0 5h11v2H4zm0 5h16v2H4z"/></svg> Read the blog</a>
+      <a class="btn" href="https://www.linkedin.com/in/saloualitayem" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.9H5.67v8.44h2.67zM7 8.67a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.67v-4.63c0-2.47-1.32-3.62-3.08-3.62a2.66 2.66 0 0 0-2.41 1.33h-.04V9.9h-2.56v8.44h2.67v-4.18c0-1.1.2-2.17 1.57-2.17 1.35 0 1.37 1.26 1.37 2.24v4.11h2.49z"/></svg> LinkedIn</a>
+      <a class="btn" href="https://github.com/slitayem" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.38.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.57.67.48A10 10 0 0 0 12 2z"/></svg> GitHub</a>
+    </div>
+  </section>
+
+  <!-- IMPACT BAND -->
+  <section class="impact-band" aria-label="Highlights">
+    <div class="stat"><div class="n">15+ yrs</div><div class="l">across research, ML engineering, Platform Engineering &amp; AI Engineering</div></div>
+    <div class="stat"><div class="n">5+ yrs</div><div class="l">in people leadership, team development &amp; growth</div></div>
+    <div class="stat"><div class="n">End-to-end</div><div class="l">System architecture, MLOps/LLMOps, delivery &amp; project management for cross-functional AI initiatives</div></div>
+    <div class="stat"><div class="n">Founder</div><div class="l">PyData Munich community</div></div>
+  </section>
+
+  <!-- WRITING (latest posts, pulled automatically from the blog) -->
+  <section id="writing">
+    <div class="sec-head">
+      <div><span class="eyebrow">Writing</span><h2>From the blog.</h2></div>
+      <a class="more" href="/blog">All posts →</a>
+    </div>
+    <p class="lead">Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams.</p>
+    <div class="posts">
+      
+      <a class="post" href="/blog/2020/08/04/churn-prediction">
+        <span class="pmeta">Aug 4, 2020</span>
+        <span class="ptitle">Customers churn prediction for Sparkify music service</span>
+        <span class="pdesc">Generally, the ability to accurately predict future customer churn rates is necessary for the business. It enables it to secure valuable customers helping anticipate and prevent...</span>
+        
+        <span class="ptags"><span class="tag">Machine Learning</span><span class="tag">Data Science</span></span>
+        
+      </a>
+      
+      <a class="post" href="/blog/2020/06/14/oss-contrib-analysis">
+        <span class="pmeta">Jun 14, 2020</span>
+        <span class="ptitle">How do developers perceive the OSS quality and how often do they contribute?</span>
+        <span class="pdesc">Several studies (Finnegan &amp; Morgan, 2007) (del Bianco et al., 2010) (Lenarduzzi et al., 2019) (Lenarduzzi et al., 2020) have shown that the motivations to adopt...</span>
+        
+        <span class="ptags"><span class="tag">Open Source</span><span class="tag">Data Analysis</span></span>
+        
+      </a>
+      
+    </div>
+    <div class="blog-cta">
+      <a class="btn pri" href="/blog">Browse the blog →</a>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <span class="eyebrow">Work</span>
+    <h2>What I build.</h2>
+    <div class="cards">
+      <div class="card accent-blue">
+        <span class="impact">Agentic AI in production</span>
+        <h3>AI search &amp; a multi-agent sales engine</h3>
+        <p>Hands-on ownership of the architecture, implementation, and quality gates that keep agentic systems reliable in production - plus the roadmap and stakeholder communication for the platform behind AI-powered search and a multi-agent sales engine.</p>
+        <div class="tags"><span class="tag">Agents</span><span class="tag">AI Search</span><span class="tag">System Design</span><span class="tag">LLMOps</span></div>
+      </div>
+      <div class="card accent-coral">
+        <span class="impact">Running the online shop</span>
+        <h3>Recommendations &amp; fraud detection at scale</h3>
+        <p>The cross-functional teams I direct built the recommendation engine that powers the online shop, plus a fraud and order-risk system now relied on daily across sales and customer care.</p>
+        <div class="tags"><span class="tag">Recommenders</span><span class="tag">Fraud Detection</span><span class="tag">GCP</span><span class="tag">VertexAI</span></div>
+      </div>
+      <div class="card accent-teal">
+        <span class="impact">Lower support &amp; ops effort</span>
+        <h3>LLM automation across support &amp; operations</h3>
+        <p>LLM-based solutions to handle Zendesk tickets routing and automation of the process of Request for Quotation(RFQ) alongside Google Document AI + Steering the automation for the process of product categorization and supplier onboarding using in-house language model.</p>
+        <div class="tags"><span class="tag">LLMs</span><span class="tag">Document AI</span><span class="tag">Zendesk</span><span class="tag">LangChain</span></div>
+      </div>
+      <div class="card accent-purple">
+        <span class="impact">Manual review, automated</span>
+        <h3>Fraudulent-listings detection</h3>
+        <p>A rules-based process gave way to a scalable, end-to-end ML product that sharply cut manual listing checks, backed by computer-vision models for image quality and duplicate detection.</p>
+        <div class="tags"><span class="tag">Computer Vision</span><span class="tag">MLOps</span><span class="tag">AWS SageMaker</span><span class="tag">CI/CD</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING / CERTIFICATES (teaser — full list lives on its own page) -->
+  <section id="learning">
+    <div class="sec-head">
+      <div><span class="eyebrow">Continuous learning</span><h2>Certificates &amp; badges.</h2></div>
+      <a class="more" href="/learning">View all →</a>
+    </div>
+    <p class="lead">Verified badges and course certificates I keep up to date — from Credly, Coursera (including Google Cloud), Udemy and more.</p>
+    <div class="links">
+      <a class="btn pri" href="/learning">See my certificates →</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <span class="eyebrow">About</span>
+    <h2>How I got here.</h2>
+    <p>My path started in research: several years at Inria and Télécom ParisTech on large-scale image retrieval — hashing methods to approximate SVMs at scale, boosting for interactive object retrieval, and computer-vision pipelines for automated plant species identification, work that led to a handful of peer-reviewed papers. That period is also where I built my long relationship with C++ and Python, in the years before AI pair programmers existed — every prototype meant writing and debugging the algorithm yourself, and understanding it well enough to make it both fast and correct. That discipline has stuck with me since. Eventually I wanted to see ideas ship, so I moved into engineering — building data products and ML systems across Munich's startup scene, then senior machine-learning work at Scout24.</p>
+    <p>For the past several years I've been building and leading data and AI at Conrad Electronic — from a single-hire founding of the data science function, to Head of Data Science, to Head of AI &amp; Data Platform today, with 5+ years now in people leadership. I help shape the AI strategy and drive its execution, staying hands-on on system architecture, MLOps/LLMOps, and cloud platforms (GCP, AWS) for high-impact, cross-functional work. I've also built the team from the ground up — recruiting, mentoring, and investing in people's growth as the function scaled. I lead as a servant leader, and I stay close enough to the work to be accountable for what ships.</p>
+    <p>Outside the day job, I founded PyData Munich and still write here about doing this work well.</p>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section id="community">
+    <span class="eyebrow">Community</span>
+    <h2>Building the room, not just the product.</h2>
+    <div class="hl-box">
+      <span class="lbl">Founder · Organizer</span>
+      <p><b>PyData Munich Meetup</b> — founded in 2016 and organized ever since, bringing together the city's data and AI practitioners. Earlier, a long-time open-source advocate: founder of an OSS club and organizer of events and conferences.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <span class="eyebrow">Contact</span>
+    <!-- <h2>Say hello.</h2> -->
+    <p class="sub">Always glad to trade notes with fellow data &amp; AI practitioners, explore a collaboration, or talk about building teams that ship. Drop me a note below or find me on LinkedIn.</p>
+    <div class="links" style="justify-content:center;margin-bottom:1rem;">
+      <a class="btn pri" href="https://www.linkedin.com/in/saloualitayem" target="_blank" rel="noopener">Connect on LinkedIn</a>
+    </div>
+    <div class="links" style="justify-content:center;margin-bottom:1.8rem;">
+      <a class="btn" href="https://github.com/slitayem" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.38.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.57.67.48A10 10 0 0 0 12 2z"/></svg> GitHub</a>
+      <a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=mjKcassAAAAJ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg> Google Scholar</a>
+      <a class="btn" href="https://stackoverflow.com/users/1287983/saloua" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.36 20.2v-6.41h2.14V22.35H3.24v-8.56h2.14v6.41h11.98zM6.77 14.29l.44-2.1 10.5 2.2-.44 2.1-10.5-2.2zm1.16-4.2.94-1.92 9.62 4.51-.94 1.92-9.62-4.51zm2.28-4l1.5-1.6 7.9 6.6-1.5 1.6-7.9-6.6zM15.15 1l6.63 5.5-1.36 1.65L13.8 2.66 15.15 1zm-8.87 17.6h9.72v2.14H6.28V18.6z"/></svg> Stack Overflow</a>
+      <a class="btn" href="https://twitter.com/saloua" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X/Twitter</a>
+    </div>
+    <form id="cform" class="cform" autocomplete="on">
+      <input type="hidden" name="access_key" value="" />
+      <input type="hidden" name="subject" value="New message from your portfolio site" />
+      <input type="hidden" name="from_name" value="Portfolio contact" />
+      <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <div class="frow">
+        <input name="name" type="text" placeholder="Your name" required aria-label="Your name" />
+        <input name="email" type="email" placeholder="Your email" required aria-label="Your email" />
+      </div>
+      <div class="rte-toolbar" role="toolbar" aria-label="Formatting" aria-controls="cmessage">
+        <button type="button" data-cmd="bold" title="Bold" aria-label="Bold"><b>B</b></button>
+        <button type="button" data-cmd="italic" title="Italic" aria-label="Italic"><i>I</i></button>
+        <button type="button" data-cmd="createLink" title="Insert link" aria-label="Insert link">&#128279;</button>
+      </div>
+      <div id="cmessage" class="rte-input" contenteditable="true" data-placeholder="Your message" role="textbox" aria-multiline="true" aria-label="Your message"></div>
+      <input type="hidden" name="message" />
+      <button type="submit" class="btn pri" id="csend">Send message</button>
+      <!-- <p class="cnote" id="cstatus" role="status" aria-live="polite">Your message goes straight to my inbox — my address stays private.</p> -->
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© Saloua Litayem 2026 · Munich, Germany</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.11/dist/purify.min.js" integrity="sha384-o44XUELLEnv/iSlA1NWxBweqbD4TSR0qgq2VzVsxtkHS989JJjGKSE9vkfo5MN4K" crossorigin="anonymous"></script>
+<script>
+(function(){
+  var f=document.getElementById('cform'); if(!f) return;
+  var s=document.getElementById('cstatus'), b=document.getElementById('csend');
+  var editor=document.getElementById('cmessage'), hidden=f.message;
+
+  // Rich content can also arrive via paste (copied from an arbitrary,
+  // possibly malicious page), not just the toolbar - force plain text on
+  // paste so no HTML ever enters the editor through that path.
+  editor.addEventListener('paste', function(e){
+    e.preventDefault();
+    var text=(e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+  });
+
+  // execCommand is deprecated but remains the simplest dependency-free way
+  // to drive a lightweight contenteditable toolbar across current browsers.
+  document.querySelectorAll('.rte-toolbar button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      editor.focus();
+      var cmd=btn.dataset.cmd;
+      if(cmd==='createLink'){
+        var url=window.prompt('Link URL (https://, http://, or mailto:)');
+        if(!url) return;
+        // Reject javascript:/data: and other schemes up front, in addition
+        // to the DOMPurify pass below stripping unsafe hrefs regardless.
+        if(!/^(https?:|mailto:)/i.test(url)){
+          window.alert('Please enter a valid http(s):// or mailto: link.');
+          return;
+        }
+        document.execCommand(cmd, false, url);
+      } else {
+        document.execCommand(cmd, false, null);
+      }
+      updateToolbarState();
+    });
+  });
+
+  function updateToolbarState(){
+    document.querySelectorAll('.rte-toolbar button').forEach(function(btn){
+      var cmd=btn.dataset.cmd;
+      if(cmd==='createLink') return;
+      try{ btn.classList.toggle('active', document.queryCommandState(cmd)); }catch(e){}
+    });
+  }
+  editor.addEventListener('keyup', updateToolbarState);
+  editor.addEventListener('mouseup', updateToolbarState);
+
+  // Defense in depth: paste is already forced to plain text above and the
+  // toolbar only ever creates a small set of tags, but sanitize with
+  // DOMPurify (an established, audited component - not hand-rolled) before
+  // anything is read out of the editor, in case of drag-and-drop or other
+  // DOM injection paths this doesn't already cover. Strips scripts, event
+  // handlers, javascript:/data: URLs, styles, iframes, everything but the
+  // few tags/attributes the editor itself can legitimately produce.
+  function sanitizeEditor(){
+    if(!window.DOMPurify) return;
+    var clean=DOMPurify.sanitize(editor.innerHTML, {
+      ALLOWED_TAGS:['b','strong','i','em','a','br','div','p'],
+      ALLOWED_ATTR:['href']
+    });
+    if(clean!==editor.innerHTML) editor.innerHTML=clean;
+  }
+
+  // Converts the sanitized rich-text content to plain text (bold -> **x**,
+  // italic -> _x_, links -> "text (url)") before it's emailed, so the
+  // message stays readable in any client instead of raw HTML markup.
+  function htmlToText(node){
+    var out='';
+    node.childNodes.forEach(function(n){
+      if(n.nodeType===3){ out+=n.textContent; return; }
+      if(n.nodeType!==1) return;
+      var tag=n.tagName.toLowerCase(), inner=htmlToText(n);
+      if(tag==='b'||tag==='strong') out+='**'+inner+'**';
+      else if(tag==='i'||tag==='em') out+='_'+inner+'_';
+      else if(tag==='a'){ var href=n.getAttribute('href'); out+=href?inner+' ('+href+')':inner; }
+      else if(tag==='br') out+='\n';
+      else if(tag==='div'||tag==='p') out+=inner+'\n';
+      else out+=inner;
+    });
+    return out;
+  }
+  editor.addEventListener('input', function(){ sanitizeEditor(); hidden.value=htmlToText(editor).trim(); });
+
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(f.botcheck && f.botcheck.value){ return; }
+    sanitizeEditor();
+    hidden.value=htmlToText(editor).trim();
+    if(!hidden.value){ editor.focus(); return; }
+    var data=Object.fromEntries(new FormData(f).entries());
+    b.disabled=true; b.textContent='Sending…'; if(s) s.textContent='';
+    fetch('https://api.web3forms.com/submit',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    }).then(function(r){return r.json();}).then(function(j){
+      if(j.success){ f.reset(); editor.innerHTML=''; b.textContent='Sent'; if(s) s.textContent='Thanks — your message has been sent. I will be in touch.'; }
+      else { b.disabled=false; b.textContent='Send message'; if(s) s.textContent='Something went wrong. Please reach me on LinkedIn instead.'; }
+    }).catch(function(){ b.disabled=false; b.textContent='Send message'; if(s) s.textContent='Something went wrong. Please reach me on LinkedIn instead.'; });
+  });
+})();
+</script>
+
+</body>
+</html>
