@@ -1,0 +1,18 @@
+name: Inject secrets
+description: Writes _data/secrets.yml (gitignored) from repo secrets, for the Jekyll build.
+
+inputs:
+  web3forms-access-key:
+    description: Value of the WEB3FORMS_ACCESS_KEY repo secret
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        WEB3FORMS_ACCESS_KEY: ${{ inputs.web3forms-access-key }}
+      run: |
+        set -euxo pipefail
+        mkdir -p _data
+        printf 'web3forms_access_key: "%s"\n' "$WEB3FORMS_ACCESS_KEY" > _data/secrets.yml

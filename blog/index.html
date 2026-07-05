@@ -1,0 +1,110 @@
+---
+layout: null
+nav: blog
+title: Blog — Saloua Litayem
+description: Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams.
+permalink: /blog/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ page.description }}" />
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:description" content="{{ page.description }}" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23f5f8fa'/%3E%3Crect x='9' y='9' width='14' height='14' fill='%23669bbc'/%3E%3C/svg%3E" />
+<link rel="alternate" type="application/atom+xml" title="Saloua Litayem — Blog" href="/blog/atom.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/theme.css" />
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+{% include ga4.html %}
+</head>
+<body>
+
+{% include site-header.html %}
+
+<main class="wrap">
+
+  <section class="subhero">
+    <a class="back" href="/">← Home</a>
+    <span class="eyebrow" style="display:block;margin-top:1rem;">Writing</span>
+    <h1>From the blog.</h1>
+    <p class="sub">Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams.</p>
+  </section>
+
+  <section>
+    <div class="blog-controls">
+      <input type="search" id="blog-search" class="search-input" placeholder="Search posts…" aria-label="Search posts" />
+      <div class="tag-filters" id="tag-filters">
+        <button type="button" class="tag-filter active" data-tag="all">All</button>
+        {% assign post_tags = site.tags | sort %}
+        {% for tag in post_tags %}
+        <button type="button" class="tag-filter" data-tag="{{ tag[0] | downcase }}">{{ tag[0] }}</button>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="posts">
+      {% for post in site.posts %}
+      <a class="post" href="{{ post.url }}"
+         data-tags="{% if post.tags %}{{ post.tags | join: '|' | downcase }}{% endif %}"
+         data-search="{{ post.title | append: ' ' | append: post.excerpt | strip_html | strip_newlines | downcase | escape }}">
+        <span class="pmeta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span class="ptitle">{{ post.title }}</span>
+        <span class="pdesc">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 32 }}</span>
+        {% if post.tags %}
+        <span class="ptags">{% for t in post.tags %}<span class="tag">{{ t }}</span>{% endfor %}</span>
+        {% endif %}
+      </a>
+      {% else %}
+      <p class="no-posts">No posts yet — check back soon.</p>
+      {% endfor %}
+      <p class="no-posts" id="no-results" style="display:none;">No posts match your search.</p>
+    </div>
+  </section>
+
+</main>
+
+{% include site-footer.html %}
+
+<script>
+(function(){
+  var search = document.getElementById('blog-search');
+  var tagButtons = document.querySelectorAll('.tag-filter');
+  var posts = document.querySelectorAll('.posts .post');
+  var noResults = document.getElementById('no-results');
+  var activeTag = 'all';
+
+  function applyFilters(){
+    var q = (search && search.value ? search.value : '').trim().toLowerCase();
+    var visible = 0;
+    posts.forEach(function(p){
+      var tags = (p.getAttribute('data-tags') || '').split('|').filter(Boolean);
+      var matchesTag = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
+      var matchesSearch = !q || (p.getAttribute('data-search') || '').indexOf(q) !== -1;
+      var show = matchesTag && matchesSearch;
+      p.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+  }
+
+  if (search) search.addEventListener('input', applyFilters);
+
+  tagButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tagButtons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeTag = btn.getAttribute('data-tag');
+      applyFilters();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

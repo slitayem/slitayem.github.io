@@ -1,0 +1,10 @@
+default: true
+
+# Jekyll front matter, Liquid tags, and kramdown attribute lists ({:height=...})
+# routinely produce "violations" of these rules that aren't actual problems.
+MD013: false # line-length - prose and long URLs, not code
+MD033: false # no-inline-html - kramdown/Liquid markup is normal here
+MD041: false # first-line-heading - front matter comes first, not a heading
+MD024: false # no-duplicate-heading - repeated subheadings across sections are fine
+MD025: false # single-title - some posts use multiple top-level sections
+MD034: false # no-bare-urls - inline reference links are common in these posts

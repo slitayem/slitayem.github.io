@@ -1,0 +1,10 @@
+extends: relaxed
+
+rules:
+  line-length: disable
+  # _config.yml intentionally aligns some `key:` blocks (e.g. the nav list)
+  # with extra spaces for readability.
+  colons: disable
+  truthy:
+    allowed-values: ["true", "false", "on", "off"]
+    check-keys: false

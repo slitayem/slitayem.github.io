@@ -1,0 +1,41 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml # parses every .yml/.yaml - catches broken workflow.yml/_config.yml before they hit CI
+      - id: check-merge-conflict
+      - id: check-case-conflict # GitHub Pages serves from a case-sensitive store but macOS/Windows checkouts aren't
+      - id: check-added-large-files
+        args: ["--maxkb=3000"]
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  # Stricter YAML style checks (indentation, duplicate keys, truthy values)
+  # beyond check-yaml's plain syntax validation. Config: .yamllint.yaml
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+
+  # Lints .github/workflows/*.yml: invalid expressions, permission issues,
+  # script-injection risks, and (if `shellcheck` is on PATH) the embedded
+  # bash in `run:` steps. `brew install shellcheck` to enable that part.
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+
+  # Available on demand only (`pre-commit run markdownlint --hook-stage
+  # manual --all-files`) - the existing _posts/*.md have enough stylistic
+  # quirks (setext headings, missing alt text, tight heading spacing) that
+  # enforcing this on every commit would mostly fight old content rather
+  # than catch real problems. Config: .markdownlint.yaml
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        stages: [manual]
+        files: ^_posts/
