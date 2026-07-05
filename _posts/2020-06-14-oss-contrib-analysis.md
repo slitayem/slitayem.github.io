@@ -3,6 +3,7 @@ layout: post
 title: "How do developers perceive the OSS quality and how often do they contribute?"
 date: 2020-06-14
 excerpt_separator: <!--more-->
+category: Data Science
 tags: [Open Source, Data Analysis]
 ---
 

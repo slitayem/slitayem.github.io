@@ -31,6 +31,18 @@ plugins:
 scholar:
   source: ./_bibliography
   bibliography_template: bib
+
+# Broad topic areas for the blog (set via `category:` in a post's front
+# matter). Distinct from `tags`, which stay free-form/granular. Listed here
+# explicitly (rather than derived from existing posts) so the /blog section
+# filter can show all intended sections even before every one has a post.
+blog_sections:
+  - Leadership
+  - AI Engineering
+  - Data Science
+  - Career & Learning
+  - Data Engineering
+  - Architecture
 exclude:
   - Gemfile
   - Gemfile.lock

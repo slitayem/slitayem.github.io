@@ -93,14 +93,24 @@ section h2{font-family:var(--font-d);font-weight:700;font-size:1.5rem;letter-spa
 .post:hover .ptitle{color:var(--accent);}
 .post .pdesc{grid-column:1;color:var(--soft);font-size:1.02rem;}
 .post .pmeta{grid-column:2;grid-row:1;font-family:var(--font-m);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--soft);white-space:nowrap;padding-top:.4rem;}
+.post .psection{grid-column:1;grid-row:1;color:var(--accent);font-family:var(--font-m);font-weight:500;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;}
 .post .ptags{grid-column:1;display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.15rem;}
-@media(max-width:560px){.post{grid-template-columns:1fr;}.post .pmeta{grid-column:1;grid-row:auto;order:-1;padding-top:0;}}
+@media(max-width:560px){.post{grid-template-columns:1fr;}.post .pmeta{grid-column:1;grid-row:auto;order:-1;padding-top:0;}.post .psection{order:-2;}}
 .blog-cta{margin-top:1.7rem;}
 .no-posts{margin-top:1.5rem;color:var(--soft);}
 
-.blog-controls{margin-top:1.6rem;display:flex;flex-direction:column;gap:.9rem;}
+.blog-main{padding-top:1rem;}
+.blog-controls{margin-top:.6rem;display:flex;flex-direction:column;gap:.9rem;}
 .search-input{width:100%;font-family:var(--font-b);font-size:1rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.65rem .9rem;box-sizing:border-box;}
 .search-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--adim);}
+.section-filters{display:flex;flex-wrap:wrap;gap:.5rem;}
+.section-filter{display:inline-block;font-family:var(--font-m);font-weight:500;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;text-decoration:none;color:var(--ink);background:var(--p2);border:1px solid var(--line);padding:.4rem 1rem;border-radius:8px;}
+.section-filter:hover{border-color:var(--accent);color:var(--accent);}
+
+.post-group{scroll-margin-top:5rem;margin-top:2rem;}
+.post-group:first-of-type{margin-top:1.5rem;}
+.post-group h2{margin-bottom:.3rem;}
+
 .tag-filters{display:flex;flex-wrap:wrap;gap:.5rem;}
 .tag-filter{font-family:var(--font-m);font-size:.72rem;color:var(--soft);background:transparent;border:1px solid var(--line);padding:.32rem .8rem;border-radius:999px;cursor:pointer;}
 .tag-filter:hover{border-color:var(--accent);color:var(--accent);}

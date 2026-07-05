@@ -37,34 +37,85 @@ permalink: /blog/
     <p class="sub">Notes on AI in practice — papers worth reading, tools worth using, and lessons from building and leading AI teams.</p>
   </section>
 
-  <section>
+  <section class="blog-main">
     <div class="blog-controls">
       <input type="search" id="blog-search" class="search-input" placeholder="Search posts…" aria-label="Search posts" />
+      <nav class="section-filters" id="section-filters" aria-label="Jump to a section">
+        {% for sec in site.blog_sections %}
+        {% assign sec_post_count = site.posts | where: "category", sec | size %}
+        {% if sec_post_count > 0 %}
+        <a class="section-filter" href="#{{ sec | slugify }}">{{ sec | escape }}</a>
+        {% endif %}
+        {% endfor %}
+      </nav>
       <div class="tag-filters" id="tag-filters">
-        <button type="button" class="tag-filter active" data-tag="all">All</button>
+        <button type="button" class="tag-filter active" data-tag="all">All tags</button>
         {% assign post_tags = site.tags | sort %}
         {% for tag in post_tags %}
         <button type="button" class="tag-filter" data-tag="{{ tag[0] | downcase }}">{{ tag[0] }}</button>
         {% endfor %}
       </div>
     </div>
-    <div class="posts">
-      {% for post in site.posts %}
-      <a class="post" href="{{ post.url }}"
-         data-tags="{% if post.tags %}{{ post.tags | join: '|' | downcase }}{% endif %}"
-         data-search="{{ post.title | append: ' ' | append: post.excerpt | strip_html | strip_newlines | downcase | escape }}">
-        <span class="pmeta">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <span class="ptitle">{{ post.title }}</span>
-        <span class="pdesc">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 32 }}</span>
-        {% if post.tags %}
-        <span class="ptags">{% for t in post.tags %}<span class="tag">{{ t }}</span>{% endfor %}</span>
-        {% endif %}
-      </a>
-      {% else %}
-      <p class="no-posts">No posts yet — check back soon.</p>
-      {% endfor %}
-      <p class="no-posts" id="no-results" style="display:none;">No posts match your search.</p>
+
+    {% assign categorized_urls = "" | split: "," %}
+    {% for sec in site.blog_sections %}
+    {% assign sec_posts = site.posts | where: "category", sec %}
+    {% for p in sec_posts %}{% assign categorized_urls = categorized_urls | push: p.url %}{% endfor %}
+    {% if sec_posts.size > 0 %}
+    <div class="post-group" id="{{ sec | slugify }}">
+      <h2>{{ sec | escape }}</h2>
+      <div class="posts">
+        {% for post in sec_posts %}
+        <a class="post" href="{{ post.url }}"
+           data-tags="{% if post.tags %}{{ post.tags | join: '|' | downcase }}{% endif %}"
+           data-search="{{ post.title | append: ' ' | append: post.excerpt | strip_html | strip_newlines | downcase | escape }}">
+          <span class="pmeta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <span class="ptitle">{{ post.title }}</span>
+          <span class="pdesc">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 32 }}</span>
+          {% if post.tags %}
+          <span class="ptags">{% for t in post.tags %}<span class="tag">{{ t }}</span>{% endfor %}</span>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
     </div>
+    {% endif %}
+    {% endfor %}
+
+    {% comment %}
+      Catches posts with no category, and (deliberately) posts whose
+      category doesn't exactly match an entry in blog_sections - a typo'd
+      category shouldn't silently vanish from the page, it should show up
+      here as a visible sign something needs fixing in _config.yml or the
+      post's front matter.
+    {% endcomment %}
+    {% assign leftover = "" | split: "," %}
+    {% for post in site.posts %}
+    {% unless categorized_urls contains post.url %}
+    {% assign leftover = leftover | push: post %}
+    {% endunless %}
+    {% endfor %}
+    {% if leftover.size > 0 %}
+    <div class="post-group" id="more">
+      <h2>More</h2>
+      <div class="posts">
+        {% for post in leftover %}
+        <a class="post" href="{{ post.url }}"
+           data-tags="{% if post.tags %}{{ post.tags | join: '|' | downcase }}{% endif %}"
+           data-search="{{ post.title | append: ' ' | append: post.excerpt | strip_html | strip_newlines | downcase | escape }}">
+          <span class="pmeta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <span class="ptitle">{{ post.title }}</span>
+          <span class="pdesc">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 32 }}</span>
+          {% if post.tags %}
+          <span class="ptags">{% for t in post.tags %}<span class="tag">{{ t }}</span>{% endfor %}</span>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <p class="no-posts" id="no-results" style="display:none;">No posts match your search.</p>
   </section>
 
 </main>
@@ -75,22 +126,31 @@ permalink: /blog/
 (function(){
   var search = document.getElementById('blog-search');
   var tagButtons = document.querySelectorAll('.tag-filter');
-  var posts = document.querySelectorAll('.posts .post');
+  var groups = document.querySelectorAll('.post-group');
   var noResults = document.getElementById('no-results');
   var activeTag = 'all';
 
   function applyFilters(){
     var q = (search && search.value ? search.value : '').trim().toLowerCase();
-    var visible = 0;
-    posts.forEach(function(p){
-      var tags = (p.getAttribute('data-tags') || '').split('|').filter(Boolean);
-      var matchesTag = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
-      var matchesSearch = !q || (p.getAttribute('data-search') || '').indexOf(q) !== -1;
-      var show = matchesTag && matchesSearch;
-      p.style.display = show ? '' : 'none';
-      if (show) visible++;
+    var filtering = !!q || activeTag !== 'all';
+    var totalVisible = 0;
+    groups.forEach(function(group){
+      var groupPosts = group.querySelectorAll('.post');
+      var visibleInGroup = 0;
+      groupPosts.forEach(function(p){
+        var tags = (p.getAttribute('data-tags') || '').split('|').filter(Boolean);
+        var matchesTag = activeTag === 'all' || tags.indexOf(activeTag) !== -1;
+        var matchesSearch = !q || (p.getAttribute('data-search') || '').indexOf(q) !== -1;
+        var show = matchesTag && matchesSearch;
+        p.style.display = show ? '' : 'none';
+        if (show) visibleInGroup++;
+      });
+      // Every rendered group has at least one post; hide the whole group
+      // (heading included) once filtering/search leaves none visible.
+      group.style.display = visibleInGroup > 0 ? '' : 'none';
+      totalVisible += visibleInGroup;
     });
-    if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+    if (noResults) noResults.style.display = (filtering && totalVisible === 0) ? '' : 'none';
   }
 
   if (search) search.addEventListener('input', applyFilters);
