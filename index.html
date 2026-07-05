@@ -58,6 +58,7 @@ description: Saloua Litayem — Data & AI leader in Munich. I build AI products 
     <div class="posts">
       {% for post in site.posts limit:3 %}
       <a class="post" href="{{ post.url }}">
+        {% if post.category %}<span class="psection">{{ post.category | escape }}</span>{% endif %}
         <span class="pmeta">{{ post.date | date: "%b %-d, %Y" }}</span>
         <span class="ptitle">{{ post.title }}</span>
         <span class="pdesc">{{ post.excerpt | strip_html | strip_newlines | truncatewords: 26 }}</span>

@@ -90,7 +90,6 @@ Tags automatically show up as filter pills on `/blog` and beneath the post tease
 | `source` | Where you make all changes - Jekyll source: posts, includes, layouts, CSS, config. |
 | `develop` | Integration branch, same Jekyll-source format as `source`. Only accepts merges from `source`. |
 | `master` | Build output only. This is what GitHub Pages actually serves (custom domain `craftatscale.dev` via the `CNAME` file) - overwritten automatically by CI on every publish, never edit it directly. |
-| `backup-*`, `*-04.07` | Legacy/snapshot branches, not part of the active deploy path - the workflow's `branch-policy` job rejects PRs from them. |
 
 `.github/workflows/workflow.yml` enforces this shape (see the `branch-policy` job) and drives the pipeline itself:
 
