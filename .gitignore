@@ -3,3 +3,4 @@ _site/
 .jekyll-cache/
 .build
 Gemfile.lock
+_data/secrets.yml

@@ -3,6 +3,7 @@ layout: post
 title: "Customers churn prediction for Sparkify music service"
 date: 2020-08-04
 excerpt_separator: <!--more-->
+tags: [Machine Learning, Data Science]
 ---
 
 {% include mathjax.html %}

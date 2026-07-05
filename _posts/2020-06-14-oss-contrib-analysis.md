@@ -3,6 +3,7 @@ layout: post
 title: "How do developers perceive the OSS quality and how often do they contribute?"
 date: 2020-06-14
 excerpt_separator: <!--more-->
+tags: [Open Source, Data Analysis]
 ---
 
 <!-- ![](https://cdn.sstatic.net/Sites/stackoverflow/company/Img/logos/so/so-logo.png?v=9c558ec15d8a){:height="50%" width="50%"} -->

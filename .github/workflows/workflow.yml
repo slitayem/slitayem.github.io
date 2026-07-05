@@ -18,6 +18,13 @@ jobs:
       with:
         ruby-version: '3.1'
         bundler-cache: true
+    - name: Inject secrets
+      env:
+        WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+      run: |
+        set -xo pipefail
+        mkdir -p _data
+        printf 'web3forms_access_key: "%s"\n' "$WEB3FORMS_ACCESS_KEY" > _data/secrets.yml
     - name: Build Jekyll site
       run: |
         set -xo pipefail
