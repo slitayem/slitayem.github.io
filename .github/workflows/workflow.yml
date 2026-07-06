@@ -163,6 +163,13 @@ jobs:
         mv _site/* .
         make clean
 
+        # master holds pre-built static output, not Jekyll source. Without
+        # this, GitHub Pages runs its own Jekyll build on top of it anyway -
+        # if that redundant build ever fails, Pages just keeps serving the
+        # last version that built successfully, silently, with nothing
+        # visible on our side to say a newer commit didn't go live.
+        touch .nojekyll
+
         # if there are no changes to promote, stop here
         if [[ -z "$(git status --porcelain)" ]]; then
           echo "develop already matches master; nothing to promote."
